@@ -102,7 +102,42 @@
 <meta property="og:description" content="author：Sebastian Ruder梯度下降优化算法变得越来越流行，但是它通常被用作黑盒优化，因为关于梯度下降算法的长处和短处很难给出实际的解释。这篇文章的目的是提供给读者关于不同算法的行为一个直观的感受，这些算法在将来读者可能会用到。在这篇概述中，我们着眼于梯度下降算法的不同变体，总结挑战，介绍最常见的优化算法，回顾在并行环境和分布式环境中的结构以及研究梯度下降优化算法一些额外的策略。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/62906877.jpg">
-<meta property="og:updated_time" content="2017-10-18T08:54:34.984Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/86369040.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/11036578.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/30795993.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/68238377.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/16937378.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/84262650.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/69091829.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/73544408.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/453033.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/85849134.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/93630508.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/34687376.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/97699924.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/34877510.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/2721998.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/55658071.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/55176681.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/57009286.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/57917998.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/47558734.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/88301127.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/23580140.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/13190077.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/75999735.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/46476309.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/16909009.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/15359030.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/45457135.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/91491839.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/81453023.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/9569250.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/76616104.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/14371584.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/67882309.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/99650733.jpg">
+<meta property="og:updated_time" content="2017-10-18T13:25:03.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）">
 <meta name="twitter:description" content="author：Sebastian Ruder梯度下降优化算法变得越来越流行，但是它通常被用作黑盒优化，因为关于梯度下降算法的长处和短处很难给出实际的解释。这篇文章的目的是提供给读者关于不同算法的行为一个直观的感受，这些算法在将来读者可能会用到。在这篇概述中，我们着眼于梯度下降算法的不同变体，总结挑战，介绍最常见的优化算法，回顾在并行环境和分布式环境中的结构以及研究梯度下降优化算法一些额外的策略。">
@@ -334,7 +369,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-18T16:54:34+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-18T21:25:03+08:00">
                 2017-10-18
               </time>
             
@@ -409,7 +444,79 @@
 
 <p>　　当我们需要计算整个数据集的梯度来执行一次更新时，批量梯度下降将会变得很慢，并且对于没有装载进内存的数据是非常棘手的。同时批量梯度下降算法不允许在线更新模型，也就是是说实时添加一个新的样本。<br>　　批量梯度下降的程序代码如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(nb_epochs):</div><div class="line">	params_grad = evaluate_gradient(loss_function, data, params)</div><div class="line">    params = params - learning_rate * params_grad</div></pre></td></tr></table></figure></p>
 <p>　　对于预定义的epochs的数量，我们首先根据我们的参数向量params计算关于整个数据集损失函数的梯度向量params_grad。注意，最先进的深度学习库提供了自动微分计算，这能根据一些参数有效的计算梯度。如果你自己进行了梯度推导，那么进行梯度检查会是一个不错的主意。<br>　　接下来我们在梯度方向更新我们的参数，学习率决定了每一步更新的大小。对于凸误差表面批量梯度下降可以保证收敛到全局最小，对于非凸误差表面</p>
+<h1 id="2-2-随机梯度下降（Stochastic-gradient-descent）"><a href="#2-2-随机梯度下降（Stochastic-gradient-descent）" class="headerlink" title="2.2 随机梯度下降（Stochastic gradient descent）"></a>2.2 随机梯度下降（Stochastic gradient descent）</h1><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/86369040.jpg" alt=""><br></center>
 
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(nb_epochs):</div><div class="line">	np.random.shuffle(data)</div><div class="line">    <span class="keyword">for</span> example indata:</div><div class="line">    	params_grad = evaluate_gradient(loss_function, example, params)</div><div class="line">        params = params - learning_rate * params_grad</div></pre></td></tr></table></figure>
+<h1 id="2-3-小批量梯度下降（Mini-batch-gradient-descent）"><a href="#2-3-小批量梯度下降（Mini-batch-gradient-descent）" class="headerlink" title="2.3 小批量梯度下降（Mini-batch gradient descent）"></a>2.3 小批量梯度下降（Mini-batch gradient descent）</h1><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/11036578.jpg" alt=""><br></center>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(nb_epochs):</div><div class="line">	np.random.shuffle(data)</div><div class="line">    <span class="keyword">for</span> batch <span class="keyword">in</span> get_batches(data, batch_size = <span class="number">50</span>):</div><div class="line">    	params_grad = evaulate_gradient(loss_function, batch, params)</div><div class="line">        params = params - learning_rate * params_grad</div></pre></td></tr></table></figure>
+<h1 id="3-挑战（Challenges）"><a href="#3-挑战（Challenges）" class="headerlink" title="3 挑战（Challenges）"></a>3 挑战（Challenges）</h1><h1 id="4-梯度下降优化算法（Gradient-descent-optimization-algorithms）"><a href="#4-梯度下降优化算法（Gradient-descent-optimization-algorithms）" class="headerlink" title="4 梯度下降优化算法（Gradient descent optimization algorithms）"></a>4 梯度下降优化算法（Gradient descent optimization algorithms）</h1><h2 id="4-1-Momentum"><a href="#4-1-Momentum" class="headerlink" title="4.1 Momentum"></a>4.1 Momentum</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/30795993.jpg" alt=""><br>图2<br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/68238377.jpg" alt=""><br></center>
+
+<h2 id="4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）"><a href="#4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）" class="headerlink" title="4.2 Nesterov加速梯度（Nesterov accelerated gradient）"></a>4.2 Nesterov加速梯度（Nesterov accelerated gradient）</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/16937378.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/84262650.jpg" alt=""><br>图3 Nesterov 更新<br></center>
+
+<h2 id="4-3-自适应梯度算法（Adagrad）"><a href="#4-3-自适应梯度算法（Adagrad）" class="headerlink" title="4.3 自适应梯度算法（Adagrad）"></a>4.3 自适应梯度算法（Adagrad）</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/69091829.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/73544408.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/453033.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/85849134.jpg" alt=""><br></center>
+
+<h2 id="4-4-Adadelta"><a href="#4-4-Adadelta" class="headerlink" title="4.4 Adadelta"></a>4.4 Adadelta</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/93630508.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/34687376.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/97699924.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/34877510.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/2721998.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/55658071.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/55176681.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/57009286.jpg" alt=""><br></center>
+
+<h2 id="4-5-RMSprop"><a href="#4-5-RMSprop" class="headerlink" title="4.5 RMSprop"></a>4.5 RMSprop</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/57917998.jpg" alt=""><br></center>
+
+<h2 id="4-6-Adam"><a href="#4-6-Adam" class="headerlink" title="4.6 Adam"></a>4.6 Adam</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/47558734.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/88301127.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/23580140.jpg" alt=""><br></center>
+
+<h2 id="4-7-AdaMax"><a href="#4-7-AdaMax" class="headerlink" title="4.7 AdaMax"></a>4.7 AdaMax</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/13190077.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/75999735.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/46476309.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/16909009.jpg" alt=""><br></center>
+
+<h2 id="4-8-Nadam"><a href="#4-8-Nadam" class="headerlink" title="4.8 Nadam"></a>4.8 Nadam</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/15359030.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/45457135.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/91491839.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/81453023.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/9569250.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/76616104.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/14371584.jpg" alt=""><br></center>
+
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/67882309.jpg" alt=""><br></center>
+
+<h2 id="4-9-可视化算法（Visualization-of-algorithms）"><a href="#4-9-可视化算法（Visualization-of-algorithms）" class="headerlink" title="4.9 可视化算法（Visualization of algorithms）"></a>4.9 可视化算法（Visualization of algorithms）</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/99650733.jpg" alt=""><br></center>
+
+<h2 id="4-10-使用哪一个优化器？（Which-optimizer-to-use-）"><a href="#4-10-使用哪一个优化器？（Which-optimizer-to-use-）" class="headerlink" title="4.10 使用哪一个优化器？（Which optimizer to use?）"></a>4.10 使用哪一个优化器？（Which optimizer to use?）</h2>
       
     </div>
 
@@ -621,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-梯度下降的变体"><span class="nav-number">2.</span> <span class="nav-text">2 梯度下降的变体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-批量梯度下降（Batch-gradient-descent）"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 批量梯度下降（Batch gradient descent）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-梯度下降的变体"><span class="nav-number">2.</span> <span class="nav-text">2 梯度下降的变体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-批量梯度下降（Batch-gradient-descent）"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 批量梯度下降（Batch gradient descent）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-随机梯度下降（Stochastic-gradient-descent）"><span class="nav-number">3.</span> <span class="nav-text">2.2 随机梯度下降（Stochastic gradient descent）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-小批量梯度下降（Mini-batch-gradient-descent）"><span class="nav-number">4.</span> <span class="nav-text">2.3 小批量梯度下降（Mini-batch gradient descent）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战（Challenges）"><span class="nav-number">5.</span> <span class="nav-text">3 挑战（Challenges）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-梯度下降优化算法（Gradient-descent-optimization-algorithms）"><span class="nav-number">6.</span> <span class="nav-text">4 梯度下降优化算法（Gradient descent optimization algorithms）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Momentum"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 Nesterov加速梯度（Nesterov accelerated gradient）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-自适应梯度算法（Adagrad）"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 自适应梯度算法（Adagrad）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Adadelta"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 Adadelta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-RMSprop"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 RMSprop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-Adam"><span class="nav-number">6.6.</span> <span class="nav-text">4.6 Adam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-AdaMax"><span class="nav-number">6.7.</span> <span class="nav-text">4.7 AdaMax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-Nadam"><span class="nav-number">6.8.</span> <span class="nav-text">4.8 Nadam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-可视化算法（Visualization-of-algorithms）"><span class="nav-number">6.9.</span> <span class="nav-text">4.9 可视化算法（Visualization of algorithms）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-使用哪一个优化器？（Which-optimizer-to-use-）"><span class="nav-number">6.10.</span> <span class="nav-text">4.10 使用哪一个优化器？（Which optimizer to use?）</span></a></li></ol></li></ol></div>
             
 
           </div>
