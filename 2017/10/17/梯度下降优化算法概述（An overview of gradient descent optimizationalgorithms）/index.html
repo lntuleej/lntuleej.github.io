@@ -102,7 +102,7 @@
 <meta property="og:description" content="author：Sebastian Ruder梯度下降优化算法变得越来越流行，但是它通常被用作黑盒优化，因为关于梯度下降算法的长处和短处很难给出实际的解释。这篇文章的目的是提供给读者关于不同算法的行为一个直观的感受，这些算法在将来读者可能会用到。在这篇概述中，我们着眼于梯度下降算法的不同变体，总结挑战，介绍最常见的优化算法，回顾在并行环境和分布式环境中的结构以及研究梯度下降优化算法一些额外的策略。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/62906877.jpg">
-<meta property="og:updated_time" content="2017-10-18T01:22:06.965Z">
+<meta property="og:updated_time" content="2017-10-18T08:54:34.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）">
 <meta name="twitter:description" content="author：Sebastian Ruder梯度下降优化算法变得越来越流行，但是它通常被用作黑盒优化，因为关于梯度下降算法的长处和短处很难给出实际的解释。这篇文章的目的是提供给读者关于不同算法的行为一个直观的感受，这些算法在将来读者可能会用到。在这篇概述中，我们着眼于梯度下降算法的不同变体，总结挑战，介绍最常见的优化算法，回顾在并行环境和分布式环境中的结构以及研究梯度下降优化算法一些额外的策略。">
@@ -334,7 +334,7 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-18T09:22:06+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-18T16:54:34+08:00">
                 2017-10-18
               </time>
             
@@ -406,6 +406,9 @@
 <h1 id="2-梯度下降的变体"><a href="#2-梯度下降的变体" class="headerlink" title="2 梯度下降的变体"></a>2 梯度下降的变体</h1><p>　　梯度下降有3种不同的变体，它们的不同在于我们使用多大的数据去计算目标函数的梯度。根据数据量的大小，我们权衡了更新参数的准确性和执行参数更新所需的时间。</p>
 <h2 id="2-1-批量梯度下降（Batch-gradient-descent）"><a href="#2-1-批量梯度下降（Batch-gradient-descent）" class="headerlink" title="2.1 批量梯度下降（Batch gradient descent）"></a>2.1 批量梯度下降（Batch gradient descent）</h2><p>　　Vanilla梯度下降也叫作批量梯度下降，它计算对于全部的训练集关于参数θ的代价函数的梯度：</p>
 <center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/62906877.jpg" alt=""><br></center>
+
+<p>　　当我们需要计算整个数据集的梯度来执行一次更新时，批量梯度下降将会变得很慢，并且对于没有装载进内存的数据是非常棘手的。同时批量梯度下降算法不允许在线更新模型，也就是是说实时添加一个新的样本。<br>　　批量梯度下降的程序代码如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(nb_epochs):</div><div class="line">	params_grad = evaluate_gradient(loss_function, data, params)</div><div class="line">    params = params - learning_rate * params_grad</div></pre></td></tr></table></figure></p>
+<p>　　对于预定义的epochs的数量，我们首先根据我们的参数向量params计算关于整个数据集损失函数的梯度向量params_grad。注意，最先进的深度学习库提供了自动微分计算，这能根据一些参数有效的计算梯度。如果你自己进行了梯度推导，那么进行梯度检查会是一个不错的主意。<br>　　接下来我们在梯度方向更新我们的参数，学习率决定了每一步更新的大小。对于凸误差表面批量梯度下降可以保证收敛到全局最小，对于非凸误差表面</p>
 
       
     </div>
