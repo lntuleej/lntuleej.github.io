@@ -140,7 +140,7 @@
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-18/99650733.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-19/23032284.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-19/76751205.jpg">
-<meta property="og:updated_time" content="2017-10-19T02:59:23.880Z">
+<meta property="og:updated_time" content="2017-10-21T09:05:07.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）">
 <meta name="twitter:description" content="author：Sebastian Ruder梯度下降优化算法变得越来越流行，但是它通常被用作黑盒优化，因为关于梯度下降算法的长处和短处很难给出实际的解释。这篇文章的目的是提供给读者关于不同算法的行为一个直观的感受，这些算法在将来读者可能会用到。在这篇概述中，我们着眼于梯度下降算法的不同变体，总结挑战，介绍最常见的优化算法，回顾在并行环境和分布式环境中的结构以及研究梯度下降优化算法一些额外的策略。">
@@ -372,8 +372,8 @@
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-10-19T10:59:23+08:00">
-                2017-10-19
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-21T17:05:07+08:00">
+                2017-10-21
               </time>
             
           </span>
@@ -462,16 +462,22 @@
 <li>选择合适的学习速率是困难的。如果学习速率太小将导致收敛变得非常的缓慢，一旦学习速率太大，则可能会阻碍收敛，并且造成损失函数在最小值附近波动甚至可能导致发散。</li>
 <li>学习速率表在训练过程试着去降低学习速率，例如：退火，也就是说根据预先设定好的学习速率表减小学习速率，或者是当目标值的变化低于阈值的时候。</li>
 <li>此外，相同的学习速率适应所有的参数更新。如果我们的数据稀疏，并且数据的特征有非常不同的频率，我们可能不想讲所有的参数更新到相同的程度，但是对很少出现的特征执行大的更新。</li>
-<li>最小化神经网络常见的非凸误差函数的另一个关键问题是避免被困在其众多次优局部最小值中。Dauphin等人指出困难实际上不是来自局部极小值，而是来自鞍点，也就是说，一个维度向上倾斜，另一个向下倾斜。这些鞍点通常被同一错误的高原所包围，这将使得SGD很难跳出局部最小，因为梯度在这一点的所有纬度上都为0.</li>
+<li>最小化神经网络常见的非凸误差函数的另一个关键问题是避免被困在其众多次优局部最小值中。Dauphin等人指出困难实际上不是来自局部极小值，而是来自鞍点，也就是说，一个维度向上倾斜，另一个向下倾斜。这些鞍点通常被同一错误的高原所包围，这将使得SGD很难跳出局部最小，因为梯度在这一点的所有纬度上都接近0.</li>
 </ul>
-<h1 id="4-梯度下降优化算法（Gradient-descent-optimization-algorithms）"><a href="#4-梯度下降优化算法（Gradient-descent-optimization-algorithms）" class="headerlink" title="4 梯度下降优化算法（Gradient descent optimization algorithms）"></a>4 梯度下降优化算法（Gradient descent optimization algorithms）</h1><h2 id="4-1-Momentum"><a href="#4-1-Momentum" class="headerlink" title="4.1 Momentum"></a>4.1 Momentum</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/30795993.jpg" alt=""><br>图2<br></center>
+<h1 id="4-梯度下降优化算法（Gradient-descent-optimization-algorithms）"><a href="#4-梯度下降优化算法（Gradient-descent-optimization-algorithms）" class="headerlink" title="4 梯度下降优化算法（Gradient descent optimization algorithms）"></a>4 梯度下降优化算法（Gradient descent optimization algorithms）</h1><p>　　接下来我们将概述一些算法，这些算法被深度学习团队广泛应用于应对上述挑战。我们不会讨论在实践中对于高维数据集无法计算的算法，例如：二阶方法，如牛顿法。</p>
+<h2 id="4-1-Momentum"><a href="#4-1-Momentum" class="headerlink" title="4.1 Momentum"></a>4.1 Momentum</h2><p>　　SGD在找最优路径的时候存在问题，即在一个维度上的表面曲线比另一个维度陡峭得多，这在局部最优解周围很常见。在这种情况下，SGD在沟壑的斜坡上震荡，仅在接近局部最优解时犹豫不前，如图2(a)所示。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/30795993.jpg" alt=""><br>图2<br></center>
 
+<p>　　Momentum是一种可以帮助在相关方向上加速SGD的方法，并且它可以抑制振荡，如图2(b)所示。它通过增加一个之前更新向量的分数γ迭代至当前的更新向量实现：</p>
 <center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/68238377.jpg" alt=""><br></center>
 
-<h2 id="4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）"><a href="#4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）" class="headerlink" title="4.2 Nesterov加速梯度（Nesterov accelerated gradient）"></a>4.2 Nesterov加速梯度（Nesterov accelerated gradient）</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/16937378.jpg" alt=""><br></center>
+<p>　　Momentum的γ通常设置为0.9或者其他相似的值。<br>　　本质上来说，当使用Momentum时，我们将一个球推向山谷，这个球在滚向山脚的过程中积攒动量，在下降的方向上变得越来越快（如果考虑空气阻力，即γ &lt; 1，直到它达到最终的速度）。这在参数更新的过程中也发生了同样的事：对于梯度指向相同方向的维度，动量在增加，并且对于梯度方向改变的维度动量的更新在削减。因此，我们获得了更快的收敛并抑制了振荡。</p>
+<h2 id="4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）"><a href="#4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）" class="headerlink" title="4.2 Nesterov加速梯度（Nesterov accelerated gradient）"></a>4.2 Nesterov加速梯度（Nesterov accelerated gradient）</h2><p>　　然而球沿着山坡滚下山脚的结果是非常不满意的，我们应该有一个智能的球，这个球对于接下来将要去哪有一个概念，因此它可以在山坡再一次向上弯曲时减慢速度。<br>　　Nesterov加速梯度（NAG）就是给动量参数提供这种先知能力的方法。我们都知道我们将使用动量参数γv(t-1)来改变参数θ，因此，计算θ-γv(t-1)给我们提供了参数的下一个位置的一个近似值，一个粗略的概念关于我们的参数将会是多少。因此，我们可以通过计算梯度更有效的预测以后的结果，计算梯度的过程不是根据我们当前的参数θ，而是根据参数将出现的近似位置：</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/16937378.jpg" alt=""><br></center>
 
 <center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/84262650.jpg" alt=""><br>图3 Nesterov 更新<br></center>
 
+<p>　　而且，我们将动量参数γ的值设置为0.9左右，当Momentum计算当前的梯度（图3中的蓝色小向量 ），然后在梯度累积更新的方向上大跳一步时（图3蓝色大向量），NAG首先在之前累积的梯度方向datiao</p>
 <h2 id="4-3-自适应梯度算法（Adagrad）"><a href="#4-3-自适应梯度算法（Adagrad）" class="headerlink" title="4.3 自适应梯度算法（Adagrad）"></a>4.3 自适应梯度算法（Adagrad）</h2><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/69091829.jpg" alt=""><br></center>
 
 <center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-18/73544408.jpg" alt=""><br></center>
@@ -590,6 +596,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/10/25/VS2017配置OpenCV3.2.0开发环境/" rel="prev" title="Win7下配置VS2017+OpenCV3.2.0">
+                Win7下配置VS2017+OpenCV3.2.0 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -663,7 +673,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -674,7 +684,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -685,7 +695,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="OpenCV,VS2017," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍如何在Win7 64位系统上配置VS2017+OpenCV3.2.0开发环境。">
+<meta name="keywords" content="OpenCV,VS2017">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Win7下配置VS2017+OpenCV3.2.0">
+<meta property="og:url" content="http://yoursite.com/2017/10/25/VS2017配置OpenCV3.2.0开发环境/index.html">
+<meta property="og:site_name" content="心雨达致">
+<meta property="og:description" content="本文主要介绍如何在Win7 64位系统上配置VS2017+OpenCV3.2.0开发环境。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/1353242.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/48758386.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/4495779.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/10718646.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/90347049.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/80815111.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/30393780.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/19974973.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/77743980.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/29695262.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/96957385.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/78092812.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/22327765.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/91272776.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/73843283.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/35716800.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/40877630.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/84518098.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/80428045.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/25929466.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/28911474.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/88268072.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/42069070.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/74536136.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/78997445.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/86181467.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/46426016.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/69818226.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/90045500.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/91203204.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/36769976.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/63746374.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/98296129.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/99692292.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/68277619.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/58692295.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/47917699.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/99713922.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/6080550.jpg">
+<meta property="og:updated_time" content="2017-10-25T09:22:50.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Win7下配置VS2017+OpenCV3.2.0">
+<meta name="twitter:description" content="本文主要介绍如何在Win7 64位系统上配置VS2017+OpenCV3.2.0开发环境。">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/17-10-25/1353242.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/25/VS2017配置OpenCV3.2.0开发环境/"/>
+
+
+
+
+
+  <title>Win7下配置VS2017+OpenCV3.2.0 | 心雨达致</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">心雨达致</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/25/VS2017配置OpenCV3.2.0开发环境/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="心雨达致">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Win7下配置VS2017+OpenCV3.2.0</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-25T08:58:09+08:00">
+                2017-10-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-10-25T17:22:50+08:00">
+                2017-10-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机视觉/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机视觉</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/25/VS2017配置OpenCV3.2.0开发环境/" class="leancloud_visitors" data-flag-title="Win7下配置VS2017+OpenCV3.2.0">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  本文主要介绍如何在Win7 64位系统上配置VS2017+OpenCV3.2.0开发环境。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-准备"><a href="#1-准备" class="headerlink" title="1 准备"></a>1 准备</h1><ul>
+<li>系统：Windows7 64位</li>
+<li>Visial Studio：<a href="https://www.visualstudio.com/zh-hans/downloads/" target="_blank" rel="external">Visual Studio Enterprise 2017</a></li>
+<li>OpenCV：<a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-win/3.2.0/opencv-3.2.0-vc14.exe/download" target="_blank" rel="external">opencv-3.2.0-vc14.exe</a></li>
+<li>Cmake：<a href="https://cmake.org/files/v3.8/cmake-3.8.2-win64-x64.msi" target="_blank" rel="external">cmake-3.8.2-win64-x64.msi</a><br>从官网上下载好以上所列出各软件的安装包。<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/1353242.jpg" alt=""><br>图1 准备软件安装包<br></center>
+
+</li>
+</ul>
+<h1 id="2-安装各软件"><a href="#2-安装各软件" class="headerlink" title="2 安装各软件"></a>2 安装各软件</h1><h2 id="2-1-安装Visual-Studio-Enterprise-2017"><a href="#2-1-安装Visual-Studio-Enterprise-2017" class="headerlink" title="2.1 安装Visual Studio Enterprise 2017"></a>2.1 安装Visual Studio Enterprise 2017</h2><p>关于VS2017的版本介绍以及新增功能的说明在这就不作介绍了，有兴趣可以浏览<a href="https://www.visualstudio.com/zh-hans/" target="_blank" rel="external">Microsoft官网</a>查看相关说明。接下来直奔主题，在本文中所采用的安装方式为在线安装，若需要离线安装，请自行百度相关安装教程。</p>
+<ul>
+<li><p>双击打开安装包</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/48758386.jpg" alt=""><br></center>
+</li>
+<li><p>单击“继续”</p>
+</li>
+</ul>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/4495779.jpg" alt=""><br></center>
+
+<p>VS2017功能非常的强大，几乎支持所有常见语言的开发，但若完整安装VS2017将会占用大量的磁盘空间。由于我仅需要C++的开发环境，因此在本步骤中，我只选中了C++的桌面开发环境，如上图所示。</p>
+<ul>
+<li><p>修改安装路径<br>对于C盘空间充裕的机器来说，可以直接选择默认安装路径，但是一般不建议这么做，但是VS2017比较流氓，那就是不管你选择安装在什么位置，它都会把一些依赖库等安装在C盘，并且占用相当大的空间。在这里我将默认安装位置修改为D盘。如下图所示。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/10718646.jpg" alt=""><br></center>
+</li>
+<li><p>单击“安装”进行安装<br><center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/90347049.jpg" alt=""><br></center><br>由于是在线安装，这个过程时间较长，安装的快慢取决于网速和机器的性能。</p>
+</li>
+<li><p>安装完成</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/80815111.jpg" alt=""><br></center>
+
+</li>
+</ul>
+<p>安装完成。单击启动，即可启动VS2017。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/30393780.jpg" alt=""><br>VS2017<br></center>
+
+<p>至此VS2017的安装基本完成，以后若需要用到其他开发环境，可从菜单栏单击</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/19974973.jpg" alt=""></center>
+
+<p>打开VS2017的安装器，然后单击修改，即可选择安装新的开发环境或者卸载已安装开发环境。</p>
+<h2 id="2-2-安装Cmake3-8-2"><a href="#2-2-安装Cmake3-8-2" class="headerlink" title="2.2 安装Cmake3.8.2"></a>2.2 安装Cmake3.8.2</h2><ul>
+<li><p>双击打开安装包，单击“Next”，进入下一步。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/77743980.jpg" alt=""><br></center>
+</li>
+<li><p>接受协议，单击“Next”，进入下一步。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/29695262.jpg" alt=""><br></center>
+</li>
+<li><p>将Cmake添加到系统环境变量，并设置生成桌面快捷方式，单击“Next”，进入下一步。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/96957385.jpg" alt=""><br></center>
+</li>
+<li><p>修改默认安装路径，默认安装在C盘，此处修改为D盘。单击“Next”，进入下一步。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/78092812.jpg" alt=""><br></center>
+</li>
+<li><p>单击 “install”，进行安装。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/22327765.jpg" alt=""><br></center>
+</li>
+<li><p>安装中，等待安装完成。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/91272776.jpg" alt=""><br></center>
+</li>
+<li><p>安装完成，单击“Finish”，结束安装。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/73843283.jpg" alt=""><br></center>
+
+</li>
+</ul>
+<p>至此，Cmake3.8.4已经安装完成，双击桌面图标即可打开Cmake。其界面如下图所示。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/35716800.jpg" alt=""><br></center>
+
+<h2 id="2-3-解压OpenCV-3-2-0-vc14-exe"><a href="#2-3-解压OpenCV-3-2-0-vc14-exe" class="headerlink" title="2.3 解压OpenCV-3.2.0-vc14.exe"></a>2.3 解压OpenCV-3.2.0-vc14.exe</h2><ul>
+<li><p>双击打开安装包，修改解压位置，此处修改为D盘，单击“Extract”，进入下一步。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/40877630.jpg" alt=""><br></center>
+</li>
+<li><p>解压过程，待解压完成，该界面会自动关闭。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/84518098.jpg" alt=""><br></center>
+</li>
+<li><p>解压完成，可在D盘（解压位置）找到opencv文件夹，其结果如图所示。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/80428045.jpg" alt=""><br></center>
+
+</li>
+</ul>
+<h1 id="3-配置OpenCV"><a href="#3-配置OpenCV" class="headerlink" title="3 配置OpenCV"></a>3 配置OpenCV</h1><p>解压后的opencv文件夹中有一个build文件夹，这里边所包含的文件为已编译好的OpenCV库，但是在这已经编译好的库中，我们可以看到\opencv\build\x64\vc14\bin\文件夹下只有少量的动态链接库，因此需要对opencv源文件进行编译，使其生成其他以后可能会用到的动态链接库，避免以后需要使用时带来不必要的麻烦。</p>
+<h2 id="3-1-编译OpenCV"><a href="#3-1-编译OpenCV" class="headerlink" title="3.1 编译OpenCV"></a>3.1 编译OpenCV</h2><p>由于在使用Cmake配置OpenCV编译工程的过程中需要下载如下两个包，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">opencv_ffmpeg.dll</div><div class="line">ippicv_windows_20151201.zip</div></pre></td></tr></table></figure></p>
+<p>但是由于GWF的原因，这两个包的链接被墙了，因此，在编译OpenCV3.2.0之前，我们需要手动下载这两个包，并复制到对应的文件夹下。<br>下载链接：<br><a href="http://download.csdn.net/download/u014291571/10038694" target="_blank" rel="external">opencv_ffmpeg.dll</a><br><a href="http://download.csdn.net/download/u014291571/10038686" target="_blank" rel="external">ippicv_windows_20151201.zip</a><br>下载完这个两个包后会得到两个压缩包，分别为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ffmpeg.zip</div><div class="line">ippicv.zip</div></pre></td></tr></table></figure></p>
+<p>分别解压这两个压缩包。</p>
+<ul>
+<li><p>将ffmpeg文件夹中的三个文件复制粘贴到\opencv\sources\3rdparty\ffmpeg\文件夹下，如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/25929466.jpg" alt=""></center></p>
+</li>
+<li><p>将ippicv文件夹下的downloads文件夹和downloader.cmake复制粘贴到\opencv\sources\3rdparty\ippicv\文件夹下，如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/28911474.jpg" alt=""></center></p>
+</li>
+</ul>
+<p>接下来进入关键步骤，<strong>使用Cmake配置OpenCV编译工程</strong>。</p>
+<ul>
+<li>双击Cmake的快捷方式，打开Cmake，并按照下所示对Cmake进行相关设置。<br> (1) Where is the source code：<strong>D:/opencv/sources</strong><br>(2) Where to build the binaries：<strong>D:/opencv/vc15</strong><br>上述设置中(1)为opencv源文件目录，这个是固定的，(2)为编译工程目录，这个可以设置为任意位置，但建议按照上述设置进行，方便和后述各步骤中的相关配置进行统一。</li>
+<li>配置好源目录和工程目录后，单击“Configure”，选择“Visual Studio 15 2017 Win64”，然后单击“Finish”，完成设置，并开始工程配置。具体设置过程如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/88268072.jpg" alt=""></center></li>
+<li>Cmake工程配置过程<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/42069070.jpg" alt=""><br>Cmake工程配置过程</center></li>
+<li>Cmake工程配置完成，出现“Configuring done”字样，说明配置成功。如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/74536136.jpg" alt=""><br>Cmake配置成功</center></li>
+<li>将上图中红色框中的“BUILD_opencv_world”选中，然后单击“Generate”，生成工程。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/78997445.jpg" alt=""><br>选中 BUILD_opencv_world</center></li>
+<li>生成工程完成，出现“Generating done”，说明生成工程成功。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/86181467.jpg" alt=""></center></li>
+<li>单击“Open Project”打开工程，将下图中圈出位置分别配置为Debug|x64和Release|x64，然后选择“Build——&gt;Buile Solution”在两种配置环境下编译两次。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/46426016.jpg" alt=""><br>分别配置为Debug|x64和Release|x64</center></li>
+<li>分别编译完成后，选择“INSTALL”，然后右键“Build”，分别在Debug|x64和Release|x64下进行。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/69818226.jpg" alt=""></center><br>至此OpenCV的编译工作基本完成。在\opencv\vc15\文件夹下生成了一个install文件夹，这就是最终编译好的OpenCV3.2.0的库。但是，值得注意的是，在这已经编译好的库中，\opencv\vc15\install\bin\文件下没有生成下面这几个库:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">opencv_core320d.lib</div><div class="line">opencv_highgui320d.lib</div><div class="line">opencv_imgproc320d.lib</div><div class="line">opencv_core320.lib</div><div class="line">opencv_highgui320.lib</div><div class="line">opencv_imgproc320.lib</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>此时，只需在CMake配置时把BUILD_opencv_world取消选中，在重新按照上述步骤执行一遍即可生成上述动态链接库。一般在以后需要用到哪个库就选中或者取消选中对应的库进行编译即可。<br>关于vc15文件夹下的各个文件只需保留<strong>install</strong>文件夹即可，其他均可删除。</p>
+<h2 id="3-2-配置OpenCV的环境变量"><a href="#3-2-配置OpenCV的环境变量" class="headerlink" title="3.2 配置OpenCV的环境变量"></a>3.2 配置OpenCV的环境变量</h2><ul>
+<li>选中“我的电脑，右键——&gt;属性——&gt;高级系统设置”<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/90045500.jpg" alt=""></center></li>
+<li>选择“高级——&gt;环境变量”<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/91203204.jpg" alt=""></center></li>
+<li>选择“系统变量——&gt;Path——&gt;编辑”，将D:\opencv\vc15\install\bin添加到变量值后面，用“;(英文)”和前面的路径隔开。单击确定完成配置。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/36769976.jpg" alt=""></center></li>
+</ul>
+<p>至此，环境变量配置完成，VS2017+OpenCV3.2.0的开发环境基本搭建完成，接下来进行测试。</p>
+<h1 id="4-测试"><a href="#4-测试" class="headerlink" title="4 测试"></a>4 测试</h1><ul>
+<li>打开VS2017，“File——&gt;New——&gt;Project”；<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/63746374.jpg" alt=""></center></li>
+<li>选择“Installed——&gt;Visual C++——&gt;Windows Desktop——&gt;Windows Console Application”,然后按照如下如所示设置(name和location可任意设置)；<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/98296129.jpg" alt=""></center></li>
+<li>在Test_OpenCV.cpp中添加下代码</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Test_OpenCV.cpp : Defines the entry point for the console application.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core.hpp&gt;  </span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui/highgui.hpp&gt; </span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="comment">// 读入一张图片（图片）    </span></div><div class="line">	Mat img = imread(<span class="string">"2.jpg"</span>);</div><div class="line">	<span class="comment">// 创建一个名为 "Pic"窗口    </span></div><div class="line">	namedWindow(<span class="string">"Pic"</span>);</div><div class="line">	<span class="comment">// 在窗口中显示图片    </span></div><div class="line">	imshow(<span class="string">"Pic"</span>, img);</div><div class="line">	<span class="comment">// 等待6000 ms后窗口自动关闭    </span></div><div class="line">	waitKey(<span class="number">6000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>双击“Property Manager——&gt;Test_OpenCV——&gt;Debug|x64”，选择“VC++ Directories——&gt;Include Directories——&gt;Edit”；将<br><strong>E:\opencv\vc15\install\include\opencv2;<br>E:\opencv\vc15\install\include\opencv;<br>E:\opencv\vc15\install\include</strong><br>添加进去（盘符根据实际情况修改），如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/99692292.jpg" alt=""><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/68277619.jpg" alt=""></center></li>
+<li>选择“VC++ Directories——&gt;Library Directories——&gt;Edit”；将<br><strong>E:\opencv\vc15\install\lib</strong><br>添加进去，如下图所示：<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/58692295.jpg" alt=""></center></li>
+<li>选择“Linker——&gt;Input——&gt;Additional Dependencies——&gt;Edit”，将<br><strong>opencv_core320d.lib<br>opencv_highgui320d.lib<br>opencv_imgproc320d.lib<br>opencv_world320d.lib</strong><br>添加进去，如下图所示。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/47917699.jpg" alt=""></center></li>
+<li>双击“Property Manager——&gt;Test_OpenCV——&gt;Release|x64”,按照上述步骤进行相同配置，唯一的区别为，将<br><strong>opencv_core320d.lib<br>opencv_highgui320d.lib<br>opencv_imgproc320d.lib<br>opencv_world320d.lib</strong><br>替换为<br><strong>opencv_core320.lib<br>opencv_highgui320.lib<br>opencv_imgproc320.lib<br>opencv_world320.lib</strong>。</li>
+<li>按照如下图所示配置，选择“Build——&gt;Build Solution”，然后选择“Debug——&gt;Start Without Debuging”，即可看到运行结果。<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/99713922.jpg" alt=""></center></li>
+</ul>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-10-25/6080550.jpg" alt=""><br>运行结果<br></center>
+
+<p>至此，VS2017+OpenCV3.2.0的整个开发环境就全部搭建完成了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          
+            <a href="/tags/VS2017/" rel="tag"># VS2017</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/17/梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）/" rel="next" title="梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）">
+                <i class="fa fa-chevron-left"></i> 梯度下降优化算法概述（An overview of gradient descent optimizationalgorithms）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ictar.github.io" title="Ele A面" target="_blank">Ele A面</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-准备"><span class="nav-number">1.</span> <span class="nav-text">1 准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装各软件"><span class="nav-number">2.</span> <span class="nav-text">2 安装各软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装Visual-Studio-Enterprise-2017"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 安装Visual Studio Enterprise 2017</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装Cmake3-8-2"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 安装Cmake3.8.2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-解压OpenCV-3-2-0-vc14-exe"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 解压OpenCV-3.2.0-vc14.exe</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-配置OpenCV"><span class="nav-number">3.</span> <span class="nav-text">3 配置OpenCV</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-编译OpenCV"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 编译OpenCV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-配置OpenCV的环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 配置OpenCV的环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-测试"><span class="nav-number">4.</span> <span class="nav-text">4 测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
