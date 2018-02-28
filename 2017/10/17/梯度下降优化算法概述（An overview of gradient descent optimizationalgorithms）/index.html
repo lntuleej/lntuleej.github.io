@@ -153,7 +153,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -720,17 +720,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -805,10 +796,6 @@
                   <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
                 </li>
               
-                <li class="links-of-blogroll-item">
-                  <a href="http://ictar.github.io" title="Ele A面" target="_blank">Ele A面</a>
-                </li>
-              
             </ul>
           </div>
         
@@ -818,22 +805,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-前言"><span class="nav-number">1.</span> <span class="nav-text">1 前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-梯度下降的变体"><span class="nav-number">2.</span> <span class="nav-text">2 梯度下降的变体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-批量梯度下降（Batch-gradient-descent）"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 批量梯度下降（Batch gradient descent）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-随机梯度下降（Stochastic-gradient-descent）"><span class="nav-number">3.</span> <span class="nav-text">2.2 随机梯度下降（Stochastic gradient descent）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-小批量梯度下降（Mini-batch-gradient-descent）"><span class="nav-number">4.</span> <span class="nav-text">2.3 小批量梯度下降（Mini-batch gradient descent）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-挑战（Challenges）"><span class="nav-number">5.</span> <span class="nav-text">3 挑战（Challenges）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-梯度下降优化算法（Gradient-descent-optimization-algorithms）"><span class="nav-number">6.</span> <span class="nav-text">4 梯度下降优化算法（Gradient descent optimization algorithms）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-Momentum"><span class="nav-number">6.1.</span> <span class="nav-text">4.1 Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-Nesterov加速梯度（Nesterov-accelerated-gradient）"><span class="nav-number">6.2.</span> <span class="nav-text">4.2 Nesterov加速梯度（Nesterov accelerated gradient）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-自适应梯度算法（Adagrad）"><span class="nav-number">6.3.</span> <span class="nav-text">4.3 自适应梯度算法（Adagrad）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-Adadelta"><span class="nav-number">6.4.</span> <span class="nav-text">4.4 Adadelta</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-RMSprop"><span class="nav-number">6.5.</span> <span class="nav-text">4.5 RMSprop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-6-Adam"><span class="nav-number">6.6.</span> <span class="nav-text">4.6 Adam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-AdaMax"><span class="nav-number">6.7.</span> <span class="nav-text">4.7 AdaMax</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-8-Nadam"><span class="nav-number">6.8.</span> <span class="nav-text">4.8 Nadam</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-可视化算法（Visualization-of-algorithms）"><span class="nav-number">6.9.</span> <span class="nav-text">4.9 可视化算法（Visualization of algorithms）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-使用哪一个优化器？（Which-optimizer-to-use-）"><span class="nav-number">6.10.</span> <span class="nav-text">4.10 使用哪一个优化器？（Which optimizer to use?）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-并行和分布SGD（Parallelizing-and-distributing-SGD）"><span class="nav-number">7.</span> <span class="nav-text">5 并行和分布SGD（Parallelizing and distributing SGD）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Hogwild"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 Hogwild!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-Downpour-SGD"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 Downpour SGD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-SGD-时延容忍算法（Delay-tolerant-Algorithms-for-SGD）"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 SGD 时延容忍算法（Delay-tolerant Algorithms for SGD）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-TensorFlow"><span class="nav-number">7.4.</span> <span class="nav-text">5.4 TensorFlow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-Elastic-Averaging-SGD"><span class="nav-number">7.5.</span> <span class="nav-text">5.5 Elastic Averaging SGD</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-SGD优化附加策略（Additional-strategies-for-optimizing-SGD）"><span class="nav-number">8.</span> <span class="nav-text">6 SGD优化附加策略（Additional strategies for optimizing SGD）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-1-Shuffling-and-Curriculum-Learning"><span class="nav-number">8.1.</span> <span class="nav-text">6.1 Shuffling and Curriculum Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-2-Batch-normalization"><span class="nav-number">8.2.</span> <span class="nav-text">6.2 Batch normalization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-3-Early-stopping（早停法）"><span class="nav-number">8.3.</span> <span class="nav-text">6.3 Early stopping（早停法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-4-Gradient-noise（梯度噪声）"><span class="nav-number">8.4.</span> <span class="nav-text">6.4 Gradient noise（梯度噪声）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-总结"><span class="nav-number">9.</span> <span class="nav-text">7 总结</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

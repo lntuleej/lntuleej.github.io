@@ -121,7 +121,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -828,17 +828,8 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -913,10 +904,6 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
                   <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
                 </li>
               
-                <li class="links-of-blogroll-item">
-                  <a href="http://ictar.github.io" title="Ele A面" target="_blank">Ele A面</a>
-                </li>
-              
             </ul>
           </div>
         
@@ -926,22 +913,6 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-1-张量和图"><span class="nav-number">1.</span> <span class="nav-text">1.1 张量和图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-占位符和feed-dict"><span class="nav-number">2.</span> <span class="nav-text">1.2 占位符和feed_dict</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下面是使用占位符的案例："><span class="nav-number">2.1.</span> <span class="nav-text">下面是使用占位符的案例：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析一段构建了三层全连接神经网络的代码"><span class="nav-number">2.2.</span> <span class="nav-text">解析一段构建了三层全连接神经网络的代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tensorflow中的神经网络"><span class="nav-number">3.</span> <span class="nav-text">tensorflow中的神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-简介"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-导入数据集"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 导入数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-搭建一个简单的神经网络"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 搭建一个简单的神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-多面的TensorFlow"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 多面的TensorFlow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-搭建LeNet5卷积神经网络"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 搭建LeNet5卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-超参数如何影响一层网络的输出尺寸"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 超参数如何影响一层网络的输出尺寸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-调整-LeNet5-架构"><span class="nav-number">3.7.</span> <span class="nav-text">2.7 调整 LeNet5 架构</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
