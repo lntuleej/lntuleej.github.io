@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="思维导图,paper," />
+  <meta name="keywords" content="目标检测,R-CNN,深度学习," />
 
 
 
@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="中科院山世光研究所SeetaFace人脸识别引擎相关论文思维导图">
-<meta name="keywords" content="思维导图,paper">
+<meta name="description" content="Fast R-CNN 论文翻译">
+<meta name="keywords" content="目标检测,R-CNN,深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness">
-<meta property="og:url" content="http://ailee.me/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/index.html">
+<meta property="og:title" content="Fast R-CNN">
+<meta property="og:url" content="http://ailee.me/2018/03/04/Fast R-CNN/index.html">
 <meta property="og:site_name" content="AILEE">
-<meta property="og:description" content="中科院山世光研究所SeetaFace人脸识别引擎相关论文思维导图">
+<meta property="og:description" content="Fast R-CNN 论文翻译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-12-2/78888642.jpg">
-<meta property="og:updated_time" content="2017-12-02T02:13:15.589Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg">
+<meta property="og:updated_time" content="2018-03-05T02:20:14.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness">
-<meta name="twitter:description" content="中科院山世光研究所SeetaFace人脸识别引擎相关论文思维导图">
-<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/17-12-2/78888642.jpg">
+<meta name="twitter:title" content="Fast R-CNN">
+<meta name="twitter:description" content="Fast R-CNN 论文翻译">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://ailee.me/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/"/>
+  <link rel="canonical" href="http://ailee.me/2018/03/04/Fast R-CNN/"/>
 
 
 
 
 
-  <title>Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness | AILEE</title>
+  <title>Fast R-CNN | AILEE</title>
   
 
 
@@ -289,7 +289,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ailee.me/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/03/04/Fast R-CNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ailee">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness</h1>
+          <h1 class="post-title" itemprop="name headline">Fast R-CNN</h1>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">Post</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T10:10:08+08:00">
-                2017-12-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-04T14:50:22+08:00">
+                2018-03-04
               </time>
             
 
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2017-12-02T10:13:15+08:00">
-                2017-12-02
+              <time title="Update" itemprop="dateModified" datetime="2018-03-05T10:20:14+08:00">
+                2018-03-05
               </time>
             
           </span>
@@ -353,8 +353,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/paper/" itemprop="url" rel="index">
-                    <span itemprop="name">paper</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -370,7 +370,7 @@
 
           
           
-             <span id="/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/" class="leancloud_visitors" data-flag-title="Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness">
+             <span id="/2018/03/04/Fast R-CNN/" class="leancloud_visitors" data-flag-title="Fast R-CNN">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  0
+                  2,407
                 </span>
               
 
@@ -407,7 +407,7 @@
 
           
               <div class="post-description">
-                  中科院山世光研究所SeetaFace人脸识别引擎相关论文思维导图
+                  Fast R-CNN 论文翻译
               </div>
           
 
@@ -421,7 +421,44 @@
       
 
       
-        <center><img src="http://otue1rxl3.bkt.clouddn.com/17-12-2/78888642.jpg" alt=""></center>
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　这篇论文提出一种用于目标检测的Fast R-CNN算法。Fast R-CNN建立在之前的研究工作，使用深度卷积网络来高效的分类目标提案。相比于之前的工作，Fast R-CNN采用了一些创新来提高训练和测试的速度，同时也提高了检测的准确率。Fast R-CNN训练深度VGG16网络比训练R-CNN快9倍，在测试时快213倍，并且在PASCAL VOC 2012数据集上获得了一个更高的平均平均准确率（mAP）。和SPPnet相比，Fast R-CNN训练VGG16比它快3倍，测试时快10倍，并且更加准确，Fast R-CNN采用python和C++（Cafe）实现，<a href="https:
+//github.com/rbgirshick/fast-rcnn" target="_blank" rel="external">开源代码</a>。</p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　目前，深度卷积网络已经明显的提高了图像分类和目标检测的准确率。相比于图像分类，目标检测则是一项更具挑战性的任务，它需要更加复杂的方法来解决。由于这种复杂性，目前多级管道中所获得的模型速度缓慢而且粗糙。<br>　　复杂性的产生是由于检测需要对目标进行精确的定位，这就产生了两个主要的挑战。第一，必须处理大量的候选目标位置（通常称为“提案”）；第二，这些候选目标位置仅提供一个粗略的定位，这就必须对其进行改进以提供更加精确的定位。解决这些问题往往会影响速度、准确性和简单性。<br>　　在本文中，我们简化了最先进的基于卷积神经网络的目标检测器的训练过程，我们提出了一种单级的训练算法，这种算法同时学习分类目标的候选方案和改进他们的空间位置。<br>　　由此产生的方法可训练一个非常深的检测网络（VGG16），该网络比R-CNN快9倍，比SPPnet快3倍。在运行时，该检测网络处理一幅图像耗时3s（不包括目标方案生成时间），并且在PASCAL VOC 2012数据集上取得最好的准确率66%mAP（R-CNN：62%）</p>
+<h2 id="1-1-R-CNN与SPPnet"><a href="#1-1-R-CNN与SPPnet" class="headerlink" title="1.1 R-CNN与SPPnet"></a>1.1 R-CNN与SPPnet</h2><p>　　R-CNN使用深度卷积网络来分类目标提案获得了非常好的目标检测准确率，但是，R-CNN有一些明显的缺点：</p>
+<ul>
+<li><strong>1.多阶段训练过程</strong>　R-CNN首先采用log损失在目标提案上微调卷积神经网络，然后，训练适合卷积网络特征的SVM，这些SMV作为目标检测器，使用微调来代替softmax分类器。在第三阶段，进行边界框回归。</li>
+<li><strong>2.训练空间和时间消耗大</strong>　对于SVM和边界框回归的训练，特征是从每一幅图像的每一个目标提案提取出来并写入磁盘中的。使用深度网络，例如：VGG16，对于VOC 2007 训练集的5K图像来说，这个过程要使用GPU训练两天半，这些特征需要数百GB的存储空间来存储。</li>
+<li><strong>3.目标检测速度慢</strong>　在测试时，特征是从每一幅测试图像的每一个目标提案中提取出来的，采用VGG16的检测器处理一幅图像需要47s（在GPU上）。</li>
+</ul>
+<p>　　R-CNN速度慢是因为每一个目标提案都会通过卷积神经网络进行前向计算，而不共享计算。空间金字塔池化网络（SPPnet）通过共享计算加速了R-CNN。SPPnet方法为整个输入图像计算一个卷积特征映射，然后使用从共享特征映射中提取的特征向量对每个目标提案进行分类。通过最大池化提案内部的部分特征映射来形成一个固定大小的输出（例如：6x6）达到特征提取的目的。多种大小的输出汇集在一起，然后连接成空间金字塔池化（SPP）。在测试时，SPPnet加速了R-CNN10到100倍，在训练时，由于更快的提案特征提取过程，也加速了3倍。<br>　　SPPnet也有一些明显的缺点。像R-CNN一样，它的训练过程也是一个多阶段过程，这个过程围绕特征提取、采用log损失对网络进行微调、训练SVM和最后的拟合边界框回归展开。特征也要写入磁盘，但是，在[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">11</a>]中提出微调算法不更新SPP之前的卷积层参数。不出所料，这些限制限制了深度网络的准确率。</p>
+<h2 id="1-2-贡献"><a href="#1-2-贡献" class="headerlink" title="1.2 贡献"></a>1.2 贡献</h2><p>　　我们提出了一种新的算法来弥补R-CNN和SPPnet的不足，同时提升了它们的速度和准确率。我们称这种方法为Fast R-CNN，因为在训练和测试时相对较快。Fast R-CNN有如下优点：</p>
+<ul>
+<li>1.比R-CNN和SPPnet更高的检测质量；</li>
+<li>2.采用多任务损失，训练过程为单阶段；</li>
+<li>3.训练可以更新所有网络层；</li>
+<li>4.特征缓存不需要磁盘存储。</li>
+</ul>
+<p>　　Fast R-CNN采用Python和C++（Cafe）实现，<a href="https:
+//github.com/rbgirshick/fast-rcnn" target="_blank" rel="external">开源代码</a>。</p>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg" alt=""><br><strong>图1。Fast R-CNN结构</strong>　一幅输入图像和多个感兴趣区域（RoI）输入到一个全卷积网络，每一个RoI都被池化为一个固定大小的特征映射，然后通过全连接网络映射到特征向量。该网络对于每一个RoI都有两个输出向量：softmax概率和每一类的边界框回归补偿。这种结构是采用多任务损失训练的端到端结构。<br></center>
+
+<h1 id="2-Fast-R-CNN结构和训练"><a href="#2-Fast-R-CNN结构和训练" class="headerlink" title="2 Fast R-CNN结构和训练"></a>2 Fast R-CNN结构和训练</h1><p>　　图1展示了Fast R-CNN的结构。Fast R-CNN网络将一幅完整的图像和一系列目标提案作为输入。该网络首先采用一些卷积层和最大池化层生成卷积特征映射来处理整个图像。然后，对于每一个目标提案，感兴趣区域（RoI）池化层从特征映射中提取出一个固定长度的特征向量。每一个特征向量被送到一系列的全连接层（fc）最终分支到两个同级输出层：一层是在所有K个目标类加上一个全方位的背景类产生softmax概率估计；另一层则对每个K类目标输出4个真实数字，每一组的4个值编码了一个K类目标的精确的边界框位置。</p>
+<h2 id="2-1-RoI池化层"><a href="#2-1-RoI池化层" class="headerlink" title="2.1 RoI池化层"></a>2.1 RoI池化层</h2><p>　　RoI池化层采用最大池化将任何有效的RoI内部特征转换为具有HxW固定空间范围的小的特征映射，H和W为层超参数，它们独立于任何的RoI。在本文中，每一个RoI都被定义为一个四元（r,c,h,w）组，这个四元组指定了RoI左上角的位置（r,c）和它的高度和宽度（h,w）。<br>　　RoI最大池化的工作是将h x w的RoI窗口划分为一个H x W的网格，其子窗口近似大小为h/H x w/W。然后，将每个子窗口中的值合并到相应的输出网格单元中。池化被独立的应用到每一个特征映射通道，作为标准的最大池化。RoI层就是应用在SPPnet中的空间金字塔池化层的简单应用，在这里它只有一层金字塔等级。我们使用[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">11</a>]中给出的池子窗口计算。</p>
+<h2 id="2-2-从预训练网络初始化"><a href="#2-2-从预训练网络初始化" class="headerlink" title="2.2 从预训练网络初始化"></a>2.2 从预训练网络初始化</h2><p>　　我们使用三个ImageNet 预训练网络进行试验，每个网络都有5个最大池化层和5到13个卷积层。当一个预训练的网络初始化一个Fast R-CNN网络时，它会经历三个转换。<br>　　首先，用一个RoI池化层替换最后一个最大池化层，它通过设置H和W来与网络的第一个全连接层相适应（例如：VGG16的H和W为7）。<br>　　然后，网络的最后一个全连接层和softmax（训练用于1000类ImageNet图像分类）用之前所描述的两个同级输出层（一个全连接层和K+1类的softmax和类特定的边界框回归）替换。<br>　　最后，该网络被修改为接受两个数据输入：一系列图像和一系列图像的RoI。</p>
+<h2 id="2-3-检测微调"><a href="#2-3-检测微调" class="headerlink" title="2.3 检测微调"></a>2.3 检测微调</h2><p>　　采用反向传播计算所有网络权重是Fast R-CNN的一项非常重要的能力，让我来解释一下为什么SPPnet在空间金字塔池化层下不能更新权重。<br>　　根本原因是当来自于不同图像的训练样本通过SPP层时，它所使用的反向传播算法的效率是非常低的，这是由SPPnet和R-CNN的训练方式所决定的。这种低效源于这样一个事实，那就是每一个RoI有一个非常大的感受野，通常包含整个图像。由于前向传播必须处理整个感受野，而训练输入又很大（通常是整幅图像）。</p>
+<h2 id="2-4-尺度不变性"><a href="#2-4-尺度不变性" class="headerlink" title="2.4 尺度不变性"></a>2.4 尺度不变性</h2><p>　　</p>
+<h1 id="3-Fast-R-CNN检测"><a href="#3-Fast-R-CNN检测" class="headerlink" title="3 Fast R-CNN检测"></a>3 Fast R-CNN检测</h1><h1 id="4-主要结果"><a href="#4-主要结果" class="headerlink" title="4 主要结果"></a>4 主要结果</h1><p>　　</p>
+<h2 id="4-1-实验步骤"><a href="#4-1-实验步骤" class="headerlink" title="4.1 实验步骤"></a>4.1 实验步骤</h2><p>　　</p>
+<h2 id="4-2-VOC-2010和VOC-2012的结果"><a href="#4-2-VOC-2010和VOC-2012的结果" class="headerlink" title="4.2 VOC 2010和VOC 2012的结果"></a>4.2 VOC 2010和VOC 2012的结果</h2><p>　　</p>
+<h2 id="4-3-VOC-2007的结果"><a href="#4-3-VOC-2007的结果" class="headerlink" title="4.3 VOC 2007的结果"></a>4.3 VOC 2007的结果</h2><p>　　</p>
+<h2 id="4-4-训练和测试"><a href="#4-4-训练和测试" class="headerlink" title="4.4 训练和测试"></a>4.4 训练和测试</h2><p>　　</p>
+<h2 id="4-5-微调哪一层？"><a href="#4-5-微调哪一层？" class="headerlink" title="4.5 微调哪一层？"></a>4.5 微调哪一层？</h2><h1 id="5-设计评价"><a href="#5-设计评价" class="headerlink" title="5 设计评价"></a>5 设计评价</h1><p>　　</p>
+<h2 id="5-1-多任务训练是否有帮助？"><a href="#5-1-多任务训练是否有帮助？" class="headerlink" title="5.1 多任务训练是否有帮助？"></a>5.1 多任务训练是否有帮助？</h2><p>　　</p>
+<h2 id="5-2-尺度不变性：暴力还是灵巧？"><a href="#5-2-尺度不变性：暴力还是灵巧？" class="headerlink" title="5.2 尺度不变性：暴力还是灵巧？"></a>5.2 尺度不变性：暴力还是灵巧？</h2><p>　　</p>
+<h2 id="5-3-是否需要更多的数据？"><a href="#5-3-是否需要更多的数据？" class="headerlink" title="5.3 是否需要更多的数据？"></a>5.3 是否需要更多的数据？</h2><p>　　</p>
+<h2 id="5-4-SVM是否比softmax好？"><a href="#5-4-SVM是否比softmax好？" class="headerlink" title="5.4 SVM是否比softmax好？"></a>5.4 SVM是否比softmax好？</h2><p>　　</p>
+<h2 id="5-5-更多的区域提案是否会更好？"><a href="#5-5-更多的区域提案是否会更好？" class="headerlink" title="5.5 更多的区域提案是否会更好？"></a>5.5 更多的区域提案是否会更好？</h2><p>　　</p>
+<h2 id="5-6-MS-COCO的初步结果"><a href="#5-6-MS-COCO的初步结果" class="headerlink" title="5.6 MS COCO的初步结果"></a>5.6 MS COCO的初步结果</h2><h1 id="6-结论"><a href="#6-结论" class="headerlink" title="6 结论"></a>6 结论</h1>
       
     </div>
 
@@ -449,7 +486,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://ailee.me/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/" title="Funnel-Structured Cascade for Multi-View Face Detection with Alignment-Awareness">http://ailee.me/2017/12/02/用于具有对准意识的多视角人脸检测的漏斗级联结构/</a>
+      <a href="http://ailee.me/2018/03/04/Fast R-CNN/" title="Fast R-CNN">http://ailee.me/2018/03/04/Fast R-CNN/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -475,9 +512,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/思维导图/" rel="tag"># 思维导图</a>
+            <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
-            <a href="/tags/paper/" rel="tag"># paper</a>
+            <a href="/tags/R-CNN/" rel="tag"># R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
@@ -490,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/26/机器之心GitHub项目：从零开始用TensorFlow搭建卷积神经网络/" rel="next" title="机器之心GitHub项目：从零开始用TensorFlow搭建卷积神经网络【转】">
-                <i class="fa fa-chevron-left"></i> 机器之心GitHub项目：从零开始用TensorFlow搭建卷积神经网络【转】
+              <a href="/2018/03/01/随机森林/" rel="next" title="随机森林">
+                <i class="fa fa-chevron-left"></i> 随机森林
               </a>
             
           </div>
@@ -499,10 +538,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/02/局部汇编二元特征/" rel="prev" title="Locally Assembled Binary (LAB) Feature with Feature-centric Cascade for Fast and Accurate Face Detection">
-                Locally Assembled Binary (LAB) Feature with Feature-centric Cascade for Fast and Accurate Face Detection <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
