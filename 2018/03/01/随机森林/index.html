@@ -101,10 +101,13 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="随机森林算法总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-01T03:18:17.388Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg">
+<meta property="og:updated_time" content="2018-03-08T03:17:22.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林">
 <meta name="twitter:description" content="随机森林算法总结">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg">
 
 
 
@@ -332,8 +335,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-03-01T11:18:17+08:00">
-                2018-03-01
+              <time title="Update" itemprop="dateModified" datetime="2018-03-08T11:17:22+08:00">
+                2018-03-08
               </time>
             
           </span>
@@ -393,7 +396,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  0
+                  3,010
                 </span>
               
 
@@ -419,7 +422,55 @@
       
 
       
-        
+        <h1 id="1-集成学习"><a href="#1-集成学习" class="headerlink" title="1.集成学习"></a>1.集成学习</h1><p>　　在对随机森林（Random Forest）进行总结之前，先对集成学习（ensemble learning）进行一个简单的介绍，因为随机森林属于集成学习方法的一种。<br>　　集成学习通过构建并结合多个学习器来完成学习任务，有时也被称为多分类系统、基于委员会的学习等。集成学习一般为层次结构，由两层算法构成：底层个体学习器（bass learner），个体学习器通常由一个现有的学习算法从训练数据中产生，例如C4.5决策树算法、BP神经网络算法等。当底层中的个体学习器全部为同一类时称为“同质”，此时个体学习器也称为“基学习器”，相应个体学习器的算法称为“基学习算法”。当底层中的个体学习器不同时则为“异质”，此时则不存在“基学习器”。上层为集成算法，同过算法将底层中的个体学习器集成起来，以此来学习器的性能。<br>　　根据个体学习器的生成方式，目前的集成学习方法大致可分为两大类：个体学习器间存在强依赖关系、必须串行生成的序列化方法，以及个体学习器间不存在强依赖关系、可同时生成的并行化方法。前者的代表是<strong>Boosting</strong>，后者的代表是<strong>Bagging</strong>和<strong>随机森林</strong></p>
+<h2 id="1-1-Boosting"><a href="#1-1-Boosting" class="headerlink" title="1.1. Boosting"></a>1.1. Boosting</h2><p>　　Boosting是一类可将若学习器提升为强学习器的算法，这族算法的工作机制类似：先从初始训练集训练处一个基学习器，再根据基学习器的表现对训练样本分布进行调整，使得先前基学习器做错的训练样本在后续受到更多关注，然后基于调整后的样本分布来训练下一个基学习器；如此重复进行，直至基学习器数目达到事先指定的值T，最终将这T个基学习器进行加权结合。Boosting族算法最著名的的代表室AdaBoost。<br>　　关于Boosting的两个核心问题：</p>
+<ul>
+<li><strong>1）在每一轮如何改变训练数据的权值或概率分布？</strong><br>通过提高那些在前一轮被弱分类器分错样例的权值，减小前一轮分对样例的权值，来使得分类器对误分的数据有较好的效果。</li>
+<li><strong>2）通过什么方式来组合弱分类器？</strong><br>通过加法模型将弱分类器进行线性组合，比如AdaBoost通过加权多数表决的方式，即增大错误率小的分类器的权值，同时减小错误率较大的分类器的权值。而提升树通过拟合残差的方式逐步减小残差，将每一步生成的模型叠加得到最终模型。</li>
+</ul>
+<p>　　从偏差-方差分解的角度看，Boosting主要关注降低偏差，因此Boosting能基于泛化性能相当弱的学习器构建出很强的集成。当以决策树为基学习器，则可构成提升树。</p>
+<h2 id="1-2-Bagging（bootstrap-aggregating）"><a href="#1-2-Bagging（bootstrap-aggregating）" class="headerlink" title="1.2. Bagging（bootstrap aggregating）"></a>1.2. Bagging（bootstrap aggregating）</h2><p>　　Bagging即套袋法，是并行式集成学习方法最著名的代表，它直接基于自助采样法(bootstrap sampling)。给定m个样本的数据集，先随机取出一个样本放入采样集中，再把该样本放回初始数据集，使得下次采样时该样本仍有可能被选中，这样经过m次随机采样操作，得到m个样本的采样集，初始训练集中有的样本在采样集中多次出现，有的则从未出现。<br>　　照这样，可以采样出T个含有m个训练样本的采样集，然后基于每个采样集训练处一个基学习器，再将这些学习器进行结合。这就是Bagging的基本流程。在对预测输出进行结合时，Bagging通常对分类任务采用简单投票法，对回归任务采用简单平均法，若分类预测时出现两个类收到相同的票数时，则随机选择一个。<br>　　Bagging的<strong>优点</strong>：</p>
+<ul>
+<li>Bagging集成与直接使用及学习算法训练一个学习器具有同阶复杂度，因此Bagging是一个高效的集成学习算法。</li>
+<li>自助采样过程给Bagging带来了另一个优点：由于基学习器只使用了初始训练集中约63.2%的样本，剩下约36.8%的样本可以作为验证集来对泛化性能进行“包外估计”。</li>
+</ul>
+<p>　　从偏差-方差分解的角度看，Bagging主要关注降低方差，因此它在不剪枝决策树、神经网络等易受样本扰动的学习器上效果更为明显。当以决策树作为基学习器，可以构成随机森林。</p>
+<h1 id="2-随机森林"><a href="#2-随机森林" class="headerlink" title="2 随机森林"></a>2 随机森林</h1><p>　　随机森林是Bagging的一个扩展变体，随机森林在以决策树为基学习器构建Bagging集成的基础上，进一步在决策树的训练过程中引入了随机属性选择。具体来说，传统决策树在选择划分属性时是在当前节点的属性集合（假定有d个属性）中选择一个最优属性；而在随机森林中，对基决策树的每个节点，先从该节点的属性集合中随机选择一个包含k个属性的子集，然后再从这个子集中选择一个最优属性用于划分。这里的参数k控制了随机性的引入度：若k=d，则和传统决策树无区别，若k=1，则随机选择一个属性进行划分，k的推荐值为log~2~d。</p>
+<h2 id="2-1-决策树"><a href="#2-1-决策树" class="headerlink" title="2.1 决策树"></a>2.1 决策树</h2><p>　　决策树是一种简单高效并且具有强解释性的模型，广泛应用于数据分析领域。其本质是一棵由多个判断节点组成的树，如：</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg" alt=""><br>++<strong>图2-1 决策树结构</strong>++<br></center>
+
+<p>　　显然决策过程的最终结论对应了我们所希望的判定结果。一般的一棵决策树包含一个根节点、若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个属性测试；每个节点包含的样本集合根据属性测试的结果被划分到子节点中；根节点包含全部样本。<br>　　决策树学习的目的是为了产生一棵泛化性能力强的，即能处理未见示例能力强的决策树，其基本流程遵循简单而直观的“分而治之”策略。决策树的生成是一个递归过程，从下述算法流程可以看出。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg" alt=""><br>++<strong>图2-2 决策树学习基本算法</strong>++</center>
+
+<p>　　从上图可以看出，决策树的关键是第8行，即如何选择最优划分属性。实际上就是寻找最纯净的划分方法，这个最纯净在数学上叫纯度，纯度通俗点理解就是目标变量要分得足够开（y=1的和y=0的混到一起就会不纯）。另一种理解是分类误差率的一种衡量。实际决策树算法往往用到的是，纯度的另一面也即不纯度。不纯度的选取有多种方法，每种方法也就形成了不同的决策树方法，比如ID3算法使用信息增益作为不纯度；C4.5算法使用信息增益率作为不纯度；CART算法使用基尼系数作为不纯度。</p>
+<ul>
+<li><strong>ID3、C4.5决策树的生成</strong><blockquote>
+<p>输入：训练集D，特征集A，阈值eps 输出：决策树T。<br>　　1.若D中所有样本属于同一类Ck，则T为单节点树，将类Ck作为该结点的类标记，返回T；<br>　　2.若A为空集，即没有特征作为划分依据，则T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　3.否则，计算A中各特征对D的信息增益(ID3)/信息增益比(C4.5)，选择信息增益最大的特征Ag；<br>　　4.若Ag的信息增益（比）小于阈值eps，则置T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　5.否则，依照特征Ag将D划分为若干非空子集Di，将Di中实例数最大的类作为标记，构建子节点，由结点及其子节点构成树T，返回T；<br>　　6.对第i个子节点，以Di为训练集，以A-{Ag}为特征集，递归地调用1~5，得到子树Ti，返回Ti。</p>
+</blockquote>
+</li>
+<li><strong>CART决策树的生成</strong><blockquote>
+<p>这里只简单介绍下CART与ID3和C4.5的区别。<br>　　1.CART树是二叉树，而ID3和C4.5可以是多叉树；<br>　　2.CART在生成子树时，是选择一个特征一个取值作为切分点，生成两个子树；<br>　　3.选择特征和切分点的依据是基尼指数，选择基尼指数最小的特征及切分点生成子树。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="2-2-随机森林算法过程"><a href="#2-2-随机森林算法过程" class="headerlink" title="2.2 随机森林算法过程"></a>2.2 随机森林算法过程</h2><p>　　上面介绍了Bagging算法，随机森林是对Bagging的改进版。其算法过程如下：</p>
+<blockquote>
+<p>（1）输入原始数据集D，对数据集应用自助采样法又放回地随机抽取k个新的自助样本集，并由此构建k棵树，每次未抽到的样本组成了k个袋外数据；<br>（2）设每个样本具有N个属性，则在每棵树的每个节点处随机抽取n个属性；<br>（3）对n个属性以基尼指数为标准进行最佳划分；<br>（4）每棵树重复步骤（2）（3）最大限度的生长，不做剪枝处理；<br>（5）将生成的多棵分类树组成随机森林，用随机森林分类器对新的数据进行判别与分类，分类结果按树分类器的投票多少而定。<br>（6）输出预期结果。</p>
+</blockquote>
+<h2 id="2-3-随机森林的优点"><a href="#2-3-随机森林的优点" class="headerlink" title="2.3 随机森林的优点"></a>2.3 随机森林的优点</h2><p>　　1.在数据集上表现良好，两个随机性的引入，使得随机森林不容易陷入过拟合；<br>　　2.在当前的很多数据集上，相对其他算法有着很大的优势，两个随机性的引入，使得随机森林具有很好的抗噪声能力；<br>　　3.它能够处理很高维度（feature很多）的数据，并且不用做特征选择，对数据集的适应能力强：既能处理离散型数据，也能处理连续型数据，数据集无需规范化；<br>　　4.可生成一个Proximities=（pij）矩阵，用于度量样本之间的相似性： pij=aij/N, aij表示样本i和j出现在随机森林中同一个叶子结点的次数，N随机森林中树的颗数；<br>　　5.在创建随机森林的时候，对generlization error使用的是无偏估计；<br>　　6.训练速度快，可以得到变量重要性排序（两种：基于OOB误分率的增加量和基于分裂时的GINI下降量；<br>　　7.在训练过程中，能够检测到feature间的互相影响；<br>　　8.容易做成并行化方法；<br>　　9.实现比较简单。</p>
+<h2 id="2-4-局限性"><a href="#2-4-局限性" class="headerlink" title="2.4 局限性"></a>2.4 局限性</h2><p>　　1.当我们需要推断超出范围的独立变量或非独立变量，随机森林做得并不好，我们最好使用如 MARS 那样的算法。<br>　　2.随机森林算法在训练和预测时都比较慢。<br>　　3.如果需要区分的类别十分多，随机森林的表现并不会很好。</p>
+<hr>
+<blockquote>
+<p><strong>参考文献</strong></p>
+<ul>
+<li>《机器学习》.周志华</li>
+<li>《Python机器学习——预测分析核心算法》.[美]Michael Bowles，[译]沙赢、李鹏</li>
+<li><a href="https://www.cnblogs.com/liuwu265/p/4690486.html" target="_blank" rel="external">Bagging和Boosting 概念及区别</a>.liuwu265</li>
+<li><a href="http://blog.csdn.net/qq547276542/article/details/78304454" target="_blank" rel="external">随机森林算法学习(RandomForest)</a>.shjyoudp</li>
+<li><a href="https://github.com/gitleej/random_forests" target="_blank" rel="external">Random Forest</a>.IISourcell</li>
+</ul>
+</blockquote>
+
       
     </div>
 
