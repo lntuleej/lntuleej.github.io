@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="机器学习,随机森林,算法," />
+  <meta name="keywords" content="机器学习,算法,随机森林," />
 
 
 
@@ -94,7 +94,7 @@
 
 
 <meta name="description" content="随机森林算法总结">
-<meta name="keywords" content="机器学习,随机森林,算法">
+<meta name="keywords" content="机器学习,算法,随机森林">
 <meta property="og:type" content="article">
 <meta property="og:title" content="随机森林">
 <meta property="og:url" content="http://ailee.me/2018/03/01/随机森林/index.html">
@@ -103,7 +103,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg">
-<meta property="og:updated_time" content="2018-03-08T03:17:22.039Z">
+<meta property="og:updated_time" content="2018-04-16T08:47:26.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林">
 <meta name="twitter:description" content="随机森林算法总结">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-03-08T11:17:22+08:00">
-                2018-03-08
+              <time title="Update" itemprop="dateModified" datetime="2018-04-16T16:47:26+08:00">
+                2018-04-16
               </time>
             
           </span>
@@ -396,7 +396,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  3,010
+                  3,011
                 </span>
               
 
@@ -439,16 +439,22 @@
 <h2 id="2-1-决策树"><a href="#2-1-决策树" class="headerlink" title="2.1 决策树"></a>2.1 决策树</h2><p>　　决策树是一种简单高效并且具有强解释性的模型，广泛应用于数据分析领域。其本质是一棵由多个判断节点组成的树，如：</p>
 <center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg" alt=""><br>++<strong>图2-1 决策树结构</strong>++<br></center>
 
+
+
 <p>　　显然决策过程的最终结论对应了我们所希望的判定结果。一般的一棵决策树包含一个根节点、若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个属性测试；每个节点包含的样本集合根据属性测试的结果被划分到子节点中；根节点包含全部样本。<br>　　决策树学习的目的是为了产生一棵泛化性能力强的，即能处理未见示例能力强的决策树，其基本流程遵循简单而直观的“分而治之”策略。决策树的生成是一个递归过程，从下述算法流程可以看出。</p>
 <center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg" alt=""><br>++<strong>图2-2 决策树学习基本算法</strong>++</center>
 
+
+
 <p>　　从上图可以看出，决策树的关键是第8行，即如何选择最优划分属性。实际上就是寻找最纯净的划分方法，这个最纯净在数学上叫纯度，纯度通俗点理解就是目标变量要分得足够开（y=1的和y=0的混到一起就会不纯）。另一种理解是分类误差率的一种衡量。实际决策树算法往往用到的是，纯度的另一面也即不纯度。不纯度的选取有多种方法，每种方法也就形成了不同的决策树方法，比如ID3算法使用信息增益作为不纯度；C4.5算法使用信息增益率作为不纯度；CART算法使用基尼系数作为不纯度。</p>
 <ul>
-<li><strong>ID3、C4.5决策树的生成</strong><blockquote>
+<li><p><strong>ID3、C4.5决策树的生成</strong></p>
+<blockquote>
 <p>输入：训练集D，特征集A，阈值eps 输出：决策树T。<br>　　1.若D中所有样本属于同一类Ck，则T为单节点树，将类Ck作为该结点的类标记，返回T；<br>　　2.若A为空集，即没有特征作为划分依据，则T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　3.否则，计算A中各特征对D的信息增益(ID3)/信息增益比(C4.5)，选择信息增益最大的特征Ag；<br>　　4.若Ag的信息增益（比）小于阈值eps，则置T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　5.否则，依照特征Ag将D划分为若干非空子集Di，将Di中实例数最大的类作为标记，构建子节点，由结点及其子节点构成树T，返回T；<br>　　6.对第i个子节点，以Di为训练集，以A-{Ag}为特征集，递归地调用1~5，得到子树Ti，返回Ti。</p>
 </blockquote>
 </li>
-<li><strong>CART决策树的生成</strong><blockquote>
+<li><p><strong>CART决策树的生成</strong></p>
+<blockquote>
 <p>这里只简单介绍下CART与ID3和C4.5的区别。<br>　　1.CART树是二叉树，而ID3和C4.5可以是多叉树；<br>　　2.CART在生成子树时，是选择一个特征一个取值作为切分点，生成两个子树；<br>　　3.选择特征和切分点的依据是基尼指数，选择基尼指数最小的特征及切分点生成子树。</p>
 </blockquote>
 </li>
@@ -463,11 +469,15 @@
 <blockquote>
 <p><strong>参考文献</strong></p>
 <ul>
-<li>《机器学习》.周志华</li>
+<li>《机器学习》.周志华<blockquote>
+<ul>
 <li>《Python机器学习——预测分析核心算法》.[美]Michael Bowles，[译]沙赢、李鹏</li>
 <li><a href="https://www.cnblogs.com/liuwu265/p/4690486.html" target="_blank" rel="external">Bagging和Boosting 概念及区别</a>.liuwu265</li>
 <li><a href="http://blog.csdn.net/qq547276542/article/details/78304454" target="_blank" rel="external">随机森林算法学习(RandomForest)</a>.shjyoudp</li>
 <li><a href="https://github.com/gitleej/random_forests" target="_blank" rel="external">Random Forest</a>.IISourcell</li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </blockquote>
 
@@ -526,9 +536,9 @@
           
             <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/随机森林/" rel="tag"># 随机森林</a>
-          
             <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/随机森林/" rel="tag"># 随机森林</a>
           
         </div>
       
@@ -541,8 +551,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/12/Rich feature hierarchies for accurate object detection and semantic segmentation/" rel="next" title="Rich feature hierarchies for accurate object detection and semantic segmentation">
-                <i class="fa fa-chevron-left"></i> Rich feature hierarchies for accurate object detection and semantic segmentation
+              <a href="/2018/03/01/卷积神经网络/" rel="next" title="卷积神经网络（CNN）">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络（CNN）
               </a>
             
           </div>
@@ -635,7 +645,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -646,7 +656,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -657,7 +667,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
