@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="目标检测,深度学习,Mask R-CNN," />
+  <meta name="keywords" content="目标检测,Mask R-CNN,深度学习," />
 
 
 
@@ -94,7 +94,7 @@
 
 
 <meta name="description" content="Mask R-CNN 论文翻译">
-<meta name="keywords" content="目标检测,深度学习,Mask R-CNN">
+<meta name="keywords" content="目标检测,Mask R-CNN,深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mask R-CNN">
 <meta property="og:url" content="http://ailee.me/2018/04/18/Mask R-CNN/index.html">
@@ -102,7 +102,13 @@
 <meta property="og:description" content="Mask R-CNN 论文翻译">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-21/79762505.jpg">
-<meta property="og:updated_time" content="2018-04-24T14:09:14.956Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/25615333.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/60081366.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/67035072.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/62958374.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/23232752.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-24/90241938.jpg">
+<meta property="og:updated_time" content="2018-04-24T14:39:24.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mask R-CNN">
 <meta name="twitter:description" content="Mask R-CNN 论文翻译">
@@ -334,7 +340,7 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-04-24T22:09:14+08:00">
+              <time title="Update" itemprop="dateModified" datetime="2018-04-24T22:39:24+08:00">
                 2018-04-24
               </time>
             
@@ -395,7 +401,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  8,584
+                  8,748
                 </span>
               
 
@@ -424,7 +430,9 @@
         <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　我们提出了一种从概念上来说简单、灵活的综合框架，该框架应用于目标实例分割。我们的方法在高效的检测图像中目标的同时能对每一个目标实例生成高质量的分割掩膜。我们将该方法称为Mask R-CNN，是从Faster R-CNN扩展而来，在Faster R-CNN的基础上增加了一个用于预测目标掩膜的分支，该分支与已存在的边界框分类分支平行。Mask R-CNN训练简单，且只在Faster R-CNN的基础上增减很少的时间消耗，运行速率达到5fps。而且，Mask R-CNN容易适用于其他任务，例如：允许我们对网络做微小的改变，使用相同的网络用于预测人体姿态。我们给出了在COCO系列挑战中的所有三类挑战的结果，包括实例分割、目标边界框检测和人体关键点检测。Mask R-CNN在所有任务上胜过了目前所有的单模型网络，包括COCO 2016的胜利者。我希望我们这个简单有效的模型能够成为一个稳定的基线模型，促进实例水平识别的进一步发展。源码即将开源。</p>
 <h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　视觉社区在短时间内快速提升了对象检测和语义分割结果。在很大程度上，这些改进是基于一些强大的基线模型的，例如：用于目标检测和语义分割的Fast/Faster R-CNN和完全卷积网络（FCN）。这些模型从理论上讲是直观灵活且鲁棒性好的，并且训练速和运行度快。在本文中，我们的目标是开发一个具有可比性的用于实例分割的框架。</p>
 <p>　　实例分割是一项具有挑战性的任务，因为它需要准确的检测出图像中的所有目标，同时还有准确的分割每一个目标实例。因此实例分割包含两个部分：一是分类计算目标检测的视觉任务，其目标是分类每一个目标，并且使用边界框对其定位。二是语义分割，其目标是在不区分目标实例的情况下将每一像素分类到类别的固定像素组中。鉴于此，如果想要达到一个好的检测出效果，可能需要一种复杂的方法。然而，我们展示了一个非常简单、灵活而且快速的系统，该系统胜过了目前最优秀的实例分割的结果。</p>
-<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-21/79762505.jpg" alt="Mask R-CNN"><br><br>图1　Mask R-CNN框架<br></center>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-21/79762505.jpg" alt="Mask R-CNN"><br>图1　Mask R-CNN框架<br></center>
+
+
 
 
 
@@ -444,6 +452,10 @@
 <p>　　我们的模型在一个GPU上的运行速度为200毫秒每帧，在COCO数据集上进行训练，采用8GPU的机器需要花费1-2天。我们相信，快速的训练和测试速度，以及框架的灵活性和准确性，将有益于并简化实例分割未来的研究。</p>
 <p>　　最后，我们通过COCO关键点数据集上的人体姿态估计任务展示了我们的框架的通用性。通过将每一个关键点视为一个one-hot二元掩膜，并最小限度的修改Mask R-CNN，以用于检测特定实例的姿态。毫无悬念，Mask R-CNN胜过了2016年COCO关键点竞赛的冠军，并且获得了相同的运行速率——5fps。因此，Mask R-CNN可以更广泛的视为实例级识别额灵活框架，并且可以很容易地扩展到更复杂的任务中。</p>
 <p>　　我们将开源代码以方便将来的研究。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/25615333.jpg" alt=""><br>图2　Mask R-CNN在COCO测试集上的结果，该结果基于ResNet-101，mask AP为35.7，运行速度5fps。掩膜用彩色表示，同时显示了边界框、类别和置信度。</center>
+
+
+
 <h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h1><p><strong>R-CNN：</strong>基于边界框目标检测方法是关注可管理数量的候选目标区域，并在每一个RoI上独立评估卷积网络。R-CNN被扩展为允许在特征图上使用RoIPool，从而实现更快的速度和更好的准确性。Faster R-CNN通过学习区域建议网络（RPN）的attention机制来推进这样一流程。Faster R-CNN对后续许多改进具有灵活性和鲁棒性，并且是几个基线测试中目前领先的框架。</p>
 <p><strong>实例分割：</strong>在R-CNN的有效性的驱动下，实例分割的许多方法都是基于分割建议的。早期的方法采用自下而上的分割片段。DeepMask和以后的工作提出分割候选区域，然后由Fast R-CNN进行分类。分割之前先识别的这些方法速度慢且准确度低。同样的，Dai等人提出一种复杂的多阶段级联方法，该方法在分类之后从目标边界框预测分割候选区域。不同的是，我们的方法是基于并行掩膜和类别标签预测的，该方法简单且更加灵活。</p>
 <p>　　最近，Li等人组合分割建议系统和目标检测系统用于全卷积实例分割（FCIS）。共同昂思想是预测一组完全卷积的位置敏感的输出通道。这些通道同时的处理目标类别、边界框和掩膜，使得系统运行快。但是FCIS在重叠实例上展示了系统错误并且生成虚假边界，表明它受到了分割实例的根本困难的挑战。</p>
@@ -463,15 +475,25 @@
 <p>　　我们也探索了由Lin等人提出的更加有效的骨干网络——特征金字塔网络（FPN）。FPN使用具有横向连接的自顶向下的结构从单一尺度输入构建in-network特征金字塔。具有FPN骨干网络的Faster R-CNN根据其尺度从特征金字塔的不同层次提取特征，但是除此之外的其他部分和ResNet相同。Mask R-CNN使用ResNet-FPN的骨干网络进行特征提取在精度和速度两方面都获得了巨大的提升。FPN的更多细节请参阅[<a href="">27</a>]。</p>
 <p>　　对于网络的head，我们密切关注以前工作中提出的架构，并在其中添加完全卷积掩膜预测分支。特别的是，我们从FPN和ResNet的论文中扩展了Faster R-CNN的边界框head。具体细节如图2所示。ResNet-C4骨干网络上的head包括计算密集的ResNet的第5阶段（即：ResNet第9层‘res5’）。对于FPN，骨干网络已经包含了res5，因此，允许使用具有更少滤波器的更加有效的head网络。</p>
 <p>　　我们注意到掩膜分支具有一个简单的结构。更加复杂的设计可能会提高性能，但这不是我们研究的重点。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/60081366.jpg" alt=""><br>图3　Head 结构</center>
+
 <h2 id="3-1-实现细节"><a href="#3-1-实现细节" class="headerlink" title="3.1 实现细节"></a>3.1 实现细节</h2><p>　　我们根据Fast/Faster R-CNN来设置超参数。尽管这些决策在原始论文中是用于目标检测的，但是我们发现他对于我们提出的实例分割网络同样具有鲁棒性。</p>
 <p><strong>训练：</strong>同Fast R-CNN中一样，如果RoI与真实边界框的不小于0.5则将该RoI作为正样本，其余剩下的所有RoI作为负样本。掩膜损失<em>Lmask</em>仅在正样本RoI上定义。掩膜的目标是RoI和与之相关的真实边界框的交集。</p>
 <p>　　我们采用image-centric进行训练。图像被调整到短边800像素，每一个小批的每一个GPU包含两幅图像，并且每一幅图像采样N个RoI，其中RoI的正负样本比例为1:3。在C4骨干网络中N为64，FPN骨干网络中N为512。我们在8个GPU上进行（因此有效小批的大小为16）160K迭代训练，学习速率为0.02，学习速率在120K次迭代时降低10倍，权重衰减为0.0001，动量为0.9。</p>
 <p>　　RPN  anchor采用5种尺度3种纵横比。为了便于进行消除实验，RPN是单独训练的，除非指定，否则不与Mask R-CNN共享特征。对于文中的每一个条目，RPN和Mask R-CNN都具有相同的背景，所以它们之间是可以共享的。</p>
 <p><strong>推理：</strong>在测试时，C4骨干网络的候选框数量为300，FPN的为1000。我们在这些候选框之中进行边界框预测，然后进行非最大抑制。然后掩膜分支应用到得分最高的100个检测到的边界框上。尽管这与训练中所使用的并行计算不同，但是它加速了推理并提高了准确度（由于使用了更少、更准确的RoI）。掩膜分支可以为每一个RoI预测K个掩膜，但是我们仅使用第k个掩膜，其中k是由分类分支预测的类别。然后将mxm浮点数掩膜输出调整到RoI大小，并在阈值0.5下进行二值化。</p>
 <p>　　注意，由于我们仅在前100个检测框上计算掩膜，Mask R-CNN只在Faster R-CNN上增加了很少的运行时间。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/67035072.jpg" alt=""><br>图4　Mask R-CNN在COCO测试图像上的更多结果，采用ResNet-101-FPN，运行速度5fps，mask AP35.7。</center>
+
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/62958374.jpg" alt=""><br>表1　COCO test-dev数据集上实例分割mask AP。MNC和FCIS分别是COCO 2015和COCO 2016分割挑战的冠军，毫不吹嘘，Mask R-CNN胜过更加复杂的FCIS+++。</center>
+
 <h1 id="4-实验：实例分割"><a href="#4-实验：实例分割" class="headerlink" title="4 实验：实例分割"></a>4 实验：实例分割</h1><p>　　我们将Mask R-CNN与最先进的方法进行了全面透彻的消除实验。所有的实验均使用COCO数据集。我们声明标准的COCO指标包括AP（IoU阈值的平均值）、AP50、AP75、APs、APm和APl（不同比例下的AP值）。除非特殊声明，AP使用掩膜IoU来评估。在之前的工作中，我们使用80k训练图像和验证图像的子集的35k图像的合集进行训练。我们在验证集剩下的5k图像上进行消除声明。我们也在不包含公开标签的test-dev数据集上公布了结果。在出版之后，我们将按照建议把test-dev的完整结果上传到公开排行榜上。</p>
 <h2 id="4-1-主要结果"><a href="#4-1-主要结果" class="headerlink" title="4.1 主要结果"></a>4.1 主要结果</h2><p>　　我们将Mask R-CNN与表1中最先进的的实例分割方法进行了比较。我们的模型的所有实例性能均优于上述最先进的基线变体。包括MNC和FCIS，它们分别是COCO2015和2016实例分割挑战的胜利者。毫不吹嘘，具有ResNet-101-FPN骨干网络的Mask R-CNN性能优于FCIS+++，它包含多尺度训练/测试，水平翻转和在线困难样本挖掘（OHEM）。然而在本任务范围之内，我们期待能有很多类似的提到为我们所适用。</p>
 <p>　　Mask R-CNN的输出结果如图2和图4所示。Mask R-CNN即使在具有挑战的情况下依然能够呈现出很好的结果。在图5中，我们将Mask R-CNN基线网络与FCIS+++进行比较。在重叠实例中，FCIS+++会产生系统性的伪掩膜，这表示该方法收到了实例分割的基本困难的挑战。Mask R-CNN则不会出现这样的伪掩膜。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/23232752.jpg" alt=""><br>图5　FCIS+++（上） vs. Mask R-CNN（下）</center>
+
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-24/90241938.jpg" alt=""><br>表2　Mask R-CNN消除实验结果。在trainval 135k数据集上训练，在minival数据集上测试。</center>
+
 <h2 id="4-2-消除实验"><a href="#4-2-消除实验" class="headerlink" title="4.2 消除实验"></a>4.2 消除实验</h2><p>　　我们进行了一系列的消除实验，其结果如表2所示，接下来我们将对每个实验进行详细讨论。</p>
 <p><strong>结构：</strong>表2a展示了不同结构的Mask R-CNN。它得益于深度网络（50vs.101）以及包括FPN和ResNeXt的先进设计。我们发现，并不是所有框架都能自动的从更深的或者是先进的网络中受益。</p>
 <p><strong>Multinomial vs. Independent Mask：</strong>Mask  R-CNN解耦了掩膜和类别预测： 和已存在的边界框分支预测类别标签一样，我们在不与其他类产生竞争的情况下为每一个类别生成一个掩膜（使用per-pixel Sigmoid和二元损失）。在表2b中我们将此方法与per-pixel softmax和多项式损失（通常应用于FCN）进行比较。上述替代方法中，掩膜任务与分类预测结合，结果在掩膜AP中出现了严重损失（5.5个百分点）。这个结果表明，一旦实例被分类为整体（通过边界框分支），预测二元掩膜就足够了，而不用考虑别的，这使得模型更易于训练。</p>
@@ -588,9 +610,9 @@
           
             <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
-          
             <a href="/tags/Mask-R-CNN/" rel="tag"># Mask R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
