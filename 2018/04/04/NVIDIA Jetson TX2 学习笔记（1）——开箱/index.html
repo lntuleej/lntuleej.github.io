@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Jetson TX2,NVIDIA,深度学习," />
+  <meta name="keywords" content="深度学习,Jetson TX2,NVIDIA," />
 
 
 
@@ -94,17 +94,24 @@
 
 
 <meta name="description" content="NVIDIA Jetson TX2 开箱">
-<meta name="keywords" content="Jetson TX2,NVIDIA,深度学习">
+<meta name="keywords" content="深度学习,Jetson TX2,NVIDIA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NVIDIA Jetson TX2 学习笔记（1）——开箱">
 <meta property="og:url" content="http://ailee.me/2018/04/04/NVIDIA Jetson TX2 学习笔记（1）——开箱/index.html">
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="NVIDIA Jetson TX2 开箱">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-09T01:47:41.188Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/78955814.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/75193664.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/71868286.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/31235480.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/75529726.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/14163062.jpg">
+<meta property="og:updated_time" content="2018-04-25T03:26:27.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NVIDIA Jetson TX2 学习笔记（1）——开箱">
 <meta name="twitter:description" content="NVIDIA Jetson TX2 开箱">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/78955814.jpg">
 
 
 
@@ -332,8 +339,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-04-09T09:47:41+08:00">
-                2018-04-09
+              <time title="Update" itemprop="dateModified" datetime="2018-04-25T11:26:27+08:00">
+                2018-04-25
               </time>
             
           </span>
@@ -393,7 +400,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  146
+                  694
                 </span>
               
 
@@ -420,7 +427,91 @@
 
       
         <p>　　在此之前对于开发板的接触应该还是蛮多的，从51单片机开发板到STM32开发板，再到Intel的伽利略或者是ARM A9的嵌入式开发板。在第一次亲手接到这高端大气上档次，相当不低调，仍旧抵挡不住其奢华和内涵的NVIDIA Jetson TX2时，顿时觉得以前的眼界实在是太窄了。第一次拿到板子自然是小心翼翼，毕竟这么贵，和以前的比起来都是便宜货了。话不多说，先介绍一波Jetson TX2。</p>
-<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><p>　　</p>
+<h1 id="1-Jetson-TX2-简介"><a href="#1-Jetson-TX2-简介" class="headerlink" title="1 Jetson TX2 简介"></a>1 Jetson TX2 简介</h1><p>　　Jetson TX2是基于 NVIDIA Pascal™ 架构的 AI 单模块超级计算机，性能强大（1 TFLOPS），外形小巧，节能高效（7.5W），非常适合机器人、无人机、智能摄像机和便携医疗设备等智能终端设备。<br>Jatson TX2 与 TX1 相比，内存和 eMMC 提高了一倍，CUDA 架构升级为 Pascal，每瓦性能提高一倍，支持 Jetson TX1 模块的所有功能，支持更大、更深、更复杂的深度神经网络。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/78955814.jpg" alt=""><br>图1：Jetson TX2内部结果</center>
+
+<h2 id="1-1-处理单元"><a href="#1-1-处理单元" class="headerlink" title="1.1 处理单元"></a>1.1 处理单元</h2><ul>
+<li><p>dual-core NVIDIA Denver2 + quad-core ARM Cortex-A57</p>
+</li>
+<li><p>256-core Pascal GPU</p>
+</li>
+<li><p>8GB LPDDR4, 128-bit interface</p>
+</li>
+<li><p>32GB eMMC</p>
+</li>
+<li><p>4kp60 H.264/H.265 encoder &amp; decoder</p>
+</li>
+<li><p>Dual ISPs (Image Signal Processors)</p>
+</li>
+<li><p>1.4 gigapixel/sec MIPI CSI camera ingest</p>
+</li>
+</ul>
+<h2 id="1-2-接口-amp-外设"><a href="#1-2-接口-amp-外设" class="headerlink" title="1.2 接口&amp;外设"></a>1.2 接口&amp;外设</h2><ul>
+<li><p>HDMI 2.0</p>
+</li>
+<li><p>802.11a/b/g/n/ac 2×2 867Mbps WiFi</p>
+</li>
+<li><p>Bluetooth 4.1</p>
+</li>
+<li><p>USB3, USB2、</p>
+</li>
+<li><p>10/100/1000 BASE-T Ethernet</p>
+</li>
+<li><p>12 lanes MIPI CSI 2.0, 2.5 Gb/sec per lane</p>
+</li>
+<li><p>PCIe gen 2.0, 1×4 + 1×1 or 2×1 + 1×2</p>
+</li>
+<li><p>SATA, SDcard</p>
+</li>
+<li><p>dual CAN bus</p>
+</li>
+<li><p>UART, SPI, I2C, I2S, GPIOs</p>
+</li>
+</ul>
+<h1 id="2-开箱"><a href="#2-开箱" class="headerlink" title="2 开箱"></a>2 开箱</h1><p>　　Jetson TX2开发套件包含了以下组件：</p>
+<ul>
+<li><p>mini-ITX参考载板</p>
+</li>
+<li><p>Jetson TX2模块</p>
+</li>
+<li><p>风扇和散热器（预组装）</p>
+</li>
+<li><p>5MP CSI相机模块（带Omnivision OV5693）</p>
+</li>
+<li><p>WiFi/BT天线</p>
+</li>
+<li><p>USB OTG适配器</p>
+</li>
+<li><p>19VDC电源适配器</p>
+</li>
+</ul>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/75193664.jpg" alt=""><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/71868286.jpg" alt=""><br>图2：Jetson TX2开发套件</center>
+
+<h1 id="3-上电测试"><a href="#3-上电测试" class="headerlink" title="3 上电测试"></a>3 上电测试</h1><ul>
+<li><p>将天线按要求安装到Jetson TX2开发板，将显示器与开发板连接（如显示器不支持HDMI，则需要HDMI/VGA转接线），连接好键盘鼠标（需要一个USB集线器），将电源适配器和Jetson TX2开发板正确连接。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/31235480.jpg" alt=""></center>
+</li>
+<li><p>按下POWER按钮，可以观察到显示器滚动显示开机信息，最终显示如下信息。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/75529726.jpg" alt=""></center>
+</li>
+<li><p>按照显示器上显示的信息，按步骤进行操作</p>
+<ul>
+<li><p>Step 1）：更改目录到NVIDIA installation目录。<br>cd “${HOME}/NVIDIA-INSTALLER”</p>
+</li>
+<li><p>Step 2）：运行安装脚本，提取和安装NVIDIA Linux驱动。<br>sudo ./installer.sh</p>
+</li>
+<li><p>Step 3）：重启系统，进入Ubuntu桌面环境。<br>sudo reboot</p>
+</li>
+</ul>
+</li>
+<li><p>重启进入Ubuntu桌面环境。</p>
+</li>
+<li><p>选择用户“nvidia”，输入密码“nvidia”。</p>
+</li>
+</ul>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/14163062.jpg" alt=""><br>图3：Jetson TX2 Ubuntu桌面</center>
+
+<p>　　至此，开箱上电测试已经结束。按照套路，接下来就可以进行刷机操作了，将Jetson TX2的Jetpack更新到最新版本。</p>
 
       
     </div>
@@ -475,11 +566,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
             <a href="/tags/Jetson-TX2/" rel="tag"># Jetson TX2</a>
           
             <a href="/tags/NVIDIA/" rel="tag"># NVIDIA</a>
-          
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
