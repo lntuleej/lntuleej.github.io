@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="机器学习,算法,随机森林," />
+  <meta name="keywords" content="目标检测,FCN,深度学习," />
 
 
 
@@ -93,21 +93,18 @@
 
 
 
-<meta name="description" content="随机森林算法总结">
-<meta name="keywords" content="机器学习,算法,随机森林">
+<meta name="description" content="Fully Convolutional Networks for Semantic Segmentation 论文翻译">
+<meta name="keywords" content="目标检测,FCN,深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="随机森林">
-<meta property="og:url" content="http://ailee.me/2018/03/01/随机森林/index.html">
+<meta property="og:title" content="Fully Convolutional Networks for Semantic Segmentation">
+<meta property="og:url" content="http://ailee.me/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/index.html">
 <meta property="og:site_name" content="AILEE">
-<meta property="og:description" content="随机森林算法总结">
+<meta property="og:description" content="Fully Convolutional Networks for Semantic Segmentation 论文翻译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg">
-<meta property="og:updated_time" content="2018-04-16T08:47:26.843Z">
+<meta property="og:updated_time" content="2018-04-26T12:22:00.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="随机森林">
-<meta name="twitter:description" content="随机森林算法总结">
-<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg">
+<meta name="twitter:title" content="Fully Convolutional Networks for Semantic Segmentation">
+<meta name="twitter:description" content="Fully Convolutional Networks for Semantic Segmentation 论文翻译">
 
 
 
@@ -135,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://ailee.me/2018/03/01/随机森林/"/>
+  <link rel="canonical" href="http://ailee.me/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/"/>
 
 
 
 
 
-  <title>随机森林 | AILEE</title>
+  <title>Fully Convolutional Networks for Semantic Segmentation | AILEE</title>
   
 
 
@@ -290,7 +287,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/03/01/随机森林/">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ailee">
@@ -307,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">随机森林</h1>
+          <h1 class="post-title" itemprop="name headline">Fully Convolutional Networks for Semantic Segmentation</h1>
         
 
         <div class="post-meta">
@@ -319,8 +316,8 @@
               
                 <span class="post-meta-item-text">Post</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T11:16:37+08:00">
-                2018-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T15:05:00+08:00">
+                2018-04-25
               </time>
             
 
@@ -335,8 +332,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-04-16T16:47:26+08:00">
-                2018-04-16
+              <time title="Update" itemprop="dateModified" datetime="2018-04-26T20:22:00+08:00">
+                2018-04-26
               </time>
             
           </span>
@@ -354,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -371,7 +368,7 @@
 
           
           
-             <span id="/2018/03/01/随机森林/" class="leancloud_visitors" data-flag-title="随机森林">
+             <span id="/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/" class="leancloud_visitors" data-flag-title="Fully Convolutional Networks for Semantic Segmentation">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -396,7 +393,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  3,011
+                  2,437
                 </span>
               
 
@@ -408,7 +405,7 @@
 
           
               <div class="post-description">
-                  随机森林算法总结
+                  Fully Convolutional Networks for Semantic Segmentation 论文翻译
               </div>
           
 
@@ -422,65 +419,57 @@
       
 
       
-        <h1 id="1-集成学习"><a href="#1-集成学习" class="headerlink" title="1.集成学习"></a>1.集成学习</h1><p>　　在对随机森林（Random Forest）进行总结之前，先对集成学习（ensemble learning）进行一个简单的介绍，因为随机森林属于集成学习方法的一种。<br>　　集成学习通过构建并结合多个学习器来完成学习任务，有时也被称为多分类系统、基于委员会的学习等。集成学习一般为层次结构，由两层算法构成：底层个体学习器（bass learner），个体学习器通常由一个现有的学习算法从训练数据中产生，例如C4.5决策树算法、BP神经网络算法等。当底层中的个体学习器全部为同一类时称为“同质”，此时个体学习器也称为“基学习器”，相应个体学习器的算法称为“基学习算法”。当底层中的个体学习器不同时则为“异质”，此时则不存在“基学习器”。上层为集成算法，同过算法将底层中的个体学习器集成起来，以此来学习器的性能。<br>　　根据个体学习器的生成方式，目前的集成学习方法大致可分为两大类：个体学习器间存在强依赖关系、必须串行生成的序列化方法，以及个体学习器间不存在强依赖关系、可同时生成的并行化方法。前者的代表是<strong>Boosting</strong>，后者的代表是<strong>Bagging</strong>和<strong>随机森林</strong></p>
-<h2 id="1-1-Boosting"><a href="#1-1-Boosting" class="headerlink" title="1.1. Boosting"></a>1.1. Boosting</h2><p>　　Boosting是一类可将若学习器提升为强学习器的算法，这族算法的工作机制类似：先从初始训练集训练处一个基学习器，再根据基学习器的表现对训练样本分布进行调整，使得先前基学习器做错的训练样本在后续受到更多关注，然后基于调整后的样本分布来训练下一个基学习器；如此重复进行，直至基学习器数目达到事先指定的值T，最终将这T个基学习器进行加权结合。Boosting族算法最著名的的代表室AdaBoost。<br>　　关于Boosting的两个核心问题：</p>
-<ul>
-<li><strong>1）在每一轮如何改变训练数据的权值或概率分布？</strong><br>通过提高那些在前一轮被弱分类器分错样例的权值，减小前一轮分对样例的权值，来使得分类器对误分的数据有较好的效果。</li>
-<li><strong>2）通过什么方式来组合弱分类器？</strong><br>通过加法模型将弱分类器进行线性组合，比如AdaBoost通过加权多数表决的方式，即增大错误率小的分类器的权值，同时减小错误率较大的分类器的权值。而提升树通过拟合残差的方式逐步减小残差，将每一步生成的模型叠加得到最终模型。</li>
-</ul>
-<p>　　从偏差-方差分解的角度看，Boosting主要关注降低偏差，因此Boosting能基于泛化性能相当弱的学习器构建出很强的集成。当以决策树为基学习器，则可构成提升树。</p>
-<h2 id="1-2-Bagging（bootstrap-aggregating）"><a href="#1-2-Bagging（bootstrap-aggregating）" class="headerlink" title="1.2. Bagging（bootstrap aggregating）"></a>1.2. Bagging（bootstrap aggregating）</h2><p>　　Bagging即套袋法，是并行式集成学习方法最著名的代表，它直接基于自助采样法(bootstrap sampling)。给定m个样本的数据集，先随机取出一个样本放入采样集中，再把该样本放回初始数据集，使得下次采样时该样本仍有可能被选中，这样经过m次随机采样操作，得到m个样本的采样集，初始训练集中有的样本在采样集中多次出现，有的则从未出现。<br>　　照这样，可以采样出T个含有m个训练样本的采样集，然后基于每个采样集训练处一个基学习器，再将这些学习器进行结合。这就是Bagging的基本流程。在对预测输出进行结合时，Bagging通常对分类任务采用简单投票法，对回归任务采用简单平均法，若分类预测时出现两个类收到相同的票数时，则随机选择一个。<br>　　Bagging的<strong>优点</strong>：</p>
-<ul>
-<li>Bagging集成与直接使用及学习算法训练一个学习器具有同阶复杂度，因此Bagging是一个高效的集成学习算法。</li>
-<li>自助采样过程给Bagging带来了另一个优点：由于基学习器只使用了初始训练集中约63.2%的样本，剩下约36.8%的样本可以作为验证集来对泛化性能进行“包外估计”。</li>
-</ul>
-<p>　　从偏差-方差分解的角度看，Bagging主要关注降低方差，因此它在不剪枝决策树、神经网络等易受样本扰动的学习器上效果更为明显。当以决策树作为基学习器，可以构成随机森林。</p>
-<h1 id="2-随机森林"><a href="#2-随机森林" class="headerlink" title="2 随机森林"></a>2 随机森林</h1><p>　　随机森林是Bagging的一个扩展变体，随机森林在以决策树为基学习器构建Bagging集成的基础上，进一步在决策树的训练过程中引入了随机属性选择。具体来说，传统决策树在选择划分属性时是在当前节点的属性集合（假定有d个属性）中选择一个最优属性；而在随机森林中，对基决策树的每个节点，先从该节点的属性集合中随机选择一个包含k个属性的子集，然后再从这个子集中选择一个最优属性用于划分。这里的参数k控制了随机性的引入度：若k=d，则和传统决策树无区别，若k=1，则随机选择一个属性进行划分，k的推荐值为log~2~d。</p>
-<h2 id="2-1-决策树"><a href="#2-1-决策树" class="headerlink" title="2.1 决策树"></a>2.1 决策树</h2><p>　　决策树是一种简单高效并且具有强解释性的模型，广泛应用于数据分析领域。其本质是一棵由多个判断节点组成的树，如：</p>
-<center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/40454773.jpg" alt=""><br>++<strong>图2-1 决策树结构</strong>++<br></center>
-
-
-
-<p>　　显然决策过程的最终结论对应了我们所希望的判定结果。一般的一棵决策树包含一个根节点、若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个属性测试；每个节点包含的样本集合根据属性测试的结果被划分到子节点中；根节点包含全部样本。<br>　　决策树学习的目的是为了产生一棵泛化性能力强的，即能处理未见示例能力强的决策树，其基本流程遵循简单而直观的“分而治之”策略。决策树的生成是一个递归过程，从下述算法流程可以看出。</p>
-<center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-8/71172021.jpg" alt=""><br>++<strong>图2-2 决策树学习基本算法</strong>++</center>
-
-
-
-<p>　　从上图可以看出，决策树的关键是第8行，即如何选择最优划分属性。实际上就是寻找最纯净的划分方法，这个最纯净在数学上叫纯度，纯度通俗点理解就是目标变量要分得足够开（y=1的和y=0的混到一起就会不纯）。另一种理解是分类误差率的一种衡量。实际决策树算法往往用到的是，纯度的另一面也即不纯度。不纯度的选取有多种方法，每种方法也就形成了不同的决策树方法，比如ID3算法使用信息增益作为不纯度；C4.5算法使用信息增益率作为不纯度；CART算法使用基尼系数作为不纯度。</p>
-<ul>
-<li><p><strong>ID3、C4.5决策树的生成</strong></p>
-<blockquote>
-<p>输入：训练集D，特征集A，阈值eps 输出：决策树T。<br>　　1.若D中所有样本属于同一类Ck，则T为单节点树，将类Ck作为该结点的类标记，返回T；<br>　　2.若A为空集，即没有特征作为划分依据，则T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　3.否则，计算A中各特征对D的信息增益(ID3)/信息增益比(C4.5)，选择信息增益最大的特征Ag；<br>　　4.若Ag的信息增益（比）小于阈值eps，则置T为单节点树，并将D中实例数最大的类Ck作为该结点的类标记，返回T；<br>　　5.否则，依照特征Ag将D划分为若干非空子集Di，将Di中实例数最大的类作为标记，构建子节点，由结点及其子节点构成树T，返回T；<br>　　6.对第i个子节点，以Di为训练集，以A-{Ag}为特征集，递归地调用1~5，得到子树Ti，返回Ti。</p>
+        <blockquote>
+<p>论文原文：<a href="https://arxiv.org/abs/1605.06211" target="_blank" rel="external">Fully Convolutional Networks for Semantic Segmentation</a></p>
+<p>作　　者：<a href="https://arxiv.org/search?searchtype=author&amp;query=Evan+Shelhamer" target="_blank" rel="external">Evan Shelhamer</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Jonathan+Long" target="_blank" rel="external">Jonathan Long</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Trevor+Darrell" target="_blank" rel="external">Trevor Darrell</a></p>
 </blockquote>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　卷积网络是产生特征层次结构的强大视觉模型。我们通过端到端、像素到像素的训练展示了卷积网络，这胜过了语义分割领域中最先进的方法。我们的关键创新在建立完全卷积网络，该网络可以接受任意大小的数据输入，用有效的推理和学习产生相应大小的输出。我们定义和详细描述了完全卷积网络的空间，解释了它们在空间密集预测任务中的应用，并与先前的模型建立连接。我们将目前的分类网络（AlexNet、VGG net和GoogLeNet）引入到完全卷积网络中，通过微调将它们学习的表示转移到分割任务中。然后，我们定义一种新的架构，该架构将来自深层粗糙的语义信息和来自浅层精细的外观信息相结合，以产生精确细致的分割。我们的全卷积网络实现了PASCAL VOC、NYUDv2和SIFT Flow最好的分割（相对2012年的平均IU提升了20%，达到了62.2%），同时推理只需要不到2/5秒的时间。</p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　卷积网络推动了识别的进步。不仅改进了整体图像分类，而且还在结构化输出的局部任务中取得了进展。这些进展包括：目标边界框检测、局部和关键点检测和局部一致性。</p>
+<p>　　由粗到细推演的下一步自然是对每个像素进行预测。在之前的方法中使用了卷积来进行语义分割，在这个过程中，每个像素都被标记为其封闭目标或区域的类，但是这种处理方法也存在它的缺点。</p>
+<center>![](http://otue1rxl3.bkt.clouddn.com/18-4-25/57827521.jpg)
+
+图1. 完全卷积网络能有效的学习对每一像素任务进行密集预测，例如语义分割。</center>
+
+
+
+
+
+<p>　　我们展示了一个完全卷积网络（FCN），该网络通过端到端训练得到，在像素到像素的语义分割任务中胜过了最先进的方法。据我们所知，这是第一次对FCN进行端到端训练：（1）用于像素级预测；（2）采用监督预训练。现有的完全卷积网络版本可以从任意大小的输入预测密集的输出。学习和推理都是通过密集的前馈计算和反向传播在整个图像上执行的。网络内部的上采样层支持在网络中进行具有上采样池化的像素化预测和学习。</p>
+<p>　　不管是渐进的还是绝对的，该方法是有效的，且排除了其他方法中的并发症。Patchwise训练很常见，但是缺乏全卷积训练的有效性。我们的方法没有利用预处理和后处理的过程，包括超级像素、候选区域和由随机场或局部分类器细化额后处理HOC特征。我们的模型通过将分类网络重新解释为完全卷积，并从它们学习的表示中进行微调来将最近的分类成功转换为密集预测。相比之下，之前的研究在没有进行监督预训练的情况下已经应用了小的卷积网络。</p>
+<p>　　语义分割在语义和位置之间存在着内在张力：全局信息解决“是什么”，而局部信息解决“在哪里”。在一个局部到全局（local-to-global）的金字塔中，深度特征的层次结构联合编码了位置和语义信息。在4.2节中（如图3所示），我们定义了一种新的“skip”架构，该架构融合了深层粗糙的语义特征和浅层精细的外表信息。</p>
+<p>　　在接下来的章节中，我们回顾了深度分类网络、FCN和目前使用卷积网络用于语义分割的方法。接下来的章节解释FCN的设计和密集预测的折中，在网内上采样和多层组合中引入我们的结构，并且描述我们的实验框架。最后，在PASCAL VOC 2011-2、NYUDv2和SIFT Flow数据集上证明最先进的结果。</p>
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h1><p>　　我们的方法借鉴了近年来深度网络在图像分类和迁移学习领域的成功。演变最初是从各种视觉识别任务开始的，然后是检测，接着是混合proposal-classifier模型中的实例和语义分割。如今，我们重构和微调分类网络，以用于语义分割的直接的、密集的预测。在这个框架里我们绘制FCNs的空间并将过去的或是最近的先验模型置于其中。</p>
+<p>　　<strong>完全卷积网络</strong>　据我们所知，将卷积网络扩展到任意大小的输入的想法第一次出现是在Matan等人的研究中，他们扩展了经典的LeNet用于识别数字字符串。由于他们的网络仅限于一维输入字符串，于是Matan等人使用Viterbi译码器来获得他们的输出。Wolf和Platt将卷积网络输出扩展到用于邮政地址块四角的检测得分的二维映射。这两种历史研究工作都是为了检测而进行推理和学习完全卷积网络的。Ning等人定义了一种具有完全卷积推理的C.elegans组织的粗多类分割卷积网络。</p>
+<p>　　完全卷积计算在当今多层网络时代也得到了广泛的应用。由Sermanet等人提出的滑动窗口检测、Pinheiro和Collobert提出的语义分割和Eigen等人提出的图像修复都进行了完全卷积推理。完全卷积训练极其罕见，但是Tompson等人为了学习一个用于姿态估计的端到端的部件检测器和空间模型有效的使用了它们，尽管他们没有对这种方法进行解释和分析。</p>
+<p>　　或者，He等人抛弃分类网络中的非卷积部分在制作特征提取器。他们结合候选区域和空间金字塔池化来产生局部固定长度的分类特征。尽管速度快且有效，但是这个快速的模型不能进行端到端学习。</p>
+<p>　　<strong>使用卷积网络进行密集预测</strong>　目前一些研究已经将卷积网络应用到密集预测中，包括Ning等人、Farabet等人以及Pinheiro和Collobet的语义分割；Ciresan等人对电子显微镜的边界预测；以及Ganin和Lempitsky的混合神经网络/最近邻模型的自然图像；以及Eigen等人的图像恢复和深度估计。这些方法的常见元素包括：</p>
+<ul>
+<li><p>小模型限制能力和感受野；</p>
 </li>
-<li><p><strong>CART决策树的生成</strong></p>
-<blockquote>
-<p>这里只简单介绍下CART与ID3和C4.5的区别。<br>　　1.CART树是二叉树，而ID3和C4.5可以是多叉树；<br>　　2.CART在生成子树时，是选择一个特征一个取值作为切分点，生成两个子树；<br>　　3.选择特征和切分点的依据是基尼指数，选择基尼指数最小的特征及切分点生成子树。</p>
-</blockquote>
+<li><p>patchwise训练；</p>
 </li>
-</ul>
-<h2 id="2-2-随机森林算法过程"><a href="#2-2-随机森林算法过程" class="headerlink" title="2.2 随机森林算法过程"></a>2.2 随机森林算法过程</h2><p>　　上面介绍了Bagging算法，随机森林是对Bagging的改进版。其算法过程如下：</p>
-<blockquote>
-<p>（1）输入原始数据集D，对数据集应用自助采样法又放回地随机抽取k个新的自助样本集，并由此构建k棵树，每次未抽到的样本组成了k个袋外数据；<br>（2）设每个样本具有N个属性，则在每棵树的每个节点处随机抽取n个属性；<br>（3）对n个属性以基尼指数为标准进行最佳划分；<br>（4）每棵树重复步骤（2）（3）最大限度的生长，不做剪枝处理；<br>（5）将生成的多棵分类树组成随机森林，用随机森林分类器对新的数据进行判别与分类，分类结果按树分类器的投票多少而定。<br>（6）输出预期结果。</p>
-</blockquote>
-<h2 id="2-3-随机森林的优点"><a href="#2-3-随机森林的优点" class="headerlink" title="2.3 随机森林的优点"></a>2.3 随机森林的优点</h2><p>　　1.在数据集上表现良好，两个随机性的引入，使得随机森林不容易陷入过拟合；<br>　　2.在当前的很多数据集上，相对其他算法有着很大的优势，两个随机性的引入，使得随机森林具有很好的抗噪声能力；<br>　　3.它能够处理很高维度（feature很多）的数据，并且不用做特征选择，对数据集的适应能力强：既能处理离散型数据，也能处理连续型数据，数据集无需规范化；<br>　　4.可生成一个Proximities=（pij）矩阵，用于度量样本之间的相似性： pij=aij/N, aij表示样本i和j出现在随机森林中同一个叶子结点的次数，N随机森林中树的颗数；<br>　　5.在创建随机森林的时候，对generlization error使用的是无偏估计；<br>　　6.训练速度快，可以得到变量重要性排序（两种：基于OOB误分率的增加量和基于分裂时的GINI下降量；<br>　　7.在训练过程中，能够检测到feature间的互相影响；<br>　　8.容易做成并行化方法；<br>　　9.实现比较简单。</p>
-<h2 id="2-4-局限性"><a href="#2-4-局限性" class="headerlink" title="2.4 局限性"></a>2.4 局限性</h2><p>　　1.当我们需要推断超出范围的独立变量或非独立变量，随机森林做得并不好，我们最好使用如 MARS 那样的算法。<br>　　2.随机森林算法在训练和预测时都比较慢。<br>　　3.如果需要区分的类别十分多，随机森林的表现并不会很好。</p>
-<hr>
-<blockquote>
-<p><strong>参考文献</strong></p>
-<ul>
-<li>《机器学习》.周志华<blockquote>
-<ul>
-<li>《Python机器学习——预测分析核心算法》.[美]Michael Bowles，[译]沙赢、李鹏</li>
-<li><a href="https://www.cnblogs.com/liuwu265/p/4690486.html" target="_blank" rel="external">Bagging和Boosting 概念及区别</a>.liuwu265</li>
-<li><a href="http://blog.csdn.net/qq547276542/article/details/78304454" target="_blank" rel="external">随机森林算法学习(RandomForest)</a>.shjyoudp</li>
-<li><a href="https://github.com/gitleej/random_forests" target="_blank" rel="external">Random Forest</a>.IISourcell</li>
-</ul>
-</blockquote>
+<li><p>通过超级像素、随机场、正则化、过滤或者局部分类进行后处理；</p>
+</li>
+<li><p>对于密集预测，输入转换和输出交错，例如OverFeat；</p>
+</li>
+<li><p>多尺度金字塔处理；</p>
+</li>
+<li><p>饱和双曲正切非线性；以及</p>
+</li>
+<li><p>集成。</p>
 </li>
 </ul>
-</blockquote>
+<p>而我们的方法没有这些机制。然而，从FCN的角度来看，我们使用了patchwise训练和“shift-and-stitch”密集输出。我们还讨论了网内上采样，这是Eigen等人提出的全连接预测的一个特例。</p>
+<p>　　不像这些已存在的方法，我们采用和扩展了深度分类网络架构，使用图像分类作为监督预训练，并且微调完全卷积从整个图像输入和图像真实标签中进行简单有效的学习。</p>
+<p>　　Hariharan等人和Gupta等人同样采用了深度网络来进行语义分割，但是只是在混合proposal分类模型中使用。这些方法通过采样边界框或者候选区域微调R-CNN系统用与检测、语义分割和实例分割。没有任何一种方法是段到端学习的。</p>
+<p>　　它们分别在PASCAL VOC分割和NYUDv2分割中取得了最好的结果。因此我们在第5节中直接将我们端到端的FCN和他们额语义分割结果进行比较。</p>
+<h1 id="3-完全卷积网络"><a href="#3-完全卷积网络" class="headerlink" title="3 完全卷积网络"></a>3 完全卷积网络</h1><p>　　数据的每一层在卷积网络中是一个大小为<em>h</em>  x <em>w</em>  x <em>d</em>的三维数组，其中h和w是空间维度，d表示特征或通道维度。第一层是像素大小为<em>h</em>  x <em>w</em>，d个色彩通道的图像，更高层次的位置对应于他们所连接到的图像中的位置被称为它们的感受野。</p>
+<p>　　卷积网络建立在平移不变性上。它们的基本组件（卷积、池化和激活函数）在输入的局部区域进行操作，仅仅依赖相对的空间坐标。$X_{ij}$表示表示在特定层中在位置$(i,j)$的数据向量。$y_{ij}$表示下一层，通过以下公式计算输出$y_{ij}$：</p>
+<center>$$y_{ij}=f_{ks}(\{ X _{si + \delta j,sj+\delta j}\}_{0\leq \delta i, \delta j \leq k})$$</center>
 
+<h2 id="3-1-调整分类器进行密集预测"><a href="#3-1-调整分类器进行密集预测" class="headerlink" title="3.1 调整分类器进行密集预测"></a>3.1 调整分类器进行密集预测</h2><h2 id="3-2-Shift-and-stitch是稀疏滤波"><a href="#3-2-Shift-and-stitch是稀疏滤波" class="headerlink" title="3.2 Shift-and-stitch是稀疏滤波"></a>3.2 Shift-and-stitch是稀疏滤波</h2><h2 id="3-3-上采样是后向卷积抽样损失"><a href="#3-3-上采样是后向卷积抽样损失" class="headerlink" title="3.3 上采样是后向卷积抽样损失"></a>3.3 上采样是后向卷积抽样损失</h2><h2 id="3-4-Patchwise训练是一种损失采样"><a href="#3-4-Patchwise训练是一种损失采样" class="headerlink" title="3.4 Patchwise训练是一种损失采样"></a>3.4 Patchwise训练是一种损失采样</h2><h1 id="4-分割架构"><a href="#4-分割架构" class="headerlink" title="4 分割架构"></a>4 分割架构</h1><h2 id="4-1-从分类器到密集FCN"><a href="#4-1-从分类器到密集FCN" class="headerlink" title="4.1 从分类器到密集FCN"></a>4.1 从分类器到密集FCN</h2><h2 id="4-2-结合“是什么”和”在哪里“"><a href="#4-2-结合“是什么”和”在哪里“" class="headerlink" title="4.2 结合“是什么”和”在哪里“"></a>4.2 结合“是什么”和”在哪里“</h2><h2 id="4-3-实验框架"><a href="#4-3-实验框架" class="headerlink" title="4.3 实验框架"></a>4.3 实验框架</h2><h1 id="5-结果"><a href="#5-结果" class="headerlink" title="5 结果"></a>5 结果</h1><p>　　</p>
+<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h1><p>　　</p>
+<h1 id="A-IU上界（Upper-Bounds-on-IU）"><a href="#A-IU上界（Upper-Bounds-on-IU）" class="headerlink" title="A. IU上界（Upper Bounds on IU）"></a>A. IU上界（Upper Bounds on IU）</h1><h1 id="B-更过结果"><a href="#B-更过结果" class="headerlink" title="B. 更过结果"></a>B. 更过结果</h1>
       
     </div>
 
@@ -508,7 +497,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://ailee.me/2018/03/01/随机森林/" title="随机森林">http://ailee.me/2018/03/01/随机森林/</a>
+      <a href="http://ailee.me/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/" title="Fully Convolutional Networks for Semantic Segmentation">http://ailee.me/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -534,11 +523,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+            <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
-            <a href="/tags/算法/" rel="tag"># 算法</a>
+            <a href="/tags/FCN/" rel="tag"># FCN</a>
           
-            <a href="/tags/随机森林/" rel="tag"># 随机森林</a>
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
@@ -551,8 +540,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/01/卷积神经网络/" rel="next" title="卷积神经网络（CNN）">
-                <i class="fa fa-chevron-left"></i> 卷积神经网络（CNN）
+              <a href="/2018/04/18/Mask R-CNN/" rel="next" title="Mask R-CNN">
+                <i class="fa fa-chevron-left"></i> Mask R-CNN
               </a>
             
           </div>
@@ -560,10 +549,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/04/Fast R-CNN/" rel="prev" title="Fast R-CNN">
-                Fast R-CNN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1017,6 +1002,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
