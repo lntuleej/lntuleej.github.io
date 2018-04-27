@@ -101,16 +101,10 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="最近几天在使用Shadowsocks科学上网时，Shadowsocks客服端总是无法启动，于是查找原因，终于解决了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/95443098.jpg">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/33696726.jpg">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/84524184.jpg">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/63175005.jpg">
-<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/41287789.jpg">
 <meta property="og:updated_time" content="2017-09-08T11:27:18.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows7解决Shadowsocks.exe无法启动的问题">
 <meta name="twitter:description" content="最近几天在使用Shadowsocks科学上网时，Shadowsocks客服端总是无法启动，于是查找原因，终于解决了。">
-<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/17-9-8/95443098.jpg">
 
 
 
@@ -399,7 +393,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  566
+                  616
                 </span>
               
 
@@ -429,13 +423,29 @@
 <h1 id="2-分析原因"><a href="#2-分析原因" class="headerlink" title="2. 分析原因"></a>2. 分析原因</h1><p>于是上GitHub找原因，有说是.NET Framework的原因造成的，Shadowsocks 4.0.5 版本需要.NET Framework 4.6.2版本及以上的完整安装才行。</p>
 <h1 id="3-解决问题"><a href="#3-解决问题" class="headerlink" title="3. 解决问题"></a>3. 解决问题</h1><p>由于之前Shadowsocks一直都用的好好的，所以，在我的电脑上肯定是有安装.NET Framework 4.6.2 的，但是我也没有卸载过着破玩意啊，为什么么它突然之间就不好使了呢？于是我初步判断应该是.NET Framework损坏。</p>
 <h2 id="3-1-修复-NET-Framework"><a href="#3-1-修复-NET-Framework" class="headerlink" title="3.1 修复.NET Framework"></a>3.1 修复.NET Framework</h2><p>控制面板——&gt;程序和功能——&gt;Microsoft .NET Framework 4.6.2 右键选择“卸载/更改”</p>
-<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-9-8/95443098.jpg" alt=""><br><br>修复页面<br></center>
+<center>
+![](http://otue1rxl3.bkt.clouddn.com/17-9-8/95443098.jpg)
+
+修复页面
+</center>
 
 <p>原以为安静的等待其完成即可，结果出现了一些不可描述的未知错误。提示：“安装未成功，安装过程中发生严重错误”。</p>
 <h2 id="3-2-卸载-NET-Framework"><a href="#3-2-卸载-NET-Framework" class="headerlink" title="3.2 卸载.NET Framework"></a>3.2 卸载.NET Framework</h2><p>修复不成，那就卸载重装。依旧重复上述步骤，而在此过程中选择“从此计算机中删除.NET Framework 4.6.2”，单击下一步。</p>
 <p>原以为继续安静等待其完成即可，结果出现了上一步出现的相同的错误。崩溃……</p>
 <h2 id="3-3-使用Microsoft官方修复工具和卸载工具"><a href="#3-3-使用Microsoft官方修复工具和卸载工具" class="headerlink" title="3.3 使用Microsoft官方修复工具和卸载工具"></a>3.3 使用Microsoft官方修复工具和卸载工具</h2><p>先运行NetFxRepairTool.exe修复.NET Framework，若依旧不行。继续运行cleanup_tool.exe卸载对应的.NET Framework，成功之后，开始安装对应的安装包。</p>
-<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-9-8/33696726.jpg" alt=""><br><br>NetFxRepairTool.exe运行截图<br><br><img src="http://otue1rxl3.bkt.clouddn.com/17-9-8/84524184.jpg" alt=""><br><br><img src="http://otue1rxl3.bkt.clouddn.com/17-9-8/63175005.jpg" alt=""><br><br><img src="http://otue1rxl3.bkt.clouddn.com/17-9-8/41287789.jpg" alt=""><br><br>cleanup_tool.exe 运行截图<br></center>
+<center>
+![](http://otue1rxl3.bkt.clouddn.com/17-9-8/33696726.jpg)
+
+NetFxRepairTool.exe运行截图
+
+![](http://otue1rxl3.bkt.clouddn.com/17-9-8/84524184.jpg)
+
+![](http://otue1rxl3.bkt.clouddn.com/17-9-8/63175005.jpg)
+
+![](http://otue1rxl3.bkt.clouddn.com/17-9-8/41287789.jpg)
+
+cleanup_tool.exe 运行截图
+</center>
 
 
 
