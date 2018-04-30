@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="目标检测,深度学习,R-CNN," />
+  <meta name="keywords" content="目标检测,R-CNN,深度学习," />
 
 
 
@@ -94,17 +94,29 @@
 
 
 <meta name="description" content="Fast R-CNN 论文翻译">
-<meta name="keywords" content="目标检测,深度学习,R-CNN">
+<meta name="keywords" content="目标检测,R-CNN,深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fast R-CNN">
 <meta property="og:url" content="http://ailee.me/2018/03/04/Fast R-CNN/index.html">
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="Fast R-CNN 论文翻译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-27T10:50:35.407Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/17332308.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/51337328.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/21473818.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/59132486.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/28921418.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/52139490.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/77162889.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/44034399.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/75987172.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-6/9145514.jpg">
+<meta property="og:updated_time" content="2018-04-30T06:29:39.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fast R-CNN">
 <meta name="twitter:description" content="Fast R-CNN 论文翻译">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg">
 
 
 
@@ -153,7 +165,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -173,7 +185,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -332,8 +344,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-04-27T18:50:35+08:00">
-                2018-04-27
+              <time title="Update" itemprop="dateModified" datetime="2018-04-30T14:29:39+08:00">
+                2018-04-30
               </time>
             
           </span>
@@ -393,7 +405,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  9,147
+                  9,106
                 </span>
               
 
@@ -436,10 +448,7 @@
 <li>4.特征缓存不需要磁盘存储。</li>
 </ul>
 <p>　　Fast R-CNN采用Python和C++（Cafe）实现，<a href="https://github.com/rbgirshick/fast-rcnn" target="_blank" rel="external">开源代码</a>。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg)
-**图1。Fast R-CNN结构**　一幅输入图像和多个感兴趣区域（RoI）输入到一个全卷积网络，每一个RoI都被池化为一个固定大小的特征映射，然后通过全连接网络映射到特征向量。该网络对于每一个RoI都有两个输出向量：softmax概率和每一类的边界框回归补偿。这种结构是采用多任务损失训练的端到端结构。
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-4/9549552.jpg" alt=""><br><strong>图1。Fast R-CNN结构</strong>　一幅输入图像和多个感兴趣区域（RoI）输入到一个全卷积网络，每一个RoI都被池化为一个固定大小的特征映射，然后通过全连接网络映射到特征向量。该网络对于每一个RoI都有两个输出向量：softmax概率和每一类的边界框回归补偿。这种结构是采用多任务损失训练的端到端结构。<br></center>
 
 <h1 id="2-Fast-R-CNN结构和训练"><a href="#2-Fast-R-CNN结构和训练" class="headerlink" title="2 Fast R-CNN结构和训练"></a>2 Fast R-CNN结构和训练</h1><p>　　图1展示了Fast R-CNN的结构。Fast R-CNN网络将一幅完整的图像和一系列目标提案作为输入。该网络首先采用一些卷积层和最大池化层生成卷积特征映射来处理整个图像。然后，对于每一个目标提案，感兴趣区域（RoI）池化层从特征映射中提取出一个固定长度的特征向量。每一个特征向量被送到一系列的全连接层（fc）最终分支到两个同级输出层：一层是在所有K个目标类加上一个全方位的背景类产生softmax概率估计；另一层则对每个K类目标输出4个真实数字，每一组的4个值编码了一个K类目标的精确的边界框位置。</p>
 <h2 id="2-1-RoI池化层"><a href="#2-1-RoI池化层" class="headerlink" title="2.1 RoI池化层"></a>2.1 RoI池化层</h2><p>　　RoI池化层采用最大池化将任何有效的RoI内部特征转换为具有HxW固定空间范围的小的特征映射，H和W为层超参数，它们独立于任何的RoI。在本文中，每一个RoI都被定义为一个四元（r,c,h,w）组，这个四元组指定了RoI左上角的位置（r,c）和它的高度和宽度（h,w）。<br>　　RoI最大池化的工作是将h x w的RoI窗口划分为一个H x W的网格，其子窗口近似大小为h/H x w/W。然后，将每个子窗口中的值合并到相应的输出网格单元中。池化被独立的应用到每一个特征映射通道，作为标准的最大池化。RoI层就是应用在SPPnet中的空间金字塔池化层的简单应用，在这里它只有一层金字塔等级。我们使用[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">11</a>]中给出的池子窗口计算。</p>
@@ -447,23 +456,20 @@
 <h2 id="2-3-检测微调"><a href="#2-3-检测微调" class="headerlink" title="2.3 检测微调"></a>2.3 检测微调</h2><p>　　采用反向传播计算所有网络权重是Fast R-CNN的一项非常重要的能力，让我来解释一下为什么SPPnet在空间金字塔池化层下不能更新权重。<br>　　根本原因是当来自于不同图像的训练样本通过SPP层时，它所使用的反向传播算法的效率是非常低的，这是由SPPnet和R-CNN的训练方式所决定的。这种低效源于这样一个事实，那就是每一个RoI有一个非常大的感受野，通常包含整个图像。由于前向传播必须处理整个感受野，而训练输入又很大（通常是整幅图像）。<br>　　我们提出了一种更加有效的训练方式，那就是在训练时利用特征共享的优点。在Fast R-CNN的训练中，随机梯度下降（SGD）的小批采用分层次采样，首先采样N幅图像，然后从每幅图像中采样R/N个RoI。关键的是，来自同一图像的RoI在前向和后向过程中共享计算和内存。使用N的小批量减少小批量的计算量。例如当N等于2，R等于128时，这个训练过程要比从128幅不同的图像中采样一个RoI（即R-CNN和SPPnet的策略）快64倍。<br>　　这一策略的一个担忧就是，这可能会导致训练收敛缓慢，因为同一幅图像中的RoI是具有相关性的。我们将N和R分别设置为2和128，并且使用比R-CNN更少的SGD迭代次数，我们取得了一个不错的结果，使得这种担忧没有成为一个实际问题。<br>　　除了分层抽样之外，Fast R-CNN使用了具有一个微调阶段的流线型训练过程，这个微调阶段联合优化了一个softmax分类器和边界框回归，而不是训练一个softmax分类器、SVM和三个独立阶段的回归。这个过程的组成部分（损失、小批量采样策略、RoI池化层的反向传播、SGD超参数）在下面进行讲述。</p>
 <ul>
 <li><p><strong>多任务损失</strong>　一个Fast R-CNN网络具有两个同级输出层。第一个输出是所有K+1类的一个离散概率分布（每一个RoI），$p=(p_0,p_1,···,p_k)$。和往常一样，p由全连接层的K+1个输出上的softmax计算。第二个同级层输出边界框回归补偿，$t^k=(t{^k_x}, t{^k_y}, t{^k_w}, t{^k_h})$，对每一个K目标类采用k进行索引。我们采用了在[<a href="https://arxiv.org/abs/1311.2524" target="_blank" rel="external">9</a>]中提出的参数化方法参数化$t_k$，$t_k$表示一个尺度不变的变换和log空间的高宽相对于目标提案的偏移。<br>　　每一个训练RoI都被标记为一个真实类u和一个真实边界框回归目标v。对分类和边界框回归，我们在被标记的RoI上使用多任务损失L来训练：</p>
-<script type="math/tex; mode=display">L(p,u,t^u,v)=L_{cls}(p,u)+\lambda[u\geq 1]L_{loc}(t^u,v)…………(1)</script><p>其中$L_{cls}(p,u)=-\log p_u$是对真实类u的log损失。<br>　　第二个任务损失，即$L_{loc}$，由类u的一组真实边界框回归目标$v=(v_x,v_y,v_w,v_h)$和类u的预测元组$t^u=(t{^u_x, t^u_y, t{^u_w}, {t^u_h}})$定义。Iverson括号表示的函数$[u\geq 1]$在当$u\geq 1$和$u=0$时，计算结果为1。按照常理，所有背景类都被标记为$u=0$。对于背景RoI没有真实的边界框，因此$L_{loc}$被忽略了。对于边界框回归，我们使用下面的损失函数：
-　　</p>
-<script type="math/tex; mode=display">L_{loc}(t^u, v)=\sum _{i\in \{x,y,w,h\}}smooth_{L_1}(t{^u_i}-v_i)…………(2)</script><p>其中：</p>
-<script type="math/tex; mode=display">smooth_{L_1}(x)=\begin{cases} 0.5x^2 & \text{if $\mid x \mid < 1$ } \\ \mid x \mid -0.5 & \text{otherwise} \end{cases}…………(3)</script><p>是对异常值的敏感度低于R-CNN和SPPnet中使用的L2损失的L1损失。当回归目标没有被框起来时，使用L2损失训练需要仔细的选择学习速率来保证梯度不会爆炸增长。公式3消除了这种敏感性。<br>　　公式1中的超参数λ用来控制两个任务损失之间的平衡。我们将真正的回归目标vi标准化为零均值和单位偏差。所有实验都使用λ=1.<br>　　我们注意到[6]使用了相关损失去训练一个类不可知的目标提案网络。不同于我们的方法，[6]所提出的方法主张采用两种网络系统来区分定位和分类。OverFeat、R-CNN和SPPnet也分别训练分类器和编辑框定位器，但是这些方法都使用多阶段训练。相对于我们所提出的Fast R-CNN是不够好的。</p>
+<p>$$L(p,u,t^u,v)=L_{cls}(p,u)+\lambda[u\geq 1]L_{loc}(t^u,v)…………(1)$$</p>
+<p>其中$L_{cls}(p,u)=-\log p_u$是对真实类u的log损失。<br>　　第二个任务损失，即$L_{loc}$，由类u的一组真实边界框回归目标$v=(v_x,v_y,v_w,v_h)$和类u的预测元组$t^u=(t{^u_x, t^u_y, t{^u_w}, {t^u_h}})$定义。Iverson括号表示的函数$[u\geq 1]$在当$u\geq 1$和$u=0$时，计算结果为1。按照常理，所有背景类都被标记为$u=0$。对于背景RoI没有真实的边界框，因此$L_{loc}$被忽略了。对于边界框回归，我们使用下面的损失函数：<br>$$L_{loc}(t^u, v)=\sum _{i\in \{x,y,w,h\}}smooth_{L_1}(t{^u_i}-v_i)…………(2)$$</p>
+<p>其中：<br>$$smooth_{L_1}(x)=\begin{cases} 0.5x^2 &amp; \text{if $\mid x \mid &lt; 1$ } \ \mid x \mid -0.5 &amp; \text{otherwise} \end{cases}…………(3)$$<br>是对异常值的敏感度低于R-CNN和SPPnet中使用的L2损失的L1损失。当回归目标没有被框起来时，使用L2损失训练需要仔细的选择学习速率来保证梯度不会爆炸增长。公式3消除了这种敏感性。<br>　　公式1中的超参数λ用来控制两个任务损失之间的平衡。我们将真正的回归目标vi标准化为零均值和单位偏差。所有实验都使用λ=1.<br>　　我们注意到[6]使用了相关损失去训练一个类不可知的目标提案网络。不同于我们的方法，[6]所提出的方法主张采用两种网络系统来区分定位和分类。OverFeat、R-CNN和SPPnet也分别训练分类器和编辑框定位器，但是这些方法都使用多阶段训练。相对于我们所提出的Fast R-CNN是不够好的。</p>
 </li>
 <li><p><strong>小批量采样</strong>　在微调过程中，每一个SGD小批量都是由随机选择（正如常见的做法一样，我们实际上迭代了数据集的排列。）的N=2幅图像组成。使用大小为R=128的小批量是从每一幅图像中采样64个RoI得到的。正如[9]中所描述的一样，我们从具有交叉超联合（IoU）的交集与有至少0.5的真实边界宽重叠的目标提案中选取25%作为RoI。这些RoI由被标记为前景目标类的示例组成，即：$u \geq 1$。剩下的RoI则从具有最大IoU与具有间距[0.1, 0.5)真实边界框重叠的目标提案中采样得到。这些作为背景示例，它们被标记为u=0。较小的阈值0.1作为困难示例挖掘的启发。在训练过程中，图像翻转的概率为0.5，没有采用其他数据增强的方法。</p>
 </li>
-<li><p><strong>通过RoI池化层进行反向传播</strong>　反向传播路径通过RoI池化层进行衍生。虽然扩展到N&gt;1很简单，但是为了清楚起见，我们假设每一个小批量只有一幅图像（N=1），因为前向传播会独立处理所有图像。<br>　　让xi属于R作为输入到RoI池化层的第i个输入。让$y_{rj}$作为来自第r个RoI层的第j个输出。RoI池化层计算$y_{rj}=x_i \times (r,j)$，其中$\begin{equation} i^*(r,j)=\text{argmax}_{i^{‘} \in R(i,j)}x_{i^{‘}} \end {equation} $,$R(r,j)$是输出单元$y_{ij}$最大池化的子窗口中输入的索引集。一个$x_i$可能会分配到不同的输出$y_{ij}$。<br>　　RoI池化层的反向函数通过下面的公式对每一个输入变量$x_i$计算损失函数的偏导数。</p>
-<script type="math/tex; mode=display">\frac {\partial L} {\partial x_i}=\sum _r \sum _j [i=i^*(r,j)]\frac {\partial L}{\partial y_{ij}}</script><p>　　简言之，对于每一个小批量RoI r和每一个池化输出单元$y_{ij}$，如果i是$y_{rj}$通过最大池化选择出的，那么偏导数${\partial L}/ {\partial y_{rj}}$会累积。在反向传播中，偏导数${\partial L} /{\partial y_{ij}}$已经由位于RoI池化层之上的层的反向函数计算。</p>
+<li><p><strong>通过RoI池化层进行反向传播</strong>　反向传播路径通过RoI池化层进行衍生。虽然扩展到N&gt;1很简单，但是为了清楚起见，我们假设每一个小批量只有一幅图像（N=1），因为前向传播会独立处理所有图像。<br>　　让$xi$属于R作为输入到RoI池化层的第i个输入。让$y_ {rj}$作为来自第r个RoI层的第j个输出。RoI池化层计算$y_{rj}=x_i \times (r,j)$，其中<br>$$i^ {\ast } (r,j)=\text {argmax}_{i^{‘} \in R(i,j)}x_{i^{‘}}$$<br>R(i,j)是输出单元$y_{ij}$最大池化的子窗口中输入的索引集。一个$x_i$可能会分配到不同的输出$y_{ij}$。<br>　　RoI池化层的反向函数通过下面的公式对每一个输入变量$x_i$计算损失函数的偏导数。<br>$$\frac {\partial L} {\partial x_i}=\sum _r \sum _j [i=i^{\ast }(r,j)]\frac {\partial L}{\partial y_{ij}}$$<br>　　简言之，对于每一个小批量RoI r和每一个池化输出单元$y_{ij}$，如果i是$y_{rj}$通过最大池化选择出的，那么偏导数${\partial L}/ {\partial y_{rj}}$会累积。在反向传播中，偏导数${\partial L} /{\partial y_{ij}}$已经由位于RoI池化层之上的层的反向函数计算。</p>
 </li>
 <li><p><strong>SGD超参数</strong>　用于softmax分类和边界框回归的完全连接图层分别从标准偏差为0.01和0.001的零均值高斯分布进行初始化。偏差初始化为0。所有层对于权重都使用每一层的学习速率1，对于偏差使用每一层的学习速率2和一个全局学习速率0.001。当在VOC07或VOC12训练集训练时，我们运行30K次SGD迭代，然后将学习速率降低到0.0001，继续进行10K次迭代训练。当我们在更大的数据集上进行训练时，我们将运行更多的SGD迭代次数，这将在后面进行讲述。使用0:9的动量和0:0005的参数衰减(关于权值和偏差)。</p>
 </li>
 </ul>
 <h2 id="2-4-尺度不变性"><a href="#2-4-尺度不变性" class="headerlink" title="2.4 尺度不变性"></a>2.4 尺度不变性</h2><p>　　我们探讨了实现尺度不变目标检测的两种方法：（1）通过“暴力”算法学习；（2）通过使用图像金字塔。这些策略遵循[11]中的两种方法。在暴力方法中，在训练和测试时，每个图像都按照预先定义的像素大小进行处理。网络必须从训练数据中直接学习尺度不变目标检测。<br>　　相比之下，多尺度方法通过图像金字塔给网络提供近似的尺度不变性。在测试时，图像金字塔被用来对每一个目标提案进行近似的尺度标准化。在多尺度训练时，我们随机采样金字塔尺度每次图像采样作为一种数据增强的形式。由于GPU内存的限制，我们仅试验了用多尺度训练一个较小的网络。</p>
 <h1 id="3-Fast-R-CNN检测"><a href="#3-Fast-R-CNN检测" class="headerlink" title="3 Fast R-CNN检测"></a>3 Fast R-CNN检测</h1><p>　　一旦Fast R-CNN网络进行了微调，那检测就相当于运行了一个前向传播通道（假定目标提案是预先计算好的）。网络将输入图像（或者图像金字塔，编码为图像列表）和R个目标提案列表进行评分。在测试时，尽管我们会考虑R更大的情况（45K左右），但是R通常在2000左右。当使用图像金字塔时，每一个RoI都被分配到一个尺度，这个尺度的RoI最接近224^2像素的区域。<br>　　对于每一个测试RoI r，前向传播输出一个类后延概率分布p和一组关于r的预测边界框回归偏移量（K类的每一类都获得其精确边界框预测）。我们用估计概率$\text{Pr} $($ \text{class}$ = $k \mid r)\overset {\Delta}{=} pk$为每个目标k分配一个检测置信值。然后，为每一类采用R-CNN的算法和设置独立的实现非最大抑制。</p>
-<h2 id="3-1-截断SVD以加快检测"><a href="#3-1-截断SVD以加快检测" class="headerlink" title="3.1 截断SVD以加快检测"></a>3.1 截断SVD以加快检测</h2><p>　　为整个图像分类，相比于卷积层，全连接层的计算所消耗的时间很少。相反，为检测RoI的数量去处理是巨大的，并且接近一半的前向传播时间花费在全连接层的计算上（如图2）。大量的全连接层可以通过截断SVD压缩时间来加速。<br>　　在这项技术中，被u x v的权重矩阵W参数化的曾可以近似的使用SVD分解表示。</p>
-<script type="math/tex; mode=display">W=\approx U\Sigma _t V^T</script><p>在这个分解中，U表示一个包含W的前t个左奇异向量的u x t矩阵，Σt表示包含W的顶部t个奇异值的t x t对角矩阵，V表示包含W的前t个右奇异向量的v x t矩阵。阶段SVD将参数从uv削减到(u+v)，如果t比u和v的最小值要小得多，那么这是非常重要的。为了压缩网络，和W相关的单个全连接层被没有线性关系的两个全连接层代替。这些层的第一个使用权重矩阵ΣtV^T（无偏差），另一个是用矩阵U（与W的原始偏差有关）。当RoI数量较大时，这种简单的雅俗方法起到了不错的加速作用。</p>
+<h2 id="3-1-截断SVD以加快检测"><a href="#3-1-截断SVD以加快检测" class="headerlink" title="3.1 截断SVD以加快检测"></a>3.1 截断SVD以加快检测</h2><p>　　为整个图像分类，相比于卷积层，全连接层的计算所消耗的时间很少。相反，为检测RoI的数量去处理是巨大的，并且接近一半的前向传播时间花费在全连接层的计算上（如图2）。大量的全连接层可以通过截断SVD压缩时间来加速。<br>　　在这项技术中，被u x v的权重矩阵W参数化的曾可以近似的使用SVD分解表示。<br>$$W=\approx U\Sigma _t V^T$$<br>在这个分解中，U表示一个包含W的前t个左奇异向量的u x t矩阵，Σt表示包含W的顶部t个奇异值的t x t对角矩阵，V表示包含W的前t个右奇异向量的v x t矩阵。阶段SVD将参数从uv削减到(u+v)，如果t比u和v的最小值要小得多，那么这是非常重要的。为了压缩网络，和W相关的单个全连接层被没有线性关系的两个全连接层代替。这些层的第一个使用权重矩阵ΣtV^T（无偏差），另一个是用矩阵U（与W的原始偏差有关）。当RoI数量较大时，这种简单的雅俗方法起到了不错的加速作用。</p>
 <h1 id="4-主要结果"><a href="#4-主要结果" class="headerlink" title="4 主要结果"></a>4 主要结果</h1><p>　　3个主要的结果支持了本文的贡献：</p>
 <ul>
 <li>1.在VOC 2007、2010和2012数据集上获得最好的mAP；</li>
@@ -471,93 +477,36 @@
 <li>3.在VGG16中微调卷积层提高mAP。</li>
 </ul>
 <h2 id="4-1-实验步骤"><a href="#4-1-实验步骤" class="headerlink" title="4.1 实验步骤"></a>4.1 实验步骤</h2><p>　　我们的实验使用了3个预训练ImageNet模型，这些<a href="https://github.com/BVLC/caffe/wiki/Model-Zoo" target="_blank" rel="external">模型</a>可以在网上找到。第一个是来自R-CNN的CaffeNet（本质上是AlexNet）。我们也可以将该CaffeNet称为模型S，表示“small”。第二个网络是来自[<a href="https://arxiv.org/abs/1405.3531" target="_blank" rel="external">3</a>]的VGG_CNN_M_1024，该网络具有与模型S相同的深度，但是更广阔。我们将该网络称为模型M，表示“medium”。最后一个网络是来自于[<a href="https://arxiv.org/abs/1409.1556" target="_blank" rel="external">20</a>]非常深度的VGG16，由于该网络十分庞大，因此我们称该网络为模型L。在本节中，所有实验都使用单一尺度进行训练和测试（s=600，详见5.2节）。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/17332308.jpg)
-**表1.VOC 2007测试检测平均精度（%）**　所有方法都使用VGG16，训练集关键词：**07：**VOC 2007训练集，**07/diff：07**不包含困难样本，**07+12：**VOC12和**07**的联合训练集，SPPnet结果由原作者给出。
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/51337328.jpg)
-**表2.VOC 2010测试检测平均精度（%）**　BabyLearning采用基于[[17](https://arxiv.org/abs/1312.4400)]的网络，所有方法都使用VGG16.训练集关键词：**12：**VOC12训练集，**Prop：**专用数据集，**12+seg：**带分割注释的**12**数据集，**07+12：**VOC07的训练集和测试集，VOC12训练集的联合数据集。
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/21473818.jpg)
-**表3。VOC 2012测试检测平均精度（%）**　Babylearning和NUS_NIN_c2000采用基于[[17](https://arxiv.org/abs/1312.4400)]的网络。所有方法都使用VGG16，训练集关键词如表2，**Unk：**未知。
-</center>
-
-
-
-
-
-
-
-
-
-
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/17332308.jpg" alt=""><br><strong>表1.VOC 2007测试检测平均精度（%）</strong>　所有方法都使用VGG16，训练集关键词：<strong>07：</strong>VOC 2007训练集，<strong>07/diff：07</strong>不包含困难样本，<strong>07+12：</strong>VOC12和<strong>07</strong>的联合训练集，SPPnet结果由原作者给出。<br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/51337328.jpg" alt=""><br><strong>表2.VOC 2010测试检测平均精度（%）</strong>　BabyLearning采用基于[<a href="https://arxiv.org/abs/1312.4400" target="_blank" rel="external">17</a>]的网络，所有方法都使用VGG16.训练集关键词：<strong>12：</strong>VOC12训练集，<strong>Prop：</strong>专用数据集，<strong>12+seg：</strong>带分割注释的<strong>12</strong>数据集，<strong>07+12：</strong>VOC07的训练集和测试集，VOC12训练集的联合数据集。<br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/21473818.jpg" alt=""><br><strong>表3。VOC 2012测试检测平均精度（%）</strong>　Babylearning和NUS_NIN_c2000采用基于[<a href="https://arxiv.org/abs/1312.4400" target="_blank" rel="external">17</a>]的网络。所有方法都使用VGG16，训练集关键词如表2，<strong>Unk：</strong>未知。<br></center>
 
 <h2 id="4-2-VOC-2010和VOC-2012的结果"><a href="#4-2-VOC-2010和VOC-2012的结果" class="headerlink" title="4.2 VOC 2010和VOC 2012的结果"></a>4.2 VOC 2010和VOC 2012的结果</h2><p>　　在这些数据集上，我们将Fast R-CNN（简称FRCN）与公共排行榜上comp4的最优方法进行比较（表2，表3）。对于Babylearning和NUS_NIN_c2000两种方法，目前还没有相关出版物，我们也无法从所使用的卷积神经网络结构中获取相关信息，它们是Network-in-Network[<a href="https://arxiv.org/abs/1312.4400" target="_blank" rel="external">17</a>]的变体。所有其他网络都从相同的预训练VGG16网络初始化。<br>　　Fast R-CNN在VOC12数据集上获得了65.7%mAP的最好结果（额外数据上68.4%）。这也比其他基于“slow”R-CNN的方法快两个数量级。在VOC10上，SegDeepM获得了比Fast R-CNN更高的mAP（67.2% vs 66.1%）SegDeepM是在带分割注释的VOC12训练集上训练的，它被设计来增强R-CNN的准确率，利用马尔可夫随机场，从O2P语义分割方法中对R-CNN的检测和分割进行推理。Fast R-CNN可以被替换成SegDeepM代替R-CNN（参见表2的说明），此时Fast R-CNN的mAP增加到68.8%，超过了SegDeepM。</p>
 <h2 id="4-3-VOC-2007的结果"><a href="#4-3-VOC-2007的结果" class="headerlink" title="4.3 VOC 2007的结果"></a>4.3 VOC 2007的结果</h2><p>　　在VOC07数据集上，我们将Fast R-CNN与R-CNN和SPPnet进行比较。所有方法都从相同的预训练模型VGG16开始，并使用边界宽回归。VGG16 SPPnet的结果由原作者计算。SPPnet在训练和测试时使用5种尺度。Fast R-CNN在SPPnet上的改进表明：尽管Fast R-CNN使用单尺度进行训练和测试，但是微调卷积层大大提升了mAP（63.1%到66.9%）。有一小点，SPPnet是在没有标记困难样本的PASCAL数据集上训练得到的，去掉这些困难样本，Fast R-CNN的mAP提升到68.1%。其他所有实验都使用了困难样本。</p>
 <h2 id="4-4-训练和测试"><a href="#4-4-训练和测试" class="headerlink" title="4.4 训练和测试"></a>4.4 训练和测试</h2><p>　　快速的训练和测试是我们的第二个主要的结果。表4比较了训练时间（hour）、测试率(秒/图像)，Fast R-CNN、R-CNN和SPPnet在VOC07上的mAP。对于VGG16，Fast R-CNN处理图像比没有使用截断SVD的R-CNN块146倍，比使用了截断SVD的R-CNN块213倍。训练时间削减达9倍，从84小时减少到9.5小时。和SPPnet相比，Fast R-CNN比没使用截断SVD块7倍，比使用了截断SVD快10倍。Fast R-CNN同时也减少了数百GB的磁盘空间，因为它不需要缓存特征。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/59132486.jpg)
-表4.在相同模型的Fast R-CNN、R-CNN和SPPnet之间的运行时间比较。Fast R-CNN使用单尺度模型，SPPnet使用5种尺度，时间消耗由原作者给出，在NVIDIA K40 GPU上进行时间测量。
-</center>
-
-
-
-
-
-
-
-
-
-
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/59132486.jpg" alt=""><br>表4.在相同模型的Fast R-CNN、R-CNN和SPPnet之间的运行时间比较。Fast R-CNN使用单尺度模型，SPPnet使用5种尺度，时间消耗由原作者给出，在NVIDIA K40 GPU上进行时间测量。<br></center>
 
 <ul>
-<li><strong>截断SVD</strong>　截断SVD能减少30%的检测时间，并且对mAP只下降一点点（0.3个百分点），且不需要在模型压缩后再进行微调。图2说明了如何使用来自VGG16的fc6层中的25088x4096矩阵的顶部1024个奇异值和来自4096x4096 fc7层的顶部256个奇异值如何在mAP中损失很少的情况下减少运行时间。如果在压缩后再进行一次微调，就有可能在mAP损失更小的情况下进一步加速。<center>![](http://otue1rxl3.bkt.clouddn.com/18-3-6/28921418.jpg)
-图2.在使用截断SVD和不使用的情况下训练VGG16。在使用SVD之前，全连接层fc6和fc7消耗了45%的时间。
-</center></li>
+<li><strong>截断SVD</strong>　截断SVD能减少30%的检测时间，并且对mAP只下降一点点（0.3个百分点），且不需要在模型压缩后再进行微调。图2说明了如何使用来自VGG16的fc6层中的25088x4096矩阵的顶部1024个奇异值和来自4096x4096 fc7层的顶部256个奇异值如何在mAP中损失很少的情况下减少运行时间。如果在压缩后再进行一次微调，就有可能在mAP损失更小的情况下进一步加速。<center><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/28921418.jpg" alt=""><br>图2.在使用截断SVD和不使用的情况下训练VGG16。在使用SVD之前，全连接层fc6和fc7消耗了45%的时间。<br></center></li>
 </ul>
 <h2 id="4-5-微调哪一层？"><a href="#4-5-微调哪一层？" class="headerlink" title="4.5 微调哪一层？"></a>4.5 微调哪一层？</h2><p>　　对于SPPnet论文中考虑的较不深的网络，仅对全连接层的微调能够获得足够好的准确率。我们假设这一结果不会适应非常深的网络。为了验证微调卷积层对VGG16是非常重要的，我们使用Fast R-CNN进行微调，但是冻结了13层卷积层以达到只有全连接层在模型中学习。这种消融模拟了单尺度的SPPnet训练，并且mAP从66.9%下降到了61.4%（表5）。这个实验证明了我们的猜想：通过训练RoI池化层对深度网络是非常重要的。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/52139490.jpg)
-表5.限制微调VGG16网络层的影响。微调大于fc6模拟了SPPnet训练算法，但是只使用了单尺度。SPPnet L结果包含了使用5种尺度，体现了巨大的速度开销。
-</center>
-
-
-
-
-
-
-
-
-
-
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/52139490.jpg" alt=""><br>表5.限制微调VGG16网络层的影响。微调大于fc6模拟了SPPnet训练算法，但是只使用了单尺度。SPPnet L结果包含了使用5种尺度，体现了巨大的速度开销。<br></center>
 
 <p>　　是否这就意味着所有卷积层都需要进行微调呢？简单来说是不对的。在较小的网络（S和M）中，我们发现卷积层conv1是简单的和任务独立的。限制和不限制conv1学习，对于mAP没有明显的影响。对于VGG16我们发现只需要更新conv3_1及其往后的层（卷积层的9到13层）。这个观察结果是有用的：（1）相比于从conv3_1学习，从conv2_1开始更新要慢1.3倍（12.5 vs 9.5小时）；（2）从conv1_1开始更新会使用GPU的所有内存。当从conv2_1之后开始学习，mAP的改变也只有0.3个百分点（表5最后一行）。在本文中，Fast R-CNN所取得的结果都是在VGG16上微调层conv3_1及之后的层获得；所有使用S和M模型的实验均对conv2及以上进行微调。</p>
 <h1 id="5-设计评价"><a href="#5-设计评价" class="headerlink" title="5 设计评价"></a>5 设计评价</h1><p>　　我们进行了实验，以了解Fast R-CNN与R-CNN和SPPnet的比较，以及评估设计决策。遵循最佳实践规则，我们在PASCAL VOC07数据集上进行了这些实验。</p>
 <h2 id="5-1-多任务训练是否有帮助？"><a href="#5-1-多任务训练是否有帮助？" class="headerlink" title="5.1 多任务训练是否有帮助？"></a>5.1 多任务训练是否有帮助？</h2><p>　　多任务训练是非常方便的，因为它避免了管理一系列的顺序训练任务。但是它还是具有提升结果的潜力，因为多任务通过共享表示（卷积神经网络）相互影响。多任务训练是否能在Fast R-CNN中提升目标检测的准确率呢？<br>　　为了测试这个问题，我们训练了仅有公式1中的分类损失Lcls的基线网络（即：λ设置为0）。这些基线网络对于模型S、M和L的结果在表6的每组的第一列展示出来了。可以看出这些模型都没有使用边界框回归，接着（每组第二列），展示了在测试时网络使用了多任务损失(λ=1)，但是没有使用边界框回归的结果，这就隔离了网络分类的准确性，并允许与基线网络进行一对一的比较。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/77162889.jpg)
-表6.多任务训练提升mAP
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/77162889.jpg" alt=""><br>表6.多任务训练提升mAP<br></center>
 
 <p>　　根据所有的三种网络，我们观察发现，相对于单独训练分类多任务训练纯粹的提高了分类精度。提升mAP范围达0.8到1.1个百分点，从多任务学习中显示出一致的积极效果。<br>　　最后，我们采用基线模型（仅用分类损失训练），添加边界框回归层，保持其他网络参数不变，采用Lloc进行训练。每组的第三列显示了这一阶段训练的结果：mAP较前两列都有所提高，但是阶段训练效果不如多任务训练的效果。</p>
 <h2 id="5-2-尺度不变性：暴力还是灵巧？"><a href="#5-2-尺度不变性：暴力还是灵巧？" class="headerlink" title="5.2 尺度不变性：暴力还是灵巧？"></a>5.2 尺度不变性：暴力还是灵巧？</h2><p>　　为了获得尺度不变目标检测，我们比较了两种策略：暴力学习（单尺度）和图像金字塔（多尺度）。在这两种情况下，我们定义图像的尺度s为其最短的边的长度。<br>　　所有单尺度实验使用s=600像素；对于某些图像来说，s可能小于600，因为我们将最长的图像端设置为1000像素，并保持图像的宽高比。选择这些值是为了使VGG16在微调时能适应GPU的内存。较小的模型不受内存限制，并且可以从更大的s值中获益，然而，对每个模型的s优化不是我们主要关心的问题。我们注意到PASCAL数据集的图像平均为384x473像素的图像，因此，单一尺度的设置通常会使图像的样本增加1.6倍。因此，RoI池化层的平均有效步幅是10个像素。<br>　　在多尺度设置中，我们采用相同的5种尺度s=（480,576,688,864,1200）便于与SPPnet进行比较，但是，为了避免GPU内存过载，我们将最长的便限制在2000像素。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/44034399.jpg)
-表7.多尺度vs单尺度。SPPnet ZF的结果来自[[11](https://arxiv.org/abs/1406.4729)]，
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/44034399.jpg" alt=""><br>表7.多尺度vs单尺度。SPPnet ZF的结果来自[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">11</a>]，<br></center>
 
 <p>　　表7展示了模型S和M在使用单一尺度和5种尺度训练和测试的结果。也许[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">11</a>]中最令人惊讶的结果是单级检测几乎和多尺度检测一样有效。我们的发现证明了他们的结果：深度卷积网络能很好的直接学习尺度不变性。多尺度方法消耗大量的时间而对mAP仅有很小的提升（表7）。在VGG16（模型L）的情形中，我们只能通过实现细节来使用单一尺度。目前取得了66.9%的mAP比R-CNN的66.0%略高，尽管R-CNN使用了无限的尺度，但是每一个区域提案都被扭曲到了一个相同的大小。<br>　　由于单级处理在速度和精度之间提供了最好的权衡，特别是对于非常深的模型，在这个子部分之外的所有实验都使用单级的训练和s=600像素进行测试。</p>
 <h2 id="5-3-是否需要更多的数据？"><a href="#5-3-是否需要更多的数据？" class="headerlink" title="5.3 是否需要更多的数据？"></a>5.3 是否需要更多的数据？</h2><p>　　当提供更多的训练数据时，一个好的目标检测器性能应该会得到提升。Zhu等人发现DPM的mAP在数百到数千的数据样本之后就达到饱和了。在这里，我们增加VOC07训练集与VOC12训练集，粗略地将图像的数量增加到了16.5k，以评估Fast R-CNN。扩大训练集后，在该数据集上使用60K次小批量迭代代替40K训练模型时，在VOC07上进行测试，mAP从66.9%提升到了70.0%（表1）。<br>　　我们在VOC10和VOC12上进行了相同的实验，结合VOC07训练集和测试集与VOC12训练集构建了一个包含21.5K幅图像的数据集。当在这数据集上训练模型时，我们使用100k次SGD迭代，每学习40k次迭代将学习率降低0.1倍（替代原来的30K）。对VOC10和VOC12，mAP分别从66.1%提升到了68.8%和从65.7%提升到了68.4%。</p>
 <h2 id="5-4-SVM是否比softmax好？"><a href="#5-4-SVM是否比softmax好？" class="headerlink" title="5.4 SVM是否比softmax好？"></a>5.4 SVM是否比softmax好？</h2><p>　　在微调过程中，Fast R-CNN使用softmax分类器取代R-CNN和SPPnet中所训练的one-vs-rest 线性SVM。为了了解这个选择的影响，我们在Fast R-CNN中采用了负挖掘技术，实现了post-hoc SVM的训练。我们使用在R-CNN中相同的训练算法和超参数。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/75987172.jpg)
-表8.使用softmax的Fast R-CNN vs SVM（VOC07 mAP）
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/75987172.jpg" alt=""><br>表8.使用softmax的Fast R-CNN vs SVM（VOC07 mAP）<br></center>
 
 <p>　　从表8可以看出，对于这3中网络，softmax的结果略优于SVM，mAP增加0.1到0.8个百分点。这个影响是较小的，但是，这证明，与之前的多阶段训练方法相比，一次性的微调是充分有效的。我们注意到softmax不像one-vs-rest SVM，当对RoI进行评分时，softmax在类之间引入了竞争。</p>
 <h2 id="5-5-更多的区域提案是否会更好？"><a href="#5-5-更多的区域提案是否会更好？" class="headerlink" title="5.5 更多的区域提案是否会更好？"></a>5.5 更多的区域提案是否会更好？</h2><p>　　有两种类型的目标检测器：一种使用目标提案的稀疏数据集（例如：选择性搜索）；一种使用稠密数据集（例如：DPM）。对稀疏提案进行分类是一种级联方式，这种方式首先由提案机制拒绝大量的候选提案，然后分类器对以小组提案进行评估。将这种级联方式应用到DPM检测器可以提高检测准确率。我们发现了提案分类器级联也可以提高Fast R-CNN准确率的证据。<br>　　使用选择性搜索的质量模式，我们从每个图像的1k到10k个提案进行扫描，每次重新训练和重新测试模型M。如果提案只是纯计算角色，那么增加每幅图像的提案数量对于mAP不会有损失。</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/18-3-6/9145514.jpg)
-图3.不同提案方案在VOC07上测试的mAP和AR
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-3-6/9145514.jpg" alt=""><br>图3.不同提案方案在VOC07上测试的mAP和AR<br></center>
 
 <p>　　我们发现随着提案数量的增加，mAP先增加然后略微的下降（图3实蓝线）。这个实验表明，深度分类器采用更多的提案数量对于准确率没有什么提升，甚至可能会造成轻微的损失。<br>　　这个结果在没有实际运行实验的情况下是很难预测的。最先进的测量目标提案质量的参数是平均召回（AR）。对于使用R-CNN的几种提案方式，当每个图像使用固定数量的提案时，AR和mAP具有很好的相关性。图3显示随着每个图像提案的数量变化，AR（红色实线）与mAP没有很好的关联。AR必须小心使用，由于更多的提案数量导致AR更高并不意味着mAP的增加。幸运的是，训练和测试模型M只要2.5小时。<br>　　我们也使用稠密的生成合作研究Fast R-CNN，该稠密程度达到45K个盒子每幅图像。这个密集非常丰富，当每个选择性搜索框被其最近的（在IoU中）密集框代替时，mAP只会下降1个点（57.7% 图3蓝色三角形）。<br>　　稠密盒子的统计和选择性盒子不同，从2k个选择性搜索框开始，我们在添加1000 x（2;4;6;8;10;32;45）密集框的随机样本时测试mAP。对于每个实验，我们都重新训练和重新测试模型M。当这些密集的盒子被应用时，mAP的下降比应用选择性搜索框时更多，最终达到53.0%。<br>　　我们也仅使用稠密盒子（45K/图）训练和测试了Fast R-CNN，获得了52.9%的mAP（蓝色菱形）。最后，将SVM应用在稠密盒子分布中，结果获得了更坏的结果49.3%mAP（蓝色三角形）。</p>
 <h2 id="5-6-MS-COCO的初步结果"><a href="#5-6-MS-COCO的初步结果" class="headerlink" title="5.6 MS COCO的初步结果"></a>5.6 MS COCO的初步结果</h2><p>　　我们将Fast R-CNN(带有VGG16)应用到MS COCO数据集中，以建立一个初步基准。在包含80K张图像的训练集上进行240K次迭代训练模型，并且使用评估服务在“test-dev”数据集上对模型进行评估。取得和PASCAL类似的mAP结果为35.9%；COCO平均召回率为19.7%。</p>
@@ -618,9 +567,9 @@
           
             <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
-          
             <a href="/tags/R-CNN/" rel="tag"># R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
@@ -1118,7 +1067,24 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 

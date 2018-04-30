@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -101,10 +101,17 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="Fully Convolutional Networks for Semantic Segmentation 论文翻译">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-26T12:22:00.420Z">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/57827521.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-27/98441275.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-29/73022424.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-30/45135214.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-30/71730784.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-29/41602719.jpg">
+<meta property="og:updated_time" content="2018-04-30T05:47:50.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fully Convolutional Networks for Semantic Segmentation">
 <meta name="twitter:description" content="Fully Convolutional Networks for Semantic Segmentation 论文翻译">
+<meta name="twitter:image" content="http://otue1rxl3.bkt.clouddn.com/18-4-25/57827521.jpg">
 
 
 
@@ -153,7 +160,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -173,7 +180,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -332,8 +339,8 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-04-26T20:22:00+08:00">
-                2018-04-26
+              <time title="Update" itemprop="dateModified" datetime="2018-04-30T13:47:50+08:00">
+                2018-04-30
               </time>
             
           </span>
@@ -393,7 +400,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  2,437
+                  9,858
                 </span>
               
 
@@ -420,19 +427,12 @@
 
       
         <blockquote>
-<p>论文原文：<a href="https://arxiv.org/abs/1605.06211" target="_blank" rel="external">Fully Convolutional Networks for Semantic Segmentation</a></p>
-<p>作　　者：<a href="https://arxiv.org/search?searchtype=author&amp;query=Evan+Shelhamer" target="_blank" rel="external">Evan Shelhamer</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Jonathan+Long" target="_blank" rel="external">Jonathan Long</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Trevor+Darrell" target="_blank" rel="external">Trevor Darrell</a></p>
+<p>论文原文：<a href="https://arxiv.org/abs/1605.06211" target="_blank" rel="external">Fully Convolutional Networks for Semantic Segmentation</a><br>作　　者：<a href="https://arxiv.org/search?searchtype=author&amp;query=Evan+Shelhamer" target="_blank" rel="external">Evan Shelhamer</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Jonathan+Long" target="_blank" rel="external">Jonathan Long</a>,<a href="https://arxiv.org/search?searchtype=author&amp;query=Trevor+Darrell" target="_blank" rel="external">Trevor Darrell</a></p>
 </blockquote>
 <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　卷积网络是产生特征层次结构的强大视觉模型。我们通过端到端、像素到像素的训练展示了卷积网络，这胜过了语义分割领域中最先进的方法。我们的关键创新在建立完全卷积网络，该网络可以接受任意大小的数据输入，用有效的推理和学习产生相应大小的输出。我们定义和详细描述了完全卷积网络的空间，解释了它们在空间密集预测任务中的应用，并与先前的模型建立连接。我们将目前的分类网络（AlexNet、VGG net和GoogLeNet）引入到完全卷积网络中，通过微调将它们学习的表示转移到分割任务中。然后，我们定义一种新的架构，该架构将来自深层粗糙的语义信息和来自浅层精细的外观信息相结合，以产生精确细致的分割。我们的全卷积网络实现了PASCAL VOC、NYUDv2和SIFT Flow最好的分割（相对2012年的平均IU提升了20%，达到了62.2%），同时推理只需要不到2/5秒的时间。</p>
 <h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　卷积网络推动了识别的进步。不仅改进了整体图像分类，而且还在结构化输出的局部任务中取得了进展。这些进展包括：目标边界框检测、局部和关键点检测和局部一致性。</p>
 <p>　　由粗到细推演的下一步自然是对每个像素进行预测。在之前的方法中使用了卷积来进行语义分割，在这个过程中，每个像素都被标记为其封闭目标或区域的类，但是这种处理方法也存在它的缺点。</p>
-<center>![](http://otue1rxl3.bkt.clouddn.com/18-4-25/57827521.jpg)
-
-图1. 完全卷积网络能有效的学习对每一像素任务进行密集预测，例如语义分割。</center>
-
-
-
-
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/18-4-25/57827521.jpg" alt=""><br>图1. 完全卷积网络能有效的学习对每一像素任务进行密集预测，例如语义分割。</center>
 
 <p>　　我们展示了一个完全卷积网络（FCN），该网络通过端到端训练得到，在像素到像素的语义分割任务中胜过了最先进的方法。据我们所知，这是第一次对FCN进行端到端训练：（1）用于像素级预测；（2）采用监督预训练。现有的完全卷积网络版本可以从任意大小的输入预测密集的输出。学习和推理都是通过密集的前馈计算和反向传播在整个图像上执行的。网络内部的上采样层支持在网络中进行具有上采样池化的像素化预测和学习。</p>
 <p>　　不管是渐进的还是绝对的，该方法是有效的，且排除了其他方法中的并发症。Patchwise训练很常见，但是缺乏全卷积训练的有效性。我们的方法没有利用预处理和后处理的过程，包括超级像素、候选区域和由随机场或局部分类器细化额后处理HOC特征。我们的模型通过将分类网络重新解释为完全卷积，并从它们学习的表示中进行微调来将最近的分类成功转换为密集预测。相比之下，之前的研究在没有进行监督预训练的情况下已经应用了小的卷积网络。</p>
@@ -444,32 +444,441 @@
 <p>　　或者，He等人抛弃分类网络中的非卷积部分在制作特征提取器。他们结合候选区域和空间金字塔池化来产生局部固定长度的分类特征。尽管速度快且有效，但是这个快速的模型不能进行端到端学习。</p>
 <p>　　<strong>使用卷积网络进行密集预测</strong>　目前一些研究已经将卷积网络应用到密集预测中，包括Ning等人、Farabet等人以及Pinheiro和Collobet的语义分割；Ciresan等人对电子显微镜的边界预测；以及Ganin和Lempitsky的混合神经网络/最近邻模型的自然图像；以及Eigen等人的图像恢复和深度估计。这些方法的常见元素包括：</p>
 <ul>
-<li><p>小模型限制能力和感受野；</p>
-</li>
-<li><p>patchwise训练；</p>
-</li>
-<li><p>通过超级像素、随机场、正则化、过滤或者局部分类进行后处理；</p>
-</li>
-<li><p>对于密集预测，输入转换和输出交错，例如OverFeat；</p>
-</li>
-<li><p>多尺度金字塔处理；</p>
-</li>
-<li><p>饱和双曲正切非线性；以及</p>
-</li>
-<li><p>集成。</p>
-</li>
+<li>小模型限制能力和感受野；</li>
+<li>patchwise训练；</li>
+<li>通过超级像素、随机场、正则化、过滤或者局部分类进行后处理；</li>
+<li>对于密集预测，输入转换和输出交错，例如OverFeat；</li>
+<li>多尺度金字塔处理；</li>
+<li>饱和双曲正切非线性；以及</li>
+<li>集成。</li>
 </ul>
-<p>而我们的方法没有这些机制。然而，从FCN的角度来看，我们使用了patchwise训练和“shift-and-stitch”密集输出。我们还讨论了网内上采样，这是Eigen等人提出的全连接预测的一个特例。</p>
-<p>　　不像这些已存在的方法，我们采用和扩展了深度分类网络架构，使用图像分类作为监督预训练，并且微调完全卷积从整个图像输入和图像真实标签中进行简单有效的学习。</p>
-<p>　　Hariharan等人和Gupta等人同样采用了深度网络来进行语义分割，但是只是在混合proposal分类模型中使用。这些方法通过采样边界框或者候选区域微调R-CNN系统用与检测、语义分割和实例分割。没有任何一种方法是段到端学习的。</p>
-<p>　　它们分别在PASCAL VOC分割和NYUDv2分割中取得了最好的结果。因此我们在第5节中直接将我们端到端的FCN和他们额语义分割结果进行比较。</p>
-<h1 id="3-完全卷积网络"><a href="#3-完全卷积网络" class="headerlink" title="3 完全卷积网络"></a>3 完全卷积网络</h1><p>　　数据的每一层在卷积网络中是一个大小为<em>h</em>  x <em>w</em>  x <em>d</em>的三维数组，其中h和w是空间维度，d表示特征或通道维度。第一层是像素大小为<em>h</em>  x <em>w</em>，d个色彩通道的图像，更高层次的位置对应于他们所连接到的图像中的位置被称为它们的感受野。</p>
-<p>　　卷积网络建立在平移不变性上。它们的基本组件（卷积、池化和激活函数）在输入的局部区域进行操作，仅仅依赖相对的空间坐标。$X_{ij}$表示表示在特定层中在位置$(i,j)$的数据向量。$y_{ij}$表示下一层，通过以下公式计算输出$y_{ij}$：</p>
-<center>$$y_{ij}=f_{ks}(\{ X _{si + \delta j,sj+\delta j}\}_{0\leq \delta i, \delta j \leq k})$$</center>
+<p>而我们的方法没有这些机制。然而，从FCN的角度来看，我们使用了patchwise训练和“shift-and-stitch”密集输出。我们还讨论了网内上采样，这是Eigen等人提出的全连接预测的一个特例。<br>　　不像这些已存在的方法，我们采用和扩展了深度分类网络架构，使用图像分类作为监督预训练，并且微调完全卷积从整个图像输入和图像真实标签中进行简单有效的学习。<br>　　Hariharan等人和Gupta等人同样采用了深度网络来进行语义分割，但是只是在混合proposal分类模型中使用。这些方法通过采样边界框或者候选区域微调R-CNN系统用与检测、语义分割和实例分割。没有任何一种方法是段到端学习的。<br>　　它们分别在PASCAL VOC分割和NYUDv2分割中取得了最好的结果。因此我们在第5节中直接将我们端到端的FCN和他们额语义分割结果进行比较。</p>
+<h1 id="3-完全卷积网络"><a href="#3-完全卷积网络" class="headerlink" title="3 完全卷积网络"></a>3 完全卷积网络</h1><p>　　数据的每一层在卷积网络中是一个大小为$h \times w \times d$的三维数组，其中$h$和$w$是空间维度，$d$表示特征或通道维度。第一层是像素大小为$h \times w$，$d$个色彩通道的图像，更高层次的位置对应于他们所连接到的图像中的位置被称为它们的感受野。<br>　　卷积网络建立在平移不变性上。它们的基本组件（卷积、池化和激活函数）在输入的局部区域进行操作，仅仅依赖相对的空间坐标。$X_{ij}$表示表示在特定层中在位置$(i,j)$的数据向量。$y_{ij}$表示下一层，通过以下公式计算输出$y_{ij}$：<br>$$y_{ij}=f_{ks}(\{ X _{si + \delta j,sj+\delta j}\}_{0\leq \delta i, \delta j \leq k})$$<br>其中$k$被称为核大小，$s$为步幅或者二阶抽样系数，$f_{ks}$决定层的类型：卷积或平均池化的矩阵乘法；最大值池化的空间最大值；或者激活函数的非线性元素；或者其他层的类型等等。<br>　　这种功能形式是在组合中保持的，内核大小和步幅服从下面的转换规则：<br>$$f_{ks} \circ g_{k^{‘}s^{‘}}=(f \circ g) _{k^{‘} + (k + 1){s ^{‘},ss ^{‘}}}$$<br>虽然一般形式的深度网络计算一般的非线性函数，但是只有具有这种形式的层的网络计算非线性滤波器，我们称之为深度滤波器或完全卷积网络。自然地，FCN在任意大小的输入上进行操作，并且产生一个相应（可能要重采样）大小的输出。<br>　　由FCN组成的真实值损失函数定义了一个任务。如果损失函数是最后一层的所有空间维度的和，$\ell (X;\theta )=\sum _{ij} \ell ^{‘}(X_{ij}; \theta)$，它的梯度将是每个空间分量的梯度的总和。因此，在整个图像上计算$\ell$上的随机梯度下降将与$\ell ^{‘}$上的随机梯度下降相同，将最后一层的所有感受野作为最小批次。<br>　　当这些感受野有明显的重叠时，当在整个图像上使用逐层计算取代逐批次计算时，前馈计算和反向传播的效率都要高得多。<br>　　接下来我们解释怎样将分类网络转换为产生粗糙输出图的完全卷积网络。对于像素级的预测，我们需要将这些粗糙的输出与像素相连接。在3.2节中描述了OverFeat为了这个目的引入的一个技巧，我们通过将它重新解释为一种等效的网络修改来深入了解这个技巧。作为一种高效、有效的替代方法，在3.3节中我们为上采样引入了反卷积层。在3.4节中，我们考虑采用patchwise采样方式进行训练，在4.3节中我们给出了我们整个图像训练更快且同样有效的证据。</p>
+<h2 id="3-1-调整分类器进行密集预测"><a href="#3-1-调整分类器进行密集预测" class="headerlink" title="3.1 调整分类器进行密集预测"></a>3.1 调整分类器进行密集预测</h2><p>　　包括LeNet、AlexNet和更深的典型识别网络表面上都采用固定大小的输入，并且产生非空间输出。这些网络的全连接层具有一个固定的维度且抛弃了空间坐标。然而，这些全连接层也可以被视为具有覆盖整个图像区域的核的卷积。这样做将它们转换为完全卷积网络，可以接受任意大小的输出并输出分类映射。这个转换如图2所示（相比之下，如Le等人的非卷积网络缺乏这种能力）。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-27/98441275.jpg" alt="">图2.将全连接层转换为卷积层可以使分类网络输出一个热图。添加层和空间损失(如图1所示)会产生一个高效的端到端密集型学习机器。</center>
 
-<h2 id="3-1-调整分类器进行密集预测"><a href="#3-1-调整分类器进行密集预测" class="headerlink" title="3.1 调整分类器进行密集预测"></a>3.1 调整分类器进行密集预测</h2><h2 id="3-2-Shift-and-stitch是稀疏滤波"><a href="#3-2-Shift-and-stitch是稀疏滤波" class="headerlink" title="3.2 Shift-and-stitch是稀疏滤波"></a>3.2 Shift-and-stitch是稀疏滤波</h2><h2 id="3-3-上采样是后向卷积抽样损失"><a href="#3-3-上采样是后向卷积抽样损失" class="headerlink" title="3.3 上采样是后向卷积抽样损失"></a>3.3 上采样是后向卷积抽样损失</h2><h2 id="3-4-Patchwise训练是一种损失采样"><a href="#3-4-Patchwise训练是一种损失采样" class="headerlink" title="3.4 Patchwise训练是一种损失采样"></a>3.4 Patchwise训练是一种损失采样</h2><h1 id="4-分割架构"><a href="#4-分割架构" class="headerlink" title="4 分割架构"></a>4 分割架构</h1><h2 id="4-1-从分类器到密集FCN"><a href="#4-1-从分类器到密集FCN" class="headerlink" title="4.1 从分类器到密集FCN"></a>4.1 从分类器到密集FCN</h2><h2 id="4-2-结合“是什么”和”在哪里“"><a href="#4-2-结合“是什么”和”在哪里“" class="headerlink" title="4.2 结合“是什么”和”在哪里“"></a>4.2 结合“是什么”和”在哪里“</h2><h2 id="4-3-实验框架"><a href="#4-3-实验框架" class="headerlink" title="4.3 实验框架"></a>4.3 实验框架</h2><h1 id="5-结果"><a href="#5-结果" class="headerlink" title="5 结果"></a>5 结果</h1><p>　　</p>
-<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h1><p>　　</p>
-<h1 id="A-IU上界（Upper-Bounds-on-IU）"><a href="#A-IU上界（Upper-Bounds-on-IU）" class="headerlink" title="A. IU上界（Upper Bounds on IU）"></a>A. IU上界（Upper Bounds on IU）</h1><h1 id="B-更过结果"><a href="#B-更过结果" class="headerlink" title="B. 更过结果"></a>B. 更过结果</h1>
+<p>　　此外，虽然得到的映射等价于原始网络对特定输入patch的评估，但是在这些patch的重叠区域的计算是高度平均的。例如：尽管AlexNet消耗1.2ms（在典型的GPU上）来产生一幅$227\times 227$的图像的分类得分，但是完全卷积版本需要22ms从$500 \times 500$的图像中产生一个$10 \times 10$的网格，这比初试方法快5倍。<br>　　这些卷积模型的空间输出映射使它们成为像语义分割这样的密集预测问题的自然选择。在每个输出单元中都有真实标签（ground truth），前向和后向传播都很简单，并且都利用了卷积固有的计算效率（和积极地优化）。<br>　　对于AlexNet单张图像对应的后向传播时间为2.4ms，完全卷积$10 \times 10$的输出映射时间为37ms，从而产生了类似于正向传递的加速。这种密集反向传播如图1所示。<br>　　虽然我们将分类网络重新解释为完全卷积，对任意大小的输入产生输出映射，但是输出维度通常是通过子采样减少的。分类子采样保持滤波器的小型化和计算要求的合理性。这会粗化这些网络的完全卷积版本的输出，通过一个等同于输出单元感受野的像素步幅的因子将它从输入的大小减小。</p>
+<h2 id="3-2-Shift-and-stitch是稀疏滤波"><a href="#3-2-Shift-and-stitch是稀疏滤波" class="headerlink" title="3.2 Shift-and-stitch是稀疏滤波"></a>3.2 Shift-and-stitch是稀疏滤波</h2><p>　　由OverFeat引入的输入转换和输出交错是一个从不适用插值从粗糙输出中产生密集预测的技巧。如果输出被$f$的一个因子下采样，那么输入就会向右移动$x$像素，向下移动$y$像素（左边和顶部填充），对于$(x,y) \in \{ 0, ···,f-1\} \times \{ 0, ···, f-1 \}$的每一个值。这些$f^2$输入每个都通过卷积网络，并且输出交错，所以这些预测对应于它们的感受野中心的像素。<br>　　仅改变卷积网络的滤波器和层的步幅可以产生和shift-and-stitch技巧相同的输出。考虑具有输入步幅$s$的层（卷积或者池化），和后面具有滤波器权重$f_{ij}$的卷积层（忽略不相关的特征维数）。将较低层的输入步幅设置为1，它的上采样因子设置为$s$，就像shift-and-stitch一样。然而，将原始滤波器与上采样输出进行卷积不会产生与这个方法相同的结果，因为原来的滤波器只看到它的（现在被上采样的）输入的减少部分。为了重现这个技巧，通过扩大来稀疏滤波，如下：<br>$$f{^{‘}_{ij}}=\begin {cases} f_{i/s,j/s} &amp; \text {if $s$ divides both $i$ and $j$;} \ 0 &amp; \text {otherwise,} \end {cases}$$<br>($i$和$j$从0开始)。重现该方法的整个网络输出包括逐层重复这个滤波器扩大，直到所有的子采样都被移除。<br>　　简单的减少网络中的子采样是一种权衡：滤波器可以看到精细的信息，但是感受野小且计算更耗时。我们已经看到shift-and-stitch方法是另一种权衡：在不降低滤波器感受野大小的情况下输出变得更密集，但是禁止滤波器获取比原始设计更精细的信息。<br>　　尽管我们使用shift-and-stitch进行了初步的实验，但是没有在我们的模型中使用它。我们发现通过上采样进行学习（如下一节所述）会更有效，尤其是与稍后介绍的跳层融合相结合时。</p>
+<h2 id="3-3-上采样是后向卷积抽样损失"><a href="#3-3-上采样是后向卷积抽样损失" class="headerlink" title="3.3 上采样是后向卷积抽样损失"></a>3.3 上采样是后向卷积抽样损失</h2><p>　　另一种将粗化输出与密集像素相连接的方法是插值法。例如：简单的双线性插值通过一个线性映射从最近的四个输入计算每一个输出$y_{ij}$，这种方法仅依赖于输入输出单元的相对位置。<br>　　在某种意义上，$f$因子的上采样是与$1/f$步幅分数输入的卷积。只要$f$是整数，上采样一种自然的方法就是输出步幅为$f$的后向卷积（有时称反向卷积）。这样的操作很容易实现，因为它简单地翻转了卷积的前向和后向过程。因此，通过从像素级损失中反向传播来实现网络端到端学习的上采样。<br>　　注意，在这样一层中的反卷积滤波器不需要被固定（例如：双线性上采样），但是可以被学习到。甚至，反卷积层和激活函数的堆叠能够学习一个非线性上采样。<br>　　在我们的实验中，我们发现，对于学习密集预测，网内上采样时快速且有效的。在4.2节中，为了进行精确预测，我们最好的分割架构使用这些层去学习上采样。</p>
+<h2 id="3-4-Patchwise训练是一种损失采样"><a href="#3-4-Patchwise训练是一种损失采样" class="headerlink" title="3.4 Patchwise训练是一种损失采样"></a>3.4 Patchwise训练是一种损失采样</h2><p>　　在随机优化中，梯度计算是由训练分布驱动的。patchwise训练和完全卷积训练都能生成任何分布，尽管它们的相对计算效率取决于重叠和小批的大小。整个图像完全卷积训练和patchwise训练相同，对于一幅图像，每个批都由低于图像损失单元的所有感受野组成（或者图像集）。虽然这比统一的patch采样更有效，但是它削减了可能批的数量。然而，图像中随机选择的patch可以被简单恢复。限制对其空间项的随机采样子集的损失（或者在输出和损失之间等效的应用一个DropConnect掩膜）不包括来自梯度计算的patch。<br>　　如果保持patch仍然有明显的重叠，那么完全卷积计算将仍然会加速训练。如果梯度是通过多个后向传播累积的，那么批能够包含来自一些图像的patch。<br>　　在patchwise训练中采样可以纠正类别不平衡，减轻密集patch的空间相关性。在完全卷积训练中，类别平衡也可以通过权重损失解决，并且损失采样可以被用来处理空间相关性。<br>　　在4.3节中，我们探索了采样训练，对于密集预测，并且没有发现它会产生更快或者更好的收敛。整个图像的训练是有效且高效的。</p>
+<h1 id="4-分割架构"><a href="#4-分割架构" class="headerlink" title="4 分割架构"></a>4 分割架构</h1><p>　　我们将ILSVRC分类器替换成FCN，并且对他们针对具有网内上采样和像素级损失的密集预测进行讨论。我们通过微调训练分割，然后，搭建一个新的能融合粗糙的语义信息和局部表层信息的跳层架构来改进预测。<br>　　对于这个调查，我们在PASCAL VOC 2011分割挑战上进行训练和验证。训练采用逐像素多项式logistic损失，用联合的平均像素香蕉的标准度量来验证，包含了多有的类别，包括背景。训练忽略了真实标记中被掩盖的像素（模糊或困难的）。</p>
+<h2 id="4-1-从分类器到密集FCN"><a href="#4-1-从分类器到密集FCN" class="headerlink" title="4.1 从分类器到密集FCN"></a>4.1 从分类器到密集FCN</h2><p>　　我们从卷积化如第3节所示的已验证的分类体系结构开始。考虑到AlexNet赢得了ILSVRC12，以及VGG和GoogLeNet在ILSVRC14中也特别优秀，我们选择VGG的16层网络，因为我们发现在这个任务中它和19层网络效果一样。对于GoogLeNet，我们仅使用最后的损失层，并通过丢弃最后一个平均池化层提升性能。我们通过丢弃最终的分类器层，并将所有的全连接层转换为卷积层，来将每个网络分割开来。我们追加一个21维的$1 \times 1$的卷积层来预测每个粗化输出位置处每个PASCAL类（包括背景类）的分数，接着是一个反卷积层，按3.3节所述将粗化输出双线性上采样到像素密集输出。表1与每个网络的基本特征比较了初步验证结果。我们报告了以固定学习速率收敛的最佳结果（至少175epoch）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:left">FCN-AlexNet</th>
+<th style="text-align:left">FCN-VGG16</th>
+<th style="text-align:left">FCN-GoogLeNet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean IU</td>
+<td style="text-align:left">39.8</td>
+<td style="text-align:left">56.0</td>
+<td style="text-align:left">42.5</td>
+</tr>
+<tr>
+<td>forward time</td>
+<td style="text-align:left">50ms</td>
+<td style="text-align:left">210ms</td>
+<td style="text-align:left">59ms</td>
+</tr>
+<tr>
+<td>conv. layers</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">22</td>
+</tr>
+<tr>
+<td>parameters</td>
+<td style="text-align:left">57M</td>
+<td style="text-align:left">134M</td>
+<td style="text-align:left">6M</td>
+</tr>
+<tr>
+<td>rf size</td>
+<td style="text-align:left">355</td>
+<td style="text-align:left">404</td>
+<td style="text-align:left">907</td>
+</tr>
+<tr>
+<td>max stride</td>
+<td style="text-align:left">32</td>
+<td style="text-align:left">32</td>
+<td style="text-align:left">32</td>
+</tr>
+</tbody>
+</table>
+<center>表1. 我们采用并扩展3种分类卷积网络进行分割。我们在PASCAL VOC 2011的验证集上通过平均IU（intersection over union）和推理时间（在NVIDIA Tesla K40c上，输入大小为$500 \times 500$，20次重复试验的平均值）比较性能。对于密集预测，我们详细介绍了改造网络的结构：参数层的数量、输出单元的感受野大小，以及网络粗略的步幅。（这些数字表示以固定学习速率获得的最佳性能，而不是可能的最佳性能）<br></center>
+
+<p>　　对于每一个网络，从分类到分割的微调给出了合理的预测。甚至最差的模型也达到了最好性能的75%。搭配VGG的分割网络在验证集上表现出最好的结果56.0 mean IU，测试集上为52.6 mean IU。在验证集子集上的额外数据上训练提升性能到59.4 mean IU。训练细节在4.3节中给出。<br>　　尽管分类精度相似，但是我们对GoogLeNet的实现与这个分割结果并不匹配。</p>
+<h2 id="4-2-结合“是什么”和“在哪里”"><a href="#4-2-结合“是什么”和“在哪里”" class="headerlink" title="4.2 结合“是什么”和“在哪里”"></a>4.2 结合“是什么”和“在哪里”</h2><p>　　我们定义了一种全新的用于分割的网络，该网络结合了层次结构特征的层并且完善了输出的空间预测，如图3所示。<br>　　虽然完全卷积分类器可以微调用于分割，如4.1节中所述，甚至在标准衡量标准上得分很高，但是它们的输出是粗糙的不令人满意的（如图4所示）。在最终的预测层上的32像素的步幅限制了上采样输出中的细节尺度。<br>　　我们通过增加一个链接解决这个问题，这个链接将最终预测层和较低的层使用精细的步幅结合起来。这将线拓扑转换为DAG，其边缘从较低层跳到较高层（图3）。当他们看到较少的像素时，更精细的尺度预测应该需要更少的层，所以使他们从较浅网络的输出来做它是有意义的。结合精细的层和粗糙层让模型使局部预测尊重全局结构。通过类比Florack等人的多尺度局部流（local jet），我们称我们的非线性局部特征层次结构为深度流（deep jet）。<br>　　我们首先用16像素步幅层的预测来将输出减半。我们在pool4的顶部增加一个$1 \times 1$的卷积层来处理额外类的预测。我们将这个输出与通过增加一个$2\times $的上采样层以32的步幅在conv7（卷积化的fc7）的顶部计算出的预测进行融合并计算两个预测的和。（如图3所示）。我们初始化这个$2\times $上采样层来进行双线性插值，但是允许像3.3节中所描述的学习参数。最后，步幅16的预测被上采样回图像。我们称这个网络为FCN-16s。端到端学习的，由最后粗化网络的参数初始化的FCN-16s我们称为FCN-32s。作用于pool4的新参数从0开始初始化，因此该网络从未经修改的预测开始。学习速率降低了100倍。<br>　　学习这个跳层网络提高在验证集上的性能，即：比62.4 mean IU增加3.0 mean IU。图4所示的性能时在精细结构输出中的。我们将这种融合与仅从pool4层（导致性能低下的层）学习进行比较，并且在不增加额外链接（导致了明显的性能提升，但是没有提高输出的质量）的情况下简单的降低学习速率。<br>　　我们继续以这种方式通过将来自pool3的预测与从pool4和conv7融合的预测的$2 \times $上采样融合，构建FCN-8s网络。我们得到了一个小的额外提升，达到了62.7 mean IU，并且在输出的平滑度和细节上发现了一个很小的改善。在这一点上，我们的融合改进得到了一个递减的回报，无论是关于强调大规模正确性的IU度量，还是关于改进可见性的IU度量（如图4所示），因此我们不会继续融合更低的层。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-29/73022424.jpg" alt=""><br>图4. 通过融合来自不同步长层的信息来完善卷积网络可以提升分割细节。前三幅图所示的是步长为32,、16、8的网络的输出。<br></center>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>pixel acc.</th>
+<th>mean acc.</th>
+<th>mean IU</th>
+<th>f.w. IU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FCN-32s-fixed</td>
+<td>83.0</td>
+<td>59.7</td>
+<td>45.4</td>
+<td>72.0</td>
+</tr>
+<tr>
+<td>FCN-32s</td>
+<td>89.1</td>
+<td>73.3</td>
+<td>59.4</td>
+<td>81.4</td>
+</tr>
+<tr>
+<td>FCN-16s</td>
+<td>90.0</td>
+<td>75.7</td>
+<td>62.4</td>
+<td>83.0</td>
+</tr>
+<tr>
+<td>FCN-8s</td>
+<td><strong>90.3</strong></td>
+<td><strong>75.9</strong></td>
+<td><strong>62.7</strong></td>
+<td><strong>83.2</strong></td>
+</tr>
+</tbody>
+</table>
+<center>表2. 在PASCAL VOC 2011 验证集子集上跳层FCNs的比较结果。学习过程时端到端的，除了FCN-32s-fixed只在最后一层微调。FCN-32s是FCN-VGG16，重命名是为了强调步幅。<br></center>
+
+<p>　　<strong>通过其他方式改进</strong> 减少池化层的步长是获得精准预测最直接的方式。然而，对于基于VGG16的网络来说，这么做是有问题的。为了保持感受野的大小，将pool5层的步长设置为5时，要求我们的卷积化的fc6具有$14 \times 14$的卷积核。除了计算成本之外，我们还很难学习这么大的滤波器。我们试图使用较小的滤波器重构pool5之上的层，但是在所获得的性能方面并不成功；一种可能的解释是：从ImageNet训练的权重在更高层的初始化是重要的。<br>　　另一种获得精准预测的方式的使用3.2节中所描述的shift-and-stitch方法。在有限的实验中，我们发现这种方法的成本与性能提升比率比层融合更差。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-30/45135214.jpg" alt=""><br>图3. 我们的DAG网络学习将粗糙的高层信息与精细的低层信息结合在一起。图层显示为网络，以显示相对空间粗糙程度。仅显示了池化层和预测层；省略了中间的卷积层（包括我们卷积化的全连接层）。实线（FCN-32s）：我们的单流网络，如4.1节中所述，以32步幅上的采样在单步中将预测返回到像素中。虚线（FCN-16s）：从最终层和pool4层结合预测，步幅16，然后让我们的网络预测更精细的细节，同时保留高水平的语义信息。点线（FCN-8s）：从pool3额外预测，步幅8，提供进一步的精确。<br></center>
+
+
+<h2 id="4-3-实验框架"><a href="#4-3-实验框架" class="headerlink" title="4.3 实验框架"></a>4.3 实验框架</h2><p>　　<strong>优化（Optimization）</strong> 我们利用具有动量的SGD进行训练，训练使用的小批包含20幅图像，对于FCN-AlexNet、FCN-VGG16和FCN-GoogLeNet的学习速率分别为$10^{-3}, 10^{-4} 和 10^{-5}$，通过线搜索选择。我们使用的动量为0.9，权重衰减为$5^{-4}或2^{-4}$，对偏差的学习速率翻倍，尽管我们发现训练对这些参数不敏感（但是对学习速率敏感）。我们发现随机初始化既不会产生更好的性能也不会有更快的收敛，于是我们从0开始初始化类得分卷积层。包括在原来网络中所使用的Dropout。<br>　　<strong>微调（fine-tuning）</strong> 我们通过反向传播整个网络微调所有层。与表2相比，单独对输出分类器进行微调只能获得完整微调性能的70％。考虑到学习基本分类网所需的时间，所以从头开始训练是不可行的。（注意：VGG网络是分阶段训练的，但我们从完整的16层版本初始化。）对于粗FCN-32s版本的网络。在单个GPU上微调耗费了3天时间，对于FCN-16s和FCN-8s版本大约耗费1天时间。</p>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-30/71730784.jpg" alt=""><br>图5. 整图像训练和采样patch训练同样有效，但通过更有效地使用数据，可以更快的实现收敛。左边显示了采样对固定预期批量大小的收敛速度的影响，右图绘制了相对wall time的情况。</center>
+
+<p>　　<strong>Patch 采样</strong> 如3.4节中所解释的那样，我们的完整图像训练有效的地将每个图像批量的分配到一个大的重叠patch的规则网格中。相比之下，之前的方法在完整数据集上随机采样，可能导致更高偏差的批，这可能会加速收敛。我们按照前面描述的方式，通过空间采样研究这种权衡，使用$1-p$的概率独立的选择忽略每一个最终层的单元。为了避免改变有效批的大小，我们通过一个$1/p$的因子同时增加每一批图像的数量。注意：由于卷积的效率，对于足够大的$p$值（例如：根据3.1节中描述的，至少$p &gt; 0.2$），这种抛弃采样的形式仍然比patchwise训练快。图5展示了这种抽样方式对收敛性的影响。相比于整图像训练，我们发现抽样对收敛速率没有明显的影响，但是由于每批需要考虑的图像太多，所以需要花费更多的时间。因此，在我们的实验中我们选择上采样、整图像训练。<br>　　<strong>类别平衡（Class Balancing）</strong> 完全卷积训练可以通过权重或者采样损失平衡类别。尽管我们的标签轻微的不平衡（大约3/4是背景），但是我们发现类别平衡是不必要的。<br>　　<strong>密集预测（Dense Prediction）</strong> 通过网内的反卷积层将分数上采样到输入维度。最终层的反卷积滤波器被固定为双线性插值，而中间上采样层被初始化为双线性上采样，然后被学习。Shift-and-stitch（3.2节）或者过滤稀疏等效都没有使用。<br>　　<strong>增强（Augmentation）</strong> 我们试图在每一次预测中通过随机镜像和通过将他们转换成32像素（预测的粗糙尺度）抖动图像增强训练数据。这没有产生明显的改善。<br>　　<strong>更多训练数据（More Training Data）</strong> 表1中所使用的PASCAL VOC 2011 分割挑战训练集标记了1112幅图像。Hariharan等人已经收集了一套更大的包含8498张PASCAL训练图像标签的数据集，用于训练之前最先进的系统。这些训练数据提升了FCN-VGG16验证得分达3.4个点到59.4 mean IU。<br>　　<strong>实现（Implementation）</strong> 所有模型都在NVIDIA Tesla K40c上使用caffe训练和测试的。这些模型和代码将开源。</p>
+<h1 id="5-结果"><a href="#5-结果" class="headerlink" title="5 结果"></a>5 结果</h1><p>　　我们在PASCAL VOC、NYUDv2和SIFT Flow数据集上对FCN进行了语义分割和场景分析的测试。虽然这些任务在历史上对物体和区域之间进行了区分，但我们将这两个任务统一视为像素预测。我们在每一个数据集上评估了FCN的跳层架构，然后将其扩展为NYUDv2的多模态输入和对于SIFT Flow的语义和几何标签的多任务预测。<br>　　<strong>度量（Metrics）</strong> 我们报告了来自常见语义分割和场景分析评估的四个度量，这些评估是像素精度上的变化和区域IU。$n_{ij}$表示类$i$的像素被预测为属于类$j$的数量，具有$n_ {\text {cl}}$不同的类，$t_i=\sum _{j} n_{ij}$表示类i的总像素数。我们计算一下内容：</p>
+<ul>
+<li>像素精度（pixel acc.）：$\sum _i n_{ii} / \sum _i t_i$</li>
+<li>平均精度（mean acc.）：$(1/n_{\text{cl}}) \sum _i n_{ii} / t_i$</li>
+<li>平均IU（mean IU）：$(1 / n_{\text{cl}}) \sum _i n_{ii} / (t_i + \sum _j n_{ij} - n_{ii})$</li>
+<li>频率加权IU（frequency weighted IU）：<br>$(\sum _k t_k)^{-1} \sum _i t_i n_{ii} / (t_i + \sum _j n_{ji} - n_{ii})$</li>
+</ul>
+<p>　　<strong>PASCAL VOC</strong> 表3给出了我们的FCN-8s在PASCAL VOC 2011和2012测试集上的性能，并将它与之前最先进的模型SDS和众所周知的R-CNN进行了比较。我们以20%的相对利润率获得了mean IU的最佳结果。推理时间缩减了114倍（忽略候选框和细化，仅卷积网络）和286倍（全部）。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>mean IU VOC 2011 test</th>
+<th>mean IU VOC 2012 test</th>
+<th>inference time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-CNN</td>
+<td>47.9</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SDS</td>
+<td>52.6</td>
+<td>51.6</td>
+<td>~50s</td>
+</tr>
+<tr>
+<td>FCN-8s</td>
+<td><strong>62.7</strong></td>
+<td><strong>62.2</strong></td>
+<td><strong>~175ms</strong></td>
+</tr>
+</tbody>
+</table>
+<center>表3. 在PASCAL VOC 2011和2012的测试集上，我们的完全卷积网络比之前最先进的网络获得了相对20%的提升，并且缩短了推理时间。<br></center>
+
+<p>　　<strong>NYUDv2</strong>是一个使用Microsoft Kinect收集的RGB-D数据集。具有1449幅RGB-D图像，像素化的标签已经合并成一个40类的语义分割任务，由Gupta等人完成。我们公布了在标准划分的795幅训练图像和654幅测试图像上的结果。（注意：所有模型选择都是在PASCAL 2011验证集上进行的。）表4给出了我们的模型在一些验证集上的性能。首先在RGB图像上训练我们未修改的粗化模型（FCN-32s）。为了增加深度信息，我们训练了一个升级版模型接收4通道的输入（早期融合）。这几乎没有什么好处，可能难以在整个模型中传播有意义的渐变。借鉴Gupta等人的成功，我们尝试了深度的三维HHA编码，仅根据这些信息训练网络，以及RGB和HHA的“后期融合”，其中来自两个网络的预测在最后一层进行求和，并由此产生的双流网络是端到端学习的。最后我们升级这个后期融合网络到步长为16的版本。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>pixel acc.</th>
+<th>mean acc.</th>
+<th>mean IU</th>
+<th>f.w. IU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Gupta</em></td>
+<td>60.3</td>
+<td>-</td>
+<td>28.6</td>
+<td>47.0</td>
+</tr>
+<tr>
+<td>FCN-32s RGB</td>
+<td>60.0</td>
+<td>42.2</td>
+<td>29.2</td>
+<td>43.9</td>
+</tr>
+<tr>
+<td>FCN-32s RGBD</td>
+<td>61.5</td>
+<td>42.4</td>
+<td>30.5</td>
+<td>45.5</td>
+</tr>
+<tr>
+<td>FCN-32s HHA</td>
+<td>57.1</td>
+<td>35.2</td>
+<td>24.2</td>
+<td>40.4</td>
+</tr>
+<tr>
+<td>FCN-32s RGB-HHA</td>
+<td>64.3</td>
+<td>44.9</td>
+<td>32.8</td>
+<td>48.0</td>
+</tr>
+<tr>
+<td>FCN-16s RGB-HHA</td>
+<td><strong>65.4</strong></td>
+<td><strong>46.1</strong></td>
+<td><strong>34.0</strong></td>
+<td><strong>49.5</strong></td>
+</tr>
+</tbody>
+</table>
+<center>表4. NYUDv2上的结果。RGBD表示RGB和深度通道在输入时的前期融合，HHA表示水平视差、地面高度以及局部表面法线与推测重力方向的夹角的深度嵌入。RGB-HHA表示联合训练的后期融合模型，它将RGB和HHA的预测进行了求和。<br></center>
+
+<p>　　<strong>SIFT Flow</strong>是包含2688幅图像，具有33类语义类别（“bridge”、“mountain”、“sun”）以及三种几何类别（“horizontal”、“vertical”和“sky”）的数据集。FCN可以很自然的学习联合表示，同时预测两种类型的标签。我们通过语义和几何预测层和损失来学习FCN-16s two-headed版本。模型在两个任务上的表现都与两个独立训练的模型一样好，而学习和推理本质上和每一个独立模型一样快。结果如表5所示，在标准分割的2488幅训练图像和200幅测试图像上计算的，在两个任务上展示了最好的性能。</p>
+<table>
+<thead>
+<tr>
+<th>—</th>
+<th>pixel acc.</th>
+<th>mean acc.</th>
+<th>mean IU</th>
+<th>f.w. IU</th>
+<th>geom. IU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Liu <em>et al.</em></td>
+<td>76.7</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Tighe <em>et al.</em></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>90.8</td>
+</tr>
+<tr>
+<td>Tighe <em>et al.</em> 1</td>
+<td>75.6</td>
+<td>41.1</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Tighe <em>et al.</em> 2</td>
+<td>78.6</td>
+<td>39.2</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Farabet <em>et al.</em> 1</td>
+<td>72.3</td>
+<td>50.8</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Farabet <em>et al.</em> 2</td>
+<td>78.5</td>
+<td>29.6</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Pinheiro <em>et al.</em></td>
+<td>77.7</td>
+<td>29.8</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>FCN-16s</td>
+<td><strong>85.2</strong></td>
+<td><strong>57.7</strong></td>
+<td>39.5</td>
+<td>76.1</td>
+<td>94.3</td>
+</tr>
+</tbody>
+</table>
+<center>表5. 具有类别分割（中间）和几何分割（右边）的SIFT Flow数据集上的结果。Tighe是一种非参数化的迁移模型。Tighe 1是一种典型SVM，2是SVM+MRF，Farabet是在类别平衡采样（1）或自然频率采样（2）上学习的多尺度卷积网络。Pinheiro是一个多尺度的循环卷积网络，表示为$_\text{R} \text {CNN} _\text {3} (\circ ^3)$。几何标签的衡量标准是像素准确度。<br></center>
+
+<center><img src="http://otue1rxl3.bkt.clouddn.com/18-4-29/41602719.jpg" alt=""><br>图6. 完全卷积网络在PASCAL数据集上产生的最好的性能结果。左边是我们性能最好的网络（FCN-8s）的输出结果，第二列是之前由Hariharan等人提出的最好的系统的分割结果。注意恢复的精细结构程度（第1行），分离紧密交互的对象的能力（第2行），以及对遮挡的鲁棒性（第3行）。第4行显示了一个失败的案例：网络将在船上的救生衣看成是人。<br></center>
+
+<h1 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h1><p>　　完全卷积网络是一类丰富的模型，其中现代分类卷积网络是一个特例。认识到这一点，将这些网络扩展到分割，并通过多分辨率层组合改进体系结构，极大地提高了技术水平，同时简化和加速了学习和推理。</p>
+<h1 id="A-IU上界（Upper-Bounds-on-IU）"><a href="#A-IU上界（Upper-Bounds-on-IU）" class="headerlink" title="A. IU上界（Upper Bounds on IU）"></a>A. IU上界（Upper Bounds on IU）</h1><p>　　本文在粗语义分割的基础上，实现了mean IU分割指标的良好性能。为了更好的理解该衡量标准和这个方法的限制，我们用不同尺度的预测来计算性能的近似上界。我们通过下采样真实标记的图像，然后再次对其上采样，以模拟一个特定的下采样因子得到的最佳结果。下表给出了对于不同的下采样因子，在PASCAL 2011验证集子集上的mean IU。</p>
+<table>
+<thead>
+<tr>
+<th>factor</th>
+<th>mean IU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>128</td>
+<td>50.9</td>
+</tr>
+<tr>
+<td>64</td>
+<td>73.3</td>
+</tr>
+<tr>
+<td>32</td>
+<td>86.1</td>
+</tr>
+<tr>
+<td>16</td>
+<td>92.8</td>
+</tr>
+<tr>
+<td>8</td>
+<td>96.4</td>
+</tr>
+<tr>
+<td>4</td>
+<td>98.5</td>
+</tr>
+</tbody>
+</table>
+<p>　　显然，像素级的预测没必要达到上面最好的mean IU，相反，mean IU并不是最好的精细尺度准确度测量标准。</p>
+<h1 id="B-更多结果"><a href="#B-更多结果" class="headerlink" title="B. 更多结果"></a>B. 更多结果</h1><p>　　我们进一步衡量了FCN语义分割的性能。<br>　　<strong>PASCAL-Context</strong>提供了PASCAL VOC 2010的完整场景注释。虽然有超过400个不同的类，但我们按照[<a href="https://www.researchgate.net/publication/264975444_The_Role_of_Context_for_Object_Detection_and_Semantic_Segmentation_in_the_Wild" target="_blank" rel="external">26</a>]定义的59个类任务来选择最频繁的类。我们分别在训练集和验证集上进行训练和评估。在表6中，我们比较了卷积特征掩膜的object+stuff联合变化，这是此项任务中的最新技术。FCN-8s得分为35.1 mean IU，11%的相对提升。</p>
+<table>
+<thead>
+<tr>
+<th>59 class</th>
+<th>pixel acc.</th>
+<th>mean acc.</th>
+<th>mean IU</th>
+<th>f.w. IU</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\text {O}_2 \text {P}$</td>
+<td>-</td>
+<td>-</td>
+<td>18.1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CFM</td>
+<td>-</td>
+<td>-</td>
+<td>31.5</td>
+<td>-</td>
+</tr>
+<tr>
+<td>FCN-32s</td>
+<td>63.8</td>
+<td>42.7</td>
+<td>31.8</td>
+<td>48.3</td>
+</tr>
+<tr>
+<td>FCN-16s</td>
+<td>65.7</td>
+<td>46.2</td>
+<td>34.8</td>
+<td>50.7</td>
+</tr>
+<tr>
+<td>FCN-8s</td>
+<td><strong>65.9</strong></td>
+<td><strong>46.5</strong></td>
+<td><strong>35.1</strong></td>
+<td><strong>51.0</strong></td>
+</tr>
+<tr>
+<td><strong>33 class</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>$\text {O}_2 \text {P}$</td>
+<td>-</td>
+<td>-</td>
+<td>29.2</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CFM</td>
+<td>-</td>
+<td>-</td>
+<td>46.1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>FCN-32s</td>
+<td>69.8</td>
+<td>65.1</td>
+<td>50.4</td>
+<td>54.9</td>
+</tr>
+<tr>
+<td>FCN-16s</td>
+<td><strong>71.8</strong></td>
+<td><strong>68.0</strong></td>
+<td>53.4</td>
+<td>57.5</td>
+</tr>
+<tr>
+<td>FCN-8s</td>
+<td><strong>71.8</strong></td>
+<td>67.6</td>
+<td><strong>53.5</strong></td>
+<td><strong>57.7</strong></td>
+</tr>
+</tbody>
+</table>
+<center>表6. PASCAL-Context上的结果。CFM是通过卷积特征掩膜和VGG网络分割的最好结果。$O_2P$表示[<a href="https://www.researchgate.net/publication/264975444_The_Role_of_Context_for_Object_Detection_and_Semantic_Segmentation_in_the_Wild" target="_blank" rel="external">26</a>]中的errata提出的二阶池化方法。59类任务包含了59种频率最高的类，33类任务由一个子集组成。<br></center>
+
       
     </div>
 
@@ -1021,7 +1430,24 @@
         }
       });
     </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
   
 
 

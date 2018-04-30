@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -104,7 +104,10 @@
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-27/98620237.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-27/10952232.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-27/91538923.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-28/51381705.jpg">
 <meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-28/39600002.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-28/88148369.jpg">
+<meta property="og:image" content="http://otue1rxl3.bkt.clouddn.com/17-11-28/13366246.jpg">
 <meta property="og:updated_time" content="2017-11-28T14:24:44.606Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器之心GitHub项目：从零开始用TensorFlow搭建卷积神经网络【转】">
@@ -158,7 +161,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -178,7 +181,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -398,7 +401,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  7,589
+                  7,559
                 </span>
               
 
@@ -488,7 +491,7 @@ the distance between [[7 8]] and [[ 9 10]] -&gt; [2.8284271]
 <li>导入数据集</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%pwd</div></pre></td></tr></table></figure>
-<pre><code>&#39;E:\\jupyter notebook&#39;
+<pre><code>&apos;E:\\jupyter notebook&apos;
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################### 导入 mnist 数据集 ################################</span></div><div class="line"><span class="keyword">from</span> mnist <span class="keyword">import</span> MNIST</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mnist_folder = <span class="string">'.\data\mnist'</span></div><div class="line">mnist_image_width = <span class="number">28</span></div><div class="line">mnist_image_height = <span class="number">28</span></div><div class="line">mnist_image_depth = <span class="number">1</span></div><div class="line">mnist_num_labels = <span class="number">10</span></div><div class="line">mndata = MNIST(mnist_folder)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 导入训练集和测试集</span></div><div class="line">mnist_train_dataset_, mnist_train_labels_ = mndata.load_training()</div><div class="line">mnist_test_dataset_, mnist_test_labels_ = mndata.load_testing()</div></pre></td></tr></table></figure>
@@ -583,9 +586,7 @@ After 10000 training step(s), test accuracy using average model is 0.9838
 <p>然而，如果我们是刚开始使用TensorFlow，想要学习搭建不同的神经网络，那么使用高级API就不那么合适，因为，这些高级API把所有事情都做完了。</p>
 <h2 id="2-5-搭建LeNet5卷积神经网络"><a href="#2-5-搭建LeNet5卷积神经网络" class="headerlink" title="2.5 搭建LeNet5卷积神经网络"></a>2.5 搭建LeNet5卷积神经网络</h2><p>LeNet5 卷积网络架构最早是 Yann LeCun 提出来的，它是早期的一种卷积神经网络，并且可以用来识别手写数字。虽然它在 MNIST 数据集上执行地非常好，但在其它高分辨率和大数据集上性能有所降低。对于这些大数据集，像 AlexNet、VGGNet 或 ResNet 那样的深度卷积网络才执行地十分优秀。</p>
 <p>因为 LeNet5 只由 5 层网络，所以它是学习如何构建卷积网络的最佳起点。LeNet5 的架构如下</p>
-<center>
-![](http://otue1rxl3.bkt.clouddn.com/17-11-28/51381705.jpg)
-</center>
+<center><br><img src="http://otue1rxl3.bkt.clouddn.com/17-11-28/51381705.jpg" alt=""><br></center>
 
 <p>LeNet5包含5层网络：</p>
 <ul>
@@ -603,7 +604,7 @@ After 10000 training step(s), test accuracy using average model is 0.9838
 <li>导入数据集</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%pwd</div></pre></td></tr></table></figure>
-<pre><code>&#39;E:\\jupyter notebook&#39;
+<pre><code>&apos;E:\\jupyter notebook&apos;
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################### 导入 mnist 数据集 ################################</span></div><div class="line"><span class="keyword">from</span> mnist <span class="keyword">import</span> MNIST</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mnist_folder = <span class="string">'.\data\mnist'</span></div><div class="line">mnist_image_width = <span class="number">28</span></div><div class="line">mnist_image_height = <span class="number">28</span></div><div class="line">mnist_image_depth = <span class="number">1</span></div><div class="line">mnist_num_labels = <span class="number">10</span></div><div class="line">mndata = MNIST(mnist_folder)</div></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 导入训练集和测试集</span></div><div class="line">mnist_train_dataset_, mnist_train_labels_ = mndata.load_training()</div><div class="line">mnist_test_dataset_, mnist_test_labels_ = mndata.load_testing()</div></pre></td></tr></table></figure>
@@ -642,6 +643,8 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
 <p>为了理解这一点我们需要讨论一下 conv2d() 函数。</p>
 <blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">conv2d(</div><div class="line">    input,</div><div class="line">    filter,</div><div class="line">    strides,</div><div class="line">    padding,</div><div class="line">    use_cudnn_on_gpu=<span class="keyword">True</span>,</div><div class="line">    data_format=<span class="string">'NHWC'</span>,</div><div class="line">    name=<span class="keyword">None</span></div><div class="line">)</div></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
 <ul>
 <li>input: A Tensor. Must be one of the following types: half, float32. A 4-D tensor. The dimension order is interpreted according to the value of data_format, see below for details.</li>
 <li>filter: A Tensor. Must have the same type as input. A 4-D tensor of shape [filter_height, filter_width, in_channels, out_channels]</li>
@@ -662,15 +665,7 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
 <p>这四个参数决定了输出图像的尺寸。前面两个参数都是四维张量，其包括了批量输入图像的信息和卷积滤波器的权值。</p>
 <p>第三个参数为卷积的步幅（stride），即卷积滤波器在 4 个维度中的每一次移动的距离。四个中间的第一个维度代表着图像的批量数，这个维度肯定每次只能移动一张图片。最后一个维度为图片深度（即色彩通道数，1 代表灰度图片，而 3 代表 RGB 图片），因为我们通常并不想跳过任何一个通道，所以这一个值也通常为 1。第二个和第三个维度代表 X 和 Y 方向（图片宽度和高度）的步幅。如果我们希望能应用步幅参数，我们需要设定每个维度的移动步幅。例如设定步幅为 1，那么步幅参数就需要设定为 [1, 1, 1, 1]，如果我们希望在图像上移动的步幅设定为 2，步幅参数为 [1, 2, 2, 1]。</p>
 <p>最后一个参数表明 TensorFlow 是否需要使用 0 来填补图像周边，这样以确保图像输出尺寸在步幅参数设定为 1 的情况下保持不变。通过设置 padding = ‘SAME’，图像会只使用 0 来填补周边（输出尺寸不变），而 padding = ‘VALID’则不会使用 0。在下图中，我们将看到两个使用卷积滤波器在图像上扫描的案例，其中滤波器的大小为 5 x 5、图像的大小为 28 x 28。左边的 Padding 参数设置为’SAME’，并且最后四行/列的信息也会包含在输出图像中。而右边 padding 设置为 ‘VALID’，最后四行/列是不包括在输出图像内的。</p>
-<center>![](http://otue1rxl3.bkt.clouddn.com/17-11-28/88148369.jpg)</center>
-没有 padding 的图片，最后四个像素点是无法包含在内的，因为卷积滤波器已经移动到了图片的边缘。这就意味着输入 28 x 28 尺寸的图片，输出尺寸只有 24 x 24。如果 padding = 'SAME'，那么输出尺寸就是 28 x 28。
-如果我们输入图片尺寸是 28 x 28、滤波器尺寸为 5 x 5，步幅分别设置为 1 到 4，那么就能得到下表
-<center>![](http://otue1rxl3.bkt.clouddn.com/17-11-28/13366246.jpg)</center>
-由此可见，对于stride为1，用0补充和不用0补充的输出图像大小分别为28x28和24x24,如果stride为2，则为14x14和12x12，如果stride为3，则为10x10和8x8等。
-
-对于任意给定的步幅 S、滤波器尺寸 K、图像尺寸 W、padding 尺寸 P，输出的图像尺寸可以总结上表的规则如下：
-
-<center>O = 1+(W-K+2P)/S</center>
+<center><img src="http://otue1rxl3.bkt.clouddn.com/17-11-28/88148369.jpg" alt=""></center><br>没有 padding 的图片，最后四个像素点是无法包含在内的，因为卷积滤波器已经移动到了图片的边缘。这就意味着输入 28 x 28 尺寸的图片，输出尺寸只有 24 x 24。如果 padding = ‘SAME’，那么输出尺寸就是 28 x 28。<br>如果我们输入图片尺寸是 28 x 28、滤波器尺寸为 5 x 5，步幅分别设置为 1 到 4，那么就能得到下表<br><center><img src="http://otue1rxl3.bkt.clouddn.com/17-11-28/13366246.jpg" alt=""></center><br>由此可见，对于stride为1，用0补充和不用0补充的输出图像大小分别为28x28和24x24,如果stride为2，则为14x14和12x12，如果stride为3，则为10x10和8x8等。<br><br>对于任意给定的步幅 S、滤波器尺寸 K、图像尺寸 W、padding 尺寸 P，输出的图像尺寸可以总结上表的规则如下：<br><br><center>O = 1+(W-K+2P)/S</center>
 
 <h2 id="2-7-调整-LeNet5-架构"><a href="#2-7-调整-LeNet5-架构" class="headerlink" title="2.7 调整 LeNet5 架构"></a>2.7 调整 LeNet5 架构</h2><p>LeNet5 架构在原论文中使用的是 Sigmoid 激活函数和平均池化。然而如今神经网络使用 ReLU 激活函数更为常见。所以我们可以修改一下 LeNet5 架构，并看看是否能获得性能上的提升，我们可以称这种修改的架构为类 LeNet5 架构。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">LENET5_LIKE_BATCH_SIZE = <span class="number">32</span></div><div class="line">LENET5_LIKE_FILTER_SIZE = <span class="number">5</span></div><div class="line">LENET5_LIKE_FILTER_DEPTH = <span class="number">16</span></div><div class="line">LENET5_LIKE_NUM_HIDDEN = <span class="number">120</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">variables_lenet5_like</span><span class="params">(filter_size = LENET5_LIKE_FILTER_SIZE, </span></span></div><div class="line"><span class="function"><span class="params">                          filter_depth = LENET5_LIKE_FILTER_DEPTH, </span></span></div><div class="line"><span class="function"><span class="params">                          num_hidden = LENET5_LIKE_NUM_HIDDEN,</span></span></div><div class="line"><span class="function"><span class="params">                          image_width = <span class="number">28</span>, image_depth = <span class="number">1</span>, num_labels = <span class="number">10</span>)</span>:</span></div><div class="line"> </div><div class="line">    w1 = tf.Variable(tf.truncated_normal([filter_size, filter_size, image_depth, filter_depth], stddev=<span class="number">0.1</span>))</div><div class="line">    b1 = tf.Variable(tf.zeros([filter_depth]))</div><div class="line"></div><div class="line">    w2 = tf.Variable(tf.truncated_normal([filter_size, filter_size, filter_depth, filter_depth], stddev=<span class="number">0.1</span>))</div><div class="line">    b2 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape=[filter_depth]))</div><div class="line"> </div><div class="line">    w3 = tf.Variable(tf.truncated_normal([(image_width // <span class="number">4</span>)*(image_width // <span class="number">4</span>)*filter_depth , num_hidden], stddev=<span class="number">0.1</span>))</div><div class="line">    b3 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape = [num_hidden]))</div><div class="line"></div><div class="line">    w4 = tf.Variable(tf.truncated_normal([num_hidden, num_hidden], stddev=<span class="number">0.1</span>))</div><div class="line">    b4 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape = [num_hidden]))</div><div class="line"> </div><div class="line">    w5 = tf.Variable(tf.truncated_normal([num_hidden, num_labels], stddev=<span class="number">0.1</span>))</div><div class="line">    b5 = tf.Variable(tf.constant(<span class="number">1.0</span>, shape = [num_labels]))</div><div class="line">    variables = &#123;</div><div class="line">                  <span class="string">'w1'</span>: w1, <span class="string">'w2'</span>: w2, <span class="string">'w3'</span>: w3, <span class="string">'w4'</span>: w4, <span class="string">'w5'</span>: w5,</div><div class="line">                  <span class="string">'b1'</span>: b1, <span class="string">'b2'</span>: b2, <span class="string">'b3'</span>: b3, <span class="string">'b4'</span>: b4, <span class="string">'b5'</span>: b5</div><div class="line">                &#125;</div><div class="line">    <span class="keyword">return</span> variables</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">model_lenet5_like</span><span class="params">(data, variables)</span>:</span></div><div class="line">    layer1_conv = tf.nn.conv2d(data, variables[<span class="string">'w1'</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</div><div class="line">    layer1_actv = tf.nn.relu(layer1_conv + variables[<span class="string">'b1'</span>])</div><div class="line">    layer1_pool = tf.nn.avg_pool(layer1_actv, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</div><div class="line"></div><div class="line">    layer2_conv = tf.nn.conv2d(layer1_pool, variables[<span class="string">'w2'</span>], [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</div><div class="line">    layer2_actv = tf.nn.relu(layer2_conv + variables[<span class="string">'b2'</span>])</div><div class="line">    layer2_pool = tf.nn.avg_pool(layer2_actv, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>], padding=<span class="string">'SAME'</span>)</div><div class="line">    </div><div class="line">    shape = layer2_pool.shape.as_list()</div><div class="line">    layer2_pool = tf.reshape(layer2_pool, [shape[<span class="number">0</span>], shape[<span class="number">1</span>] * shape[<span class="number">2</span>] * shape[<span class="number">3</span>]])</div><div class="line">    flat_layer = layer2_pool</div><div class="line">    <span class="comment"># flat_layer = flatten_tf_array(layer2_pool)</span></div><div class="line">    layer3_fccd = tf.matmul(flat_layer, variables[<span class="string">'w3'</span>]) + variables[<span class="string">'b3'</span>]</div><div class="line">    layer3_actv = tf.nn.relu(layer3_fccd)</div><div class="line">    <span class="comment">#layer3_drop = tf.nn.dropout(layer3_actv, 0.5)</span></div><div class="line"> </div><div class="line">    layer4_fccd = tf.matmul(layer3_actv, variables[<span class="string">'w4'</span>]) + variables[<span class="string">'b4'</span>]</div><div class="line">    layer4_actv = tf.nn.relu(layer4_fccd)</div><div class="line">   <span class="comment">#layer4_drop = tf.nn.dropout(layer4_actv, 0.5)</span></div><div class="line"> </div><div class="line">    logits = tf.matmul(layer4_actv, variables[<span class="string">'w5'</span>]) + variables[<span class="string">'b5'</span>]</div><div class="line">    <span class="keyword">return</span> logits</div></pre></td></tr></table></figure>
@@ -1202,7 +1197,24 @@ step 10000 : loss is 000.12, accuracy on training set 95.31 %, accuracy on test 
         showTime(Counter);
       }
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 

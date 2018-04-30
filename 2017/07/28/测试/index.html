@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -155,7 +155,7 @@
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
-  </script>
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -175,7 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -431,13 +431,9 @@ void main()
 </code></pre><h1 id="这是一张图片"><a href="#这是一张图片" class="headerlink" title="这是一张图片"></a>这是一张图片</h1><p><img src="http://otue1rxl3.bkt.clouddn.com/17-7-29/85087268.jpg" alt="桌面壁纸"></p>
 <h1 id="这是一个数学公式"><a href="#这是一个数学公式" class="headerlink" title="这是一个数学公式"></a>这是一个数学公式</h1><p>哦！我不知道怎么写公式，好尴尬啊！！！</p>
 <h1 id="这是一个超链接"><a href="#这是一个超链接" class="headerlink" title="这是一个超链接"></a>这是一个超链接</h1><p>请看<a href="http://mindthink.me" target="_blank" rel="external">岁月轻狂</a>的博客</p>
-<h1 id="这是一首歌"><a href="#这是一首歌" class="headerlink" title="这是一首歌"></a>这是一首歌</h1><center>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38592976&auto=1&height=66"></iframe>
-</center>
+<h1 id="这是一首歌"><a href="#这是一首歌" class="headerlink" title="这是一首歌"></a>这是一首歌</h1><center><br><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38592976&auto=1&height=66"></iframe><br></center>
 
-<h1 id="这是一个视频"><a href="#这是一个视频" class="headerlink" title="这是一个视频"></a>这是一个视频</h1><center>
-<embed src="http://player.youku.com/player.php/sid/XMTU2OTU5NTQ1Mg==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
-</center>
+<h1 id="这是一个视频"><a href="#这是一个视频" class="headerlink" title="这是一个视频"></a>这是一个视频</h1><center><br><embed src="http://player.youku.com/player.php/sid/XMTU2OTU5NTQ1Mg==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"><br></center>
 
       
     </div>
@@ -966,7 +962,24 @@ void main()
         showTime(Counter);
       }
     });
-  </script>
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
 
 
