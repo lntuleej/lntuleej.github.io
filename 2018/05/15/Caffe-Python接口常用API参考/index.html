@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="API,caffe," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Caffe Python接口常用API">
+<meta name="keywords" content="API,caffe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Caffe-Python接口常用API总结">
+<meta property="og:url" content="http://ailee.me/2018/05/15/Caffe-Python接口常用API参考/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="Caffe Python接口常用API">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-16T11:44:40.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Caffe-Python接口常用API总结">
+<meta name="twitter:description" content="Caffe Python接口常用API">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2018/05/15/Caffe-Python接口常用API参考/"/>
+
+
+
+
+
+  <title>Caffe-Python接口常用API总结 | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/05/15/Caffe-Python接口常用API参考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Caffe-Python接口常用API总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T21:23:53+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2018-05-16T19:44:40+08:00">
+                2018-05-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Caffe/" itemprop="url" rel="index">
+                    <span itemprop="name">Caffe</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/15/Caffe-Python接口常用API参考/" class="leancloud_visitors" data-flag-title="Caffe-Python接口常用API总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  2,757
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Caffe Python接口常用API
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文整理了pycaffe中常用的caffe Python API</p>
+<!-- TOC -->
+<ul>
+<li><a href="#导入caffe">导入caffe</a></li>
+<li><a href="#1-caffenetspec-定义一个网络">1 caffe.NetSpec() 定义一个网络</a></li>
+<li><a href="#2-layers定义">2 Layers定义</a><ul>
+<li><a href="#21-data-layers-数据层定义">2.1 Data Layers 数据层定义</a><ul>
+<li><a href="#211-ldata">2.1.1 L.Data()</a></li>
+<li><a href="#212-lhdf5data">2.1.2 L.HDF5Data()</a></li>
+<li><a href="#213-limagedata">2.1.3 L.ImageData()</a></li>
+</ul>
+</li>
+<li><a href="#22-vision-layers-视觉层定义">2.2 Vision Layers 视觉层定义</a><ul>
+<li><a href="#221-lconvolution">2.2.1 L.Convolution()</a></li>
+<li><a href="#222-lpooling">2.2.2 L.Pooling()</a></li>
+<li><a href="#223-llrn">2.2.3 L.LRN()</a></li>
+<li><a href="#224-linnerproduct">2.2.4 L.InnerProduct()</a></li>
+</ul>
+</li>
+<li><a href="#23-activation-layers-激活层定义">2.3 Activation Layers 激活层定义</a><ul>
+<li><a href="#231-lrelu">2.3.1 L.ReLU()</a></li>
+<li><a href="#232-lsigmoid">2.3.2 L.Sigmoid()</a></li>
+<li><a href="#233-ltanh">2.3.3 L.TanH()</a></li>
+<li><a href="#234-labsval">2.3.4 L.AbsVal()</a></li>
+<li><a href="#235-lpower">2.3.5 L.Power()</a></li>
+<li><a href="#236-lbnll">2.3.6 L.BNLL()</a></li>
+</ul>
+</li>
+<li><a href="#24-other-layers-其他常用层定义">2.4 Other Layers 其他常用层定义</a><ul>
+<li><a href="#241-lsoftmaxwithloss">2.4.1 L.SoftmaxWithLoss()</a></li>
+<li><a href="#242-lsoftmax">2.4.2 L.Softmax()</a></li>
+<li><a href="#243-laccuracy">2.4.3 L.Accuracy()</a></li>
+<li><a href="#244-ldropout">2.4.4 L.Dropout()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h1 id="导入caffe"><a href="#导入caffe" class="headerlink" title="导入caffe"></a>导入caffe</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> caffe</div><div class="line"><span class="keyword">from</span> caffe <span class="keyword">import</span> layers <span class="keyword">as</span> L</div><div class="line"><span class="keyword">from</span> caffe <span class="keyword">import</span> params <span class="keyword">as</span> P</div></pre></td></tr></table></figure>
+<h1 id="1-caffe-NetSpec-定义一个网络"><a href="#1-caffe-NetSpec-定义一个网络" class="headerlink" title="1 caffe.NetSpec() 定义一个网络"></a>1 caffe.NetSpec() 定义一个网络</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">n = caffe.NetSpec()</div></pre></td></tr></table></figure>
+<p>上述代码是获取Caffe的一个Net，我们只需不断的填充这个n，最后把n输出到文件*.prototxt。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">n.to_proto()</div></pre></td></tr></table></figure>
+<p>将定义好的网络输出到*.prototxt文件中。</p>
+<h1 id="2-Layers定义"><a href="#2-Layers定义" class="headerlink" title="2 Layers定义"></a>2 Layers定义</h1><h2 id="2-1-Data-Layers-数据层定义"><a href="#2-1-Data-Layers-数据层定义" class="headerlink" title="2.1 Data Layers 数据层定义"></a>2.1 Data Layers 数据层定义</h2><h3 id="2-1-1-L-Data"><a href="#2-1-1-L-Data" class="headerlink" title="2.1.1 L.Data()"></a>2.1.1 L.Data()</h3><p>lmdb/leveldb Data层定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># data,label:   为top的名称</span></div><div class="line"><span class="comment"># Data():       表示该层类型为数据层，数据来自于levelDB或者LMDB。</span></div><div class="line"><span class="comment"># source:       lmdb数据目录。</span></div><div class="line"><span class="comment"># backend:      选择是采用levelDB还是LMDB，默认是levelDB。</span></div><div class="line"><span class="comment"># batch_size:   每一次处理数据的个数。</span></div><div class="line"><span class="comment"># ntop:         表明有多少个blobs数据输出，示例中为2，代表着data和label。</span></div><div class="line"><span class="comment"># phase:        0:表示TRAIN</span></div><div class="line"><span class="comment">#               1:表示TEST</span></div><div class="line"><span class="comment"># transform_param:  数据预处理</span></div><div class="line"><span class="comment">#   scale:      归一化。1/255即将输入数据从0-255归一化到0-1之间。</span></div><div class="line"><span class="comment">#   crop_size:  对图像进行裁剪。如果定义了crop_size，那么在train时会对大</span></div><div class="line"><span class="comment">#               于crop_size的图片进行随机裁剪，而在test时只是截取中间部分。</span></div><div class="line"><span class="comment">#   mean_value: 图像通道的均值。三个值表示RGB图像中三个通道的均值。</span></div><div class="line"><span class="comment">#   mirror:     图像镜像。True为使用镜像。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.data, n.label = L.Data(</div><div class="line">    source=lmdb,</div><div class="line">    backend=P.Data.LMDB，</div><div class="line">    batch_size=batch_size,</div><div class="line">    ntop=<span class="number">2</span>,</div><div class="line">    include=dict(phase=<span class="number">0</span>)</div><div class="line">    transform_param=dict(</div><div class="line">                        scale=<span class="number">1.</span>/<span class="number">225</span>,</div><div class="line">                        crop_size=<span class="number">227</span>,</div><div class="line">                        mean_value=[<span class="number">104</span>, <span class="number">117</span>, <span class="number">123</span>],</div><div class="line">                        mirror=<span class="keyword">True</span></div><div class="line">                        )</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>其效果如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"data"</span></div><div class="line">    type: <span class="string">"Data"</span></div><div class="line">    top: <span class="string">"data"</span></div><div class="line">    top: <span class="string">"label"</span></div><div class="line">    include &#123;</div><div class="line">        phase: TRAIN</div><div class="line">    &#125;</div><div class="line">    transform_param &#123;</div><div class="line">        scale: <span class="number">0.00444</span></div><div class="line">        mirror: true</div><div class="line">        crop_size: <span class="number">227</span></div><div class="line">        mean_value: <span class="number">104</span></div><div class="line">        mean_value: <span class="number">117</span></div><div class="line">        mean_value: <span class="number">123</span></div><div class="line">    &#125;</div><div class="line">    data_param &#123;</div><div class="line">        source: <span class="string">"path/to/lmdb"</span></div><div class="line">        batch_size: <span class="number">64</span></div><div class="line">        backend: LMDB</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-1-2-L-HDF5Data"><a href="#2-1-2-L-HDF5Data" class="headerlink" title="2.1.2 L.HDF5Data()"></a>2.1.2 L.HDF5Data()</h3><p>HDF5 Data层定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># data,label:   为top的名称。</span></div><div class="line"><span class="comment"># HDF5Data():   表示该层类型为HDF5数据层。</span></div><div class="line"><span class="comment"># source:       读取文件名称。</span></div><div class="line"><span class="comment"># batch_size：  每一次处理数据的数量。</span></div><div class="line"><span class="comment"># include:      附加参数。</span></div><div class="line"><span class="comment">#   phase:      TRAIN或者TEST。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.data, n.label = L.HDF5Data(</div><div class="line">    hdf5_data_param=&#123;</div><div class="line">        <span class="string">'source'</span>: <span class="string">'./training_data_path.txt'</span>,</div><div class="line">        <span class="string">'batch_size'</span>: batch_size</div><div class="line">    &#125;</div><div class="line">    include=&#123;</div><div class="line">        <span class="string">'phase'</span>: caffe.TRAIN</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"data"</span></div><div class="line">    type: <span class="string">"HDF5Data"</span></div><div class="line">    top: <span class="string">"data"</span></div><div class="line">    top: <span class="string">"label"</span></div><div class="line">    hdf5_data_param &#123;</div><div class="line">        source: <span class="string">"examples/hdf5_classification/data/train.txt"</span></div><div class="line">        batch_size: <span class="number">10</span></div><div class="line">    &#125;</div><div class="line">    include &#123;</div><div class="line">        phase: caffe.TRAIN</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-1-3-L-ImageData"><a href="#2-1-3-L-ImageData" class="headerlink" title="2.1.3 L.ImageData()"></a>2.1.3 L.ImageData()</h3><p>Image Data层定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># data,label:   为top的名称</span></div><div class="line"><span class="comment"># ImageData():  表示该层类型为数据层，数据来自于图片。</span></div><div class="line"><span class="comment"># source:       一个文本文件的名称，每一行给定一个图片文件的名称和标签。</span></div><div class="line"><span class="comment"># batch_size:   每一次处理数据的个数。</span></div><div class="line"><span class="comment"># new_width:    图片resize的宽。（可选）</span></div><div class="line"><span class="comment"># new——height:  图片resize的高。（可选）</span></div><div class="line"><span class="comment"># ntop:         表明有多少个blobs数据输出，示例中为2，代表着data和label。</span></div><div class="line"><span class="comment"># transform_param:  数据预处理</span></div><div class="line"><span class="comment">#   crop_size:  对图像进行裁剪。如果定义了crop_size，那么在train时会对大</span></div><div class="line"><span class="comment">#               于crop_size的图片进行随机裁剪，而在test时只是截取中间部分。</span></div><div class="line"><span class="comment">#   mean_value: 图像通道的均值。三个值表示RGB图像中三个通道的均值。</span></div><div class="line"><span class="comment">#   mirror:     图像镜像。True为使用镜像。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.data, n.label = L.ImageData(</div><div class="line">            source=list_path,</div><div class="line">            batch_size=batch_size,</div><div class="line">            new_width=<span class="number">48</span>,</div><div class="line">            new_height=<span class="number">48</span>,</div><div class="line">            ntop=<span class="number">2</span>,</div><div class="line">            transform_param=dict(</div><div class="line">                                crop_size=<span class="number">40</span>,</div><div class="line">                                mean_value=[<span class="number">104</span>, <span class="number">117</span>, <span class="number">123</span>],</div><div class="line">                                mirror=<span class="keyword">True</span></div><div class="line">                               )</div><div class="line">           )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"data"</span></div><div class="line">    type: <span class="string">"ImageData"</span></div><div class="line">    top: <span class="string">"data"</span></div><div class="line">    top: <span class="string">"label"</span></div><div class="line">    transform_param &#123;</div><div class="line">        mirror: false</div><div class="line">        crop_size: <span class="number">227</span></div><div class="line">        mean_value: <span class="number">104</span></div><div class="line">        mean_value: <span class="number">117</span></div><div class="line">        mean_value: <span class="number">123</span></div><div class="line">    &#125;</div><div class="line">    image_data_param &#123;</div><div class="line">        source: <span class="string">"examples/_temp/file_list.txt"</span></div><div class="line">        batch_size: <span class="number">50</span></div><div class="line">        new_height: <span class="number">256</span></div><div class="line">        new_width: <span class="number">256</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-2-Vision-Layers-视觉层定义"><a href="#2-2-Vision-Layers-视觉层定义" class="headerlink" title="2.2 Vision Layers 视觉层定义"></a>2.2 Vision Layers 视觉层定义</h2><p>视觉层包括Convolution, Pooling, Local Response Normalization (LRN)、Fully Connection等层。</p>
+<h3 id="2-2-1-L-Convolution"><a href="#2-2-1-L-Convolution" class="headerlink" title="2.2.1 L.Convolution()"></a>2.2.1 L.Convolution()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       上一层数据输出。</span></div><div class="line"><span class="comment"># kernel_size:  卷积核大小。</span></div><div class="line"><span class="comment"># stride:       卷积核的步长，如果卷积核的长和宽不等，需要使用kernel_h和kernel_w</span></div><div class="line"><span class="comment">#               分别设定。</span></div><div class="line"><span class="comment"># num_output:   卷积核的数量。</span></div><div class="line"><span class="comment"># pad:          扩充边缘，默认为0，不扩充。扩充的时候上下、左右对称，比如卷积核为5*5，</span></div><div class="line"><span class="comment">#               那么pad设置为2，则在四个边缘都扩充两个像素，即宽和高都扩充4个像素，这</span></div><div class="line"><span class="comment">#               样卷积运算之后特征图不会变小。也可以使用pad_h和pad_w来分别设定。</span></div><div class="line"><span class="comment"># group:        分组，默认为1组。如果大于1，我们限制卷积的连接操作在一个子集内，如果</span></div><div class="line"><span class="comment">#               我们根据图像的通道来分组，那么第i个输出分组只能与第i个输入分组进行连接。</span></div><div class="line"><span class="comment"># weight_filler:权值初始化方式。默认为“constant”，值全为0，很多时候使用“xavier”算法</span></div><div class="line"><span class="comment">#               进行初始化。可选方式有：</span></div><div class="line"><span class="comment">#               constant:           常数初始化（默认为0）</span></div><div class="line"><span class="comment">#               gaussian:           高斯分布初试化权值</span></div><div class="line"><span class="comment">#               positive_unitball:  该方式可防止权值过大</span></div><div class="line"><span class="comment">#               uniform:            均匀分布初始化</span></div><div class="line"><span class="comment">#               xavier:             xavier算法初始化</span></div><div class="line"><span class="comment">#               msra:</span></div><div class="line"><span class="comment">#               billinear:          双线性插值初始化</span></div><div class="line"><span class="comment"># bias_filler:  偏置项初始化。一般设置为“constant”，值全为0.</span></div><div class="line"><span class="comment"># bias_term:    是否开启偏置项，默认为true，开启。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.conv1 = L.Convolution(</div><div class="line">                bottom,</div><div class="line">                kernel_size=ks,</div><div class="line">                stride=stride,</div><div class="line">                num_output=nout,</div><div class="line">                pad=pad,</div><div class="line">                group=group,</div><div class="line">                weight_filler=dict(type=<span class="string">'xavier'</span>),</div><div class="line">                bias_filler=dict(type=<span class="string">'constant'</span>),</div><div class="line">                bias_term=<span class="keyword">True</span></div><div class="line">             )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"conv1"</span></div><div class="line">    type: <span class="string">"Convolution"</span></div><div class="line">    bottom: <span class="string">"data"</span></div><div class="line">    top: <span class="string">"conv1"</span></div><div class="line">    param &#123;</div><div class="line">        lr_mult: <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    param &#123;</div><div class="line">        lr_mult: <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">    convolution_param &#123;</div><div class="line">        num_output: <span class="number">20</span></div><div class="line">        kernel_size: <span class="number">5</span></div><div class="line">        stride: <span class="number">1</span></div><div class="line">        pad:<span class="number">2</span></div><div class="line">        weight_filler &#123;</div><div class="line">            type: <span class="string">"xavier"</span></div><div class="line">        &#125;</div><div class="line">        bias_filler &#123;</div><div class="line">            type: <span class="string">"constant"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-2-2-L-Pooling"><a href="#2-2-2-L-Pooling" class="headerlink" title="2.2.2 L.Pooling()"></a>2.2.2 L.Pooling()</h3><p>池化层pool定义</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       上一层数据输出。</span></div><div class="line"><span class="comment"># pool:         池化方式，默认为MAX。目前可用的方法有MAX, AVE, 或STOCHASTIC。</span></div><div class="line"><span class="comment"># kernel_size:  池化的核大小。也可以用kernel_h和kernel_w分别设定。</span></div><div class="line"><span class="comment"># stride:       池化的步长，默认为1。一般我们设置为2，即不重叠。也可以用stride_h和</span></div><div class="line"><span class="comment">#               stride_w来设置。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.pool1 = L.Pooling(</div><div class="line">            bottom,</div><div class="line">            pool=P.Pooling.MAX,</div><div class="line">            kernel_size=ks,</div><div class="line">            stride=stride</div><div class="line">         )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"pool1"</span></div><div class="line">    type: <span class="string">"Pooling"</span></div><div class="line">    bottom: <span class="string">"conv1"</span></div><div class="line">    top: <span class="string">"pool1"</span></div><div class="line">    pooling_param &#123;</div><div class="line">        pool: MAX</div><div class="line">        kernel_size: <span class="number">3</span></div><div class="line">        stride: <span class="number">2</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-2-3-L-LRN"><a href="#2-2-3-L-LRN" class="headerlink" title="2.2.3 L.LRN()"></a>2.2.3 L.LRN()</h3><p>Local Response Normalization (LRN)层,此层是对一个输入的局部区域进行归一化，达到“侧抑制”的效果。可去搜索AlexNet或GoogLenet，里面就用到了这个功能.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       上一层数据输出。</span></div><div class="line"><span class="comment"># local_size:   默认为5。如果是跨通道LRN，则表示求和的通道数；如果是在通道内LRN，</span></div><div class="line"><span class="comment">#               则表示求和的正方形区域长度。</span></div><div class="line"><span class="comment"># alpha:        默认为1，归一化公式中的参数。</span></div><div class="line"><span class="comment"># beta:         默认为5，归一化公式中的参数。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.norm1 = L.LRN(</div><div class="line">        bottom,</div><div class="line">        local_size=<span class="number">5</span>,</div><div class="line">        alpha=<span class="number">1e-4</span>,</div><div class="line">        beta=<span class="number">0.75</span></div><div class="line">        )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layers &#123;</div><div class="line">    name: <span class="string">"norm1"</span></div><div class="line">    type: LRN</div><div class="line">    bottom: <span class="string">"pool1"</span></div><div class="line">    top: <span class="string">"norm1"</span></div><div class="line">    lrn_param &#123;</div><div class="line">        local_size: <span class="number">5</span></div><div class="line">        alpha: <span class="number">0.0001</span></div><div class="line">        beta: <span class="number">0.75</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-2-4-L-InnerProduct"><a href="#2-2-4-L-InnerProduct" class="headerlink" title="2.2.4 L.InnerProduct()"></a>2.2.4 L.InnerProduct()</h3><p>全连接层，把输入当作成一个向量，输出也是一个简单向量（把输入数据blobs的width和height全变为1）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">n.fc = L.InnerProduct(</div><div class="line">                bottom,</div><div class="line">                num_output=nout,</div><div class="line">                weight_filler=dict(type=<span class="string">'xavier'</span>),</div><div class="line">                bias_filler=dict(type=<span class="string">'constant'</span>),</div><div class="line">                bais_term=<span class="keyword">True</span></div><div class="line">              )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"fc"</span></div><div class="line">    type: <span class="string">"InnerProduct"</span></div><div class="line">    bottom: <span class="string">"pool2"</span></div><div class="line">    top: <span class="string">"fc"</span></div><div class="line">    inner_product_param &#123;</div><div class="line">        num_output: <span class="number">500</span></div><div class="line">        weight_filler &#123;</div><div class="line">            type: <span class="string">"xavier"</span></div><div class="line">        &#125;</div><div class="line">        bias_filler &#123;</div><div class="line">            type: <span class="string">"constant"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-3-Activation-Layers-激活层定义"><a href="#2-3-Activation-Layers-激活层定义" class="headerlink" title="2.3 Activation Layers 激活层定义"></a>2.3 Activation Layers 激活层定义</h2><h3 id="2-3-1-L-ReLU"><a href="#2-3-1-L-ReLU" class="headerlink" title="2.3.1 L.ReLU()"></a>2.3.1 L.ReLU()</h3><p>ReLU是目前使用最多的激活函数，主要因为其收敛更快，并且能保持同样效果。<br>标准的ReLU函数为max(x, 0)，当x&gt;0时，输出x; 当x&lt;=0时，输出0。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># negative_slope：  默认为0. 对标准的ReLU函数进行变化，如果设置了这个值，那么数据为</span></div><div class="line"><span class="comment">#                   负数时，就不再设置为0，而是用原始数据乘以negative_slope。</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.relu = L.ReLU(</div><div class="line">                bottom,</div><div class="line">                in_place=<span class="keyword">True</span></div><div class="line">               )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"relu1"</span></div><div class="line">    type: <span class="string">"ReLU"</span></div><div class="line">    bottom: <span class="string">"conv1"</span></div><div class="line">    top: <span class="string">"conv1"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-3-2-L-Sigmoid"><a href="#2-3-2-L-Sigmoid" class="headerlink" title="2.3.2 L.Sigmoid()"></a>2.3.2 L.Sigmoid()</h3><p>对每个输入数据，利用sigmoid函数执行操作。这种层设置比较简单，没有额外的参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 这种层比较简单，没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.sigmoid = L.Sigmiod(</div><div class="line">                        bottom</div><div class="line">                     )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">'sigmoid'</span></div><div class="line">    type: <span class="string">'Sigmoid'</span></div><div class="line">    bottom: <span class="string">'in'</span></div><div class="line">    top: <span class="string">'sigmoid'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-3-3-L-TanH"><a href="#2-3-3-L-TanH" class="headerlink" title="2.3.3 L.TanH()"></a>2.3.3 L.TanH()</h3><p>利用双曲正切函数对数据进行变换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 这种层比较简单，没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.tanh = L.TanH(</div><div class="line">                bottom</div><div class="line">               )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">'tanh'</span></div><div class="line">    type: <span class="string">'TanH'</span></div><div class="line">    bottom: <span class="string">'in'</span></div><div class="line">    top: <span class="string">'tanh'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-3-4-L-AbsVal"><a href="#2-3-4-L-AbsVal" class="headerlink" title="2.3.4 L.AbsVal()"></a>2.3.4 L.AbsVal()</h3><p>求每个输入数据的绝对值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 这种层比较简单，没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.abs = L.AbsVal(</div><div class="line">                bottom</div><div class="line">                )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">'abs'</span></div><div class="line">    type: <span class="string">'AbsVal'</span></div><div class="line">    bottom: <span class="string">'in'</span></div><div class="line">    top: <span class="string">'abs'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-3-5-L-Power"><a href="#2-3-5-L-Power" class="headerlink" title="2.3.5 L.Power()"></a>2.3.5 L.Power()</h3><p>对每个输入数据进行幂运算。</p>
+<p>f(x)= (shift + scale * x) ^ power</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       数据输入</span></div><div class="line"><span class="comment"># power:        （可选）默认为1</span></div><div class="line"><span class="comment"># scale:        （可选）默认为1</span></div><div class="line"><span class="comment"># shift:        （可选）默认为0</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.power = L.Power(</div><div class="line">                  bottom,</div><div class="line">                  power=<span class="number">2</span>,</div><div class="line">                  scale=<span class="number">1</span>,</div><div class="line">                  shift=<span class="number">0</span></div><div class="line">                 )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"layer"</span></div><div class="line">    bottom: <span class="string">"in"</span></div><div class="line">    top: <span class="string">"out"</span></div><div class="line">    type: <span class="string">"Power"</span></div><div class="line">    power_param &#123;</div><div class="line">        power: <span class="number">2</span></div><div class="line">        scale: <span class="number">1</span></div><div class="line">        shift: <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-3-6-L-BNLL"><a href="#2-3-6-L-BNLL" class="headerlink" title="2.3.6 L.BNLL()"></a>2.3.6 L.BNLL()</h3><p>binomial normal log likelihood的简称，二项式正态对数似然。</p>
+<p>f(x)=log(1 + exp(x))</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 这种层比较简单，没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.bnll = L.BNLL(</div><div class="line">                bottom</div><div class="line">               )</div></pre></td></tr></table></figure>
+<h2 id="2-4-Other-Layers-其他常用层定义"><a href="#2-4-Other-Layers-其他常用层定义" class="headerlink" title="2.4 Other Layers 其他常用层定义"></a>2.4 Other Layers 其他常用层定义</h2><p>本节讲解一些其它的常用层，包括：softmax_loss层，Inner Product层，accuracy层，reshape层和dropout层及其它们的参数配置。</p>
+<h3 id="2-4-1-L-SoftmaxWithLoss"><a href="#2-4-1-L-SoftmaxWithLoss" class="headerlink" title="2.4.1 L.SoftmaxWithLoss()"></a>2.4.1 L.SoftmaxWithLoss()</h3><p>softmax-loss层和softmax层计算大致是相同的。softmax是一个分类器，计算的是类别的概率（Likelihood），是Logistic Regression 的一种推广。Logistic Regression 只能用于二分类，而softmax可以用于多分类。</p>
+<p>softmax与softmax-loss的区别：</p>
+<blockquote>
+<p>softmax计算公式:</p>
+<p>$$p_j = \frac {e{_{j} ^{o} }}{\sum _k e{^{o_k} }} $$</p>
+<p>softmax-loss计算公式:</p>
+<p>$$L = - \sum _{j} y_i \log p_j$$</p>
+</blockquote>
+<p>用户可能最终目的就是得到各个类别的概率似然值，这个时候就只需要一个 Softmax层，而不一定要进softmax-Loss 操作；或者是用户有通过其他什么方式已经得到了某种概率似然值，然后要做最大似然估计，此时则只需要后面的softmax-Loss 而不需要前面的 Softmax 操作。因此提供两个不同的 Layer 结构比只提供一个合在一起的Softmax-Loss Layer 要灵活许多。</p>
+<p>不管是softmax layer还是softmax-loss layer,都是没有参数的，只是层类型不同而已。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 该层没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.fc）</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.label）</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.loss = L.SoftmaxWithLoss(</div><div class="line">                            n.fc,</div><div class="line">                            n.label</div><div class="line">                          )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"loss"</span></div><div class="line">    type: <span class="string">"SoftmaxWithLoss"</span></div><div class="line">    bottom: <span class="string">"fc"</span></div><div class="line">    bottom: <span class="string">"label"</span></div><div class="line">    top: <span class="string">"loss"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-4-2-L-Softmax"><a href="#2-4-2-L-Softmax" class="headerlink" title="2.4.2 L.Softmax()"></a>2.4.2 L.Softmax()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 该层没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.fc）</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.softmax = L.Softmax(</div><div class="line">                      n.fc</div><div class="line">                     )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">layers &#123;</div><div class="line">    bottom: <span class="string">"fc"</span></div><div class="line">    top: <span class="string">"softmax"</span></div><div class="line">    name: <span class="string">"softmax"</span></div><div class="line">    type: <span class="string">"Softmax"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-4-3-L-Accuracy"><a href="#2-4-3-L-Accuracy" class="headerlink" title="2.4.3 L.Accuracy()"></a>2.4.3 L.Accuracy()</h3><p>输出分类（预测）精确度，只有test阶段才有，因此需要加入include参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.fc）</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.label）</span></div><div class="line"><span class="comment"># phase:        0:表示TRAIN</span></div><div class="line"><span class="comment">#               1:表示TEST</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.accuracy = L.Accuracy(</div><div class="line">                    bottom,</div><div class="line">                    label，</div><div class="line">                    include=dict(phase=<span class="number">1</span>)</div><div class="line">                  )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">"accuracy"</span></div><div class="line">    type: <span class="string">"Accuracy"</span></div><div class="line">    bottom: <span class="string">"fc"</span></div><div class="line">    bottom: <span class="string">"label"</span></div><div class="line">    top: <span class="string">"accuracy"</span></div><div class="line">    include &#123;</div><div class="line">        phase: TEST</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-4-4-L-Dropout"><a href="#2-4-4-L-Dropout" class="headerlink" title="2.4.4 L.Dropout()"></a>2.4.4 L.Dropout()</h3><p>Dropout是一个防止过拟合的trick。可以随机让网络某些隐含层节点的权重不工作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.fc）</span></div><div class="line"><span class="comment"># dropout_ratio:</span></div><div class="line"><span class="comment"># in_palce:</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">L.Dropout(</div><div class="line">            bottom,</div><div class="line">            dropout_ratio=<span class="number">0.5</span>,</div><div class="line">            in_place=<span class="keyword">True</span></div><div class="line">            )</div></pre></td></tr></table></figure>
+<p>其效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">layer &#123;</div><div class="line">    name: <span class="string">'dropout'</span></div><div class="line">    type: <span class="string">'Dropout'</span></div><div class="line">    bottom: <span class="string">'fc1'</span></div><div class="line">    top: <span class="string">'dropout'</span></div><div class="line">    dropout_param &#123;</div><div class="line">        dropout_ratio: <span class="number">0.5</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>参考文献：</p>
+<ul>
+<li><a href="https://www.cnblogs.com/denny402/p/5070928.html" target="_blank" rel="external">Caffe学习系列(2)：数据层及参数</a></li>
+<li><a href="http://www.cnblogs.com/denny402/p/5071126.html" target="_blank" rel="external">Caffe学习系列(3)：视觉层（Vision Layers)及参数</a></li>
+<li><a href="http://www.cnblogs.com/denny402/p/5072507.html" target="_blank" rel="external">Caffe学习系列(4)：激活层（Activiation Layers)及参数</a></li>
+<li><a href="http://www.cnblogs.com/denny402/p/5072746.html" target="_blank" rel="external">Caffe学习系列(5)：其它常用层及参数</a></li>
+<li><a href="http://wentaoma.com/2016/08/10/caffe-python-common-api-reference/" target="_blank" rel="external">Caffe-Python接口常用API参考</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2018/05/15/Caffe-Python接口常用API参考/" title="Caffe-Python接口常用API总结">http://ailee.me/2018/05/15/Caffe-Python接口常用API参考/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/API/" rel="tag"># API</a>
+          
+            <a href="/tags/caffe/" rel="tag"># caffe</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/" rel="next" title="Fully Convolutional Networks for Semantic Segmentation">
+                <i class="fa fa-chevron-left"></i> Fully Convolutional Networks for Semantic Segmentation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
