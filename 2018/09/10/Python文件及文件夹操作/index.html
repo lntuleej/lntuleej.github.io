@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-10T11:34:41.600Z">
+<meta property="og:updated_time" content="2018-09-10T12:14:18.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Python对文件及文件夹进行相关操作">
 <meta name="twitter:description" content="利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等">
@@ -332,7 +332,7 @@
               
                 <span class="post-meta-item-text">Update</span>
               
-              <time title="Update" itemprop="dateModified" datetime="2018-09-10T19:34:41+08:00">
+              <time title="Update" itemprop="dateModified" datetime="2018-09-10T20:14:18+08:00">
                 2018-09-10
               </time>
             
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  965
+                  973
                 </span>
               
 
@@ -421,6 +421,7 @@
       
         <h1 id="1-统计指定文件夹下所有子文件夹数目及文件数目"><a href="#1-统计指定文件夹下所有子文件夹数目及文件数目" class="headerlink" title="1 统计指定文件夹下所有子文件夹数目及文件数目"></a>1 统计指定文件夹下所有子文件夹数目及文件数目</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">"""</span></div><div class="line"><span class="string">@author: Ad</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">Operating environment： Windows+python3</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="comment"># 导入必要的包</span></div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line">root = <span class="string">".\\"</span></div><div class="line"><span class="comment"># 初始化计数器</span></div><div class="line">fileCount = <span class="number">0</span></div><div class="line">dirCount = <span class="number">0</span></div><div class="line"></div><div class="line"><span class="comment"># 使用os.walk()递归遍历所有文件夹</span></div><div class="line"><span class="comment"># x：目录</span></div><div class="line"><span class="comment"># y：子目录</span></div><div class="line"><span class="comment"># z：文件</span></div><div class="line"><span class="keyword">for</span> x, y, z <span class="keyword">in</span> os.walk(os.path.dirname(root)):</div><div class="line">    <span class="keyword">if</span> len(x) != <span class="number">0</span>:</div><div class="line">        fileCount = <span class="number">0</span></div><div class="line">        dirCount = <span class="number">0</span></div><div class="line">        <span class="comment"># 列出当前文件夹下的所有子文件夹及文件</span></div><div class="line">        paths = os.listdir(x)</div><div class="line">        <span class="comment"># 统计当前文件夹下的子文件夹数目及文件数目</span></div><div class="line">        <span class="keyword">for</span> path <span class="keyword">in</span> paths:</div><div class="line">            <span class="comment"># 重构路径，以便于判断当前路径为文件夹还是文件</span></div><div class="line">            path = os.path.sep.join([x, path])</div><div class="line">            <span class="keyword">if</span> os.path.isdir(path):</div><div class="line">                dirCount += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> os.path.isfile(path):</div><div class="line">                fileCount += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># 输出结果</span></div><div class="line">        print(x)</div><div class="line">        print(<span class="string">"\tfiles: &#123;&#125;"</span>.format(fileCount))</div><div class="line">        print(<span class="string">"\tdirs: &#123;&#125;"</span>.format(dirCount))</div></pre></td></tr></table></figure>
 <h1 id="2-列出目录及子目录下的所有文件并保存为SCV文件"><a href="#2-列出目录及子目录下的所有文件并保存为SCV文件" class="headerlink" title="2 列出目录及子目录下的所有文件并保存为SCV文件"></a>2 列出目录及子目录下的所有文件并保存为SCV文件</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 初始化文件列表</span></div><div class="line">fileList=[]</div><div class="line"><span class="comment"># 使用os.walk()递归遍历所有文件夹</span></div><div class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(PATH):</div><div class="line">    fileList.append([])</div><div class="line">    <span class="comment"># 将目录保存到列表的第一列</span></div><div class="line">    fileList[<span class="number">-1</span>].append(root)</div><div class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">        <span class="comment"># 保存当前目录下的文件名到列表</span></div><div class="line">        fileList[<span class="number">-1</span>].append(file)</div><div class="line"></div><div class="line"><span class="comment"># 将列表转换为DataFrame</span></div><div class="line">csvFileList = pd.DataFrame(fileList)</div><div class="line"><span class="comment"># 保存为CSV文件</span></div><div class="line">csvFileList.to_csv(<span class="string">"filelist.csv"</span>)</div></pre></td></tr></table></figure>
+<p><a href="https://gist.github.com/gitleej/853c6eec9e449ea1087f3287eb4a7098" target="_blank" rel="external">完整代码</a></p>
 <h1 id="3-利用python重组文件夹结构"><a href="#3-利用python重组文件夹结构" class="headerlink" title="3 利用python重组文件夹结构"></a>3 利用python重组文件夹结构</h1><p><strong>示例</strong></p>
 <blockquote>
 <p>原始文件夹结构<br>|——root<br>|　　|——000<br>|　　|　　 |——left<br>|　　|　　 |　　|——index_1.bmp<br>|　　|　　 |　　|——index_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——middle_1.bmp<br>|　　|　　 |　　|——middle_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——ring_1.bmp<br>|　　|　　 |　　|——ring_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |——right<br>|　　|　　 |　　|——index_1.bmp<br>|　　|　　 |　　|——index_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——middle_1.bmp<br>|　　|　　 |　　|——middle_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——ring_1.bmp<br>|　　|　　 |　　|——ring_2.bmp<br>|　　|　　 |　　|——……<br>|　　|——001<br>|　　|——……</p>
@@ -448,6 +449,7 @@
 <blockquote>
 <p>[INFO] mkdir: ./Finger_Vein_Database_test/0000<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_4.bmp’ to ‘./Finger_Vein_Database_test/0000’<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_5.bmp’ to ‘./Finger_Vein_Database_test/0000’<br>[INFO] mkdir: ./Finger_Vein_Database_test/0001<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_4.bmp’ to ‘./Finger_Vein_Database_test/0001’<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_5.bmp’ to ‘./Finger_Vein_Database_test/0001’<br>……</p>
 </blockquote>
+<p><a href="https://gist.github.com/gitleej/c059342c2c6ae34ee5ee575da22c2756" target="_blank" rel="external">完整代码</a></p>
 
       
     </div>
