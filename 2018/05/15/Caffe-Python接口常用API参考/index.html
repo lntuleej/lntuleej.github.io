@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  2,757
+                  2,740
                 </span>
               
 
@@ -525,10 +525,8 @@
 <p>softmax与softmax-loss的区别：</p>
 <blockquote>
 <p>softmax计算公式:</p>
-<p>$$p_j = \frac {e{_{j} ^{o} }}{\sum _k e{^{o_k} }} $$</p>
-<p>softmax-loss计算公式:</p>
-<p>$$L = - \sum _{j} y_i \log p_j$$</p>
-</blockquote>
+<script type="math/tex; mode=display">p_j = \frac {e{_{j} ^{o} }}{\sum _k e{^{o_k} }}</script><p>softmax-loss计算公式:</p>
+<script type="math/tex; mode=display">L = - \sum _{j} y_i \log p_j</script></blockquote>
 <p>用户可能最终目的就是得到各个类别的概率似然值，这个时候就只需要一个 Softmax层，而不一定要进softmax-Loss 操作；或者是用户有通过其他什么方式已经得到了某种概率似然值，然后要做最大似然估计，此时则只需要后面的softmax-Loss 而不需要前面的 Softmax 操作。因此提供两个不同的 Layer 结构比只提供一个合在一起的Softmax-Loss Layer 要灵活许多。</p>
 <p>不管是softmax layer还是softmax-loss layer,都是没有参数的，只是层类型不同而已。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">################################################################################</span></div><div class="line"><span class="comment"># 该层没有额外的参数。</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.fc）</span></div><div class="line"><span class="comment"># bottom:       数据输入（n.label）</span></div><div class="line"><span class="comment">################################################################################</span></div><div class="line">n.loss = L.SoftmaxWithLoss(</div><div class="line">                            n.fc,</div><div class="line">                            n.label</div><div class="line">                          )</div></pre></td></tr></table></figure>
@@ -718,7 +716,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -729,7 +727,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -740,7 +738,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -101,7 +101,6 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="最近几天在使用Shadowsocks科学上网时，Shadowsocks客服端总是无法启动，于是查找原因，终于解决了。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog.adminlee.com/17-9-8/95443098.jpg">
 <meta property="og:image" content="http://blog.adminlee.com/17-9-8/33696726.jpg">
 <meta property="og:image" content="http://blog.adminlee.com/17-9-8/84524184.jpg">
 <meta property="og:image" content="http://blog.adminlee.com/17-9-8/63175005.jpg">
@@ -110,7 +109,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows7解决Shadowsocks.exe无法启动的问题">
 <meta name="twitter:description" content="最近几天在使用Shadowsocks科学上网时，Shadowsocks客服端总是无法启动，于是查找原因，终于解决了。">
-<meta name="twitter:image" content="http://blog.adminlee.com/17-9-8/95443098.jpg">
+<meta name="twitter:image" content="http://blog.adminlee.com/17-9-8/33696726.jpg">
 
 
 
@@ -404,7 +403,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  566
+                  576
                 </span>
               
 
@@ -433,7 +432,8 @@
         <h1 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h1><p>今天在使用Shadowsocks时，双击Shadowsocks客户端图标时，鼠标指针开始转圈，转了半天，什么反应也没有，此时，我已意识到，这玩意完蛋了。</p>
 <h1 id="2-分析原因"><a href="#2-分析原因" class="headerlink" title="2. 分析原因"></a>2. 分析原因</h1><p>于是上GitHub找原因，有说是.NET Framework的原因造成的，Shadowsocks 4.0.5 版本需要.NET Framework 4.6.2版本及以上的完整安装才行。</p>
 <h1 id="3-解决问题"><a href="#3-解决问题" class="headerlink" title="3. 解决问题"></a>3. 解决问题</h1><p>由于之前Shadowsocks一直都用的好好的，所以，在我的电脑上肯定是有安装.NET Framework 4.6.2 的，但是我也没有卸载过着破玩意啊，为什么么它突然之间就不好使了呢？于是我初步判断应该是.NET Framework损坏。</p>
-<h2 id="3-1-修复-NET-Framework"><a href="#3-1-修复-NET-Framework" class="headerlink" title="3.1 修复.NET Framework"></a>3.1 修复.NET Framework</h2><p>控制面板——&gt;程序和功能——&gt;Microsoft .NET Framework 4.6.2 右键选择“卸载/更改”<center><img src="http://blog.adminlee.com/17-9-8/95443098.jpg" alt=""><br>修复页面</center></p>
+<h2 id="3-1-修复-NET-Framework"><a href="#3-1-修复-NET-Framework" class="headerlink" title="3.1 修复.NET Framework"></a>3.1 修复.NET Framework</h2><p>控制面板——&gt;程序和功能——&gt;Microsoft .NET Framework 4.6.2 右键选择“卸载/更改”<center>![](http://blog.adminlee.com/17-9-8/95443098.jpg)
+修复页面</center></p>
 <p>原以为安静的等待其完成即可，结果出现了一些不可描述的未知错误。提示：“安装未成功，安装过程中发生严重错误”。</p>
 <h2 id="3-2-卸载-NET-Framework"><a href="#3-2-卸载-NET-Framework" class="headerlink" title="3.2 卸载.NET Framework"></a>3.2 卸载.NET Framework</h2><p>修复不成，那就卸载重装。依旧重复上述步骤，而在此过程中选择“从此计算机中删除.NET Framework 4.6.2”，单击下一步。</p>
 <p>原以为继续安静等待其完成即可，结果出现了上一步出现的相同的错误。崩溃……</p>
@@ -442,7 +442,7 @@
 <p><img src="http://blog.adminlee.com/17-9-8/84524184.jpg" alt=""></p>
 <p><img src="http://blog.adminlee.com/17-9-8/63175005.jpg" alt=""></p>
 <p><img src="http://blog.adminlee.com/17-9-8/41287789.jpg" alt=""></p>
-<p>cleanup_tool.exe 运行截图<br></p>
+<p>cleanup_tool.exe 运行截图<br>&lt;/center&gt;</p>
 <h2 id="3-4-安装-NET-Framework-4-6-2"><a href="#3-4-安装-NET-Framework-4-6-2" class="headerlink" title="3.4 安装.NET Framework 4.6.2"></a>3.4 安装.NET Framework 4.6.2</h2><p>从Microsoft官网下载<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=53344" target="_blank" rel="external">.NET Framework 4.6.2</a>，进行安装，全部默认即可。</p>
 <h2 id="3-5-安装更新-NET-Framework-4-6-2"><a href="#3-5-安装更新-NET-Framework-4-6-2" class="headerlink" title="3.5 安装更新.NET Framework 4.6.2"></a>3.5 安装更新.NET Framework 4.6.2</h2><p>原以为重新安装好.NET Frame 4.6.2 之后，我就可以开开心心科学上网了，结果……双击Shadowsocks.exe弹出如下结果</p>
 <p>“shadowsocks 非预期错误——无法在DLL”PresentationNative_v0400.dll”中找到名为”IsWindows10RS2OrGreat”的入口点”</p>
@@ -612,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -623,7 +623,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -634,7 +634,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

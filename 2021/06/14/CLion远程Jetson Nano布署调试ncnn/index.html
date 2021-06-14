@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ncnn,Clion,Jetson nano," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="CLion远程Jetson Nano布署调试ncnn">
+<meta name="keywords" content="ncnn,Clion,Jetson nano">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CLion远程Jetson Nano布署调试ncnn">
+<meta property="og:url" content="http://ailee.me/2021/06/14/CLion远程Jetson Nano布署调试ncnn/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="CLion远程Jetson Nano布署调试ncnn">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310095228949.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310095959355.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310100140757.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310100713704.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310100947210.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310101128357.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310101238323.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310101816059.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310102804379.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310104208109.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310104621265.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310104644786.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20210310104708543.png">
+<meta property="og:updated_time" content="2021-06-14T13:12:34.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CLion远程Jetson Nano布署调试ncnn">
+<meta name="twitter:description" content="CLion远程Jetson Nano布署调试ncnn">
+<meta name="twitter:image" content="http://blog.adminlee.com/img/image-20210310095228949.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2021/06/14/CLion远程Jetson Nano布署调试ncnn/"/>
+
+
+
+
+
+  <title>CLion远程Jetson Nano布署调试ncnn | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2021/06/14/CLion远程Jetson Nano布署调试ncnn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CLion远程Jetson Nano布署调试ncnn</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-14T21:12:00+08:00">
+                2021-06-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2021-06-14T21:12:34+08:00">
+                2021-06-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ncnn/" itemprop="url" rel="index">
+                    <span itemprop="name">ncnn</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/06/14/CLion远程Jetson Nano布署调试ncnn/" class="leancloud_visitors" data-flag-title="CLion远程Jetson Nano布署调试ncnn">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> View
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  1,115
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  CLion远程Jetson Nano布署调试ncnn
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-Requirements"><a href="#1-Requirements" class="headerlink" title="1. Requirements"></a>1. Requirements</h1><ul>
+<li>CLion</li>
+<li>ncnn</li>
+<li>Jetson nano</li>
+</ul>
+<h1 id="2-Build-ncnn-for-NVIDIA-Jetson-nano"><a href="#2-Build-ncnn-for-NVIDIA-Jetson-nano" class="headerlink" title="2. Build ncnn for NVIDIA Jetson nano"></a>2. <a href="https://github.com/Tencent/ncnn/wiki/how-to-build#build-for-linux" target="_blank" rel="external">Build ncnn for NVIDIA Jetson nano</a></h1><h1 id="3-CLion远程调试ncnn"><a href="#3-CLion远程调试ncnn" class="headerlink" title="3. CLion远程调试ncnn"></a>3. CLion远程调试ncnn</h1><ul>
+<li><p>参考链接</p>
+<ul>
+<li><a href="https://blog.jetbrains.com/zh-hans/2019/04/17/ide/" target="_blank" rel="external">留在本地，让 IDE 替您处理远程工作！</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1406250" target="_blank" rel="external">使用Clion优雅的完全远程自动同步和远程调试c++</a></li>
+</ul>
+</li>
+<li><p>选择<strong>File-&gt;Settings-&gt;Build|Execution|Deloyment-&gt;Toolchains</strong>添加远程工具链。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310095228949.png" alt="image-20210310095228949"></p>
+</li>
+<li><p>设置远程ssh连接</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310095959355.png" alt="image-20210310095959355"></p>
+</li>
+<li><p>设置好ssh连接后，会自动检测CMake等环境，点击应用即可。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310100140757.png" alt="image-20210310100140757"></p>
+</li>
+<li><p>设置CMake编译位置，Release和Debug两种方式设置方法相同，以Release举例。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310100713704.png" alt="image-20210310100713704"></p>
+</li>
+<li><p>选择<strong>Tools-&gt;Deployments-&gt;Brose remote Host</strong>打开远程文件浏览器。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310100947210.png" alt="image-20210310100947210"></p>
+</li>
+<li><p>设置远程映射文件夹</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310101128357.png" alt="image-20210310101128357"></p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310101238323.png" alt="image-20210310101238323"></p>
+</li>
+<li><p>选择<strong>File-&gt;New Project-&gt;C++ exxcutable</strong>创建ncnn工程。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310101816059.png" alt="image-20210310101816059"></p>
+</li>
+<li><p>选择编译工具链，并设置CMake编译目录。参考前面的步骤。</p>
+</li>
+<li><p>设置远程映射目录。参考前面的步骤。</p>
+</li>
+<li><p>配置工程目录如下图所示。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310102804379.png" alt="image-20210310102804379"></p>
+</li>
+<li><p>本次工程以yolov3进行测试，因此在main.cpp中添加如下代码。</p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Tencent is pleased to support the open source community by making ncnn available.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Copyright (C) 2018 THL A29 Limited, a Tencent company. All rights reserved.</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Licensed under the BSD 3-Clause License (the "License"); you may not use this file except</span></div><div class="line"><span class="comment">// in compliance with the License. You may obtain a copy of the License at</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// https://opensource.org/licenses/BSD-3-Clause</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Unless required by applicable law or agreed to in writing, software distributed</span></div><div class="line"><span class="comment">// under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR</span></div><div class="line"><span class="comment">// CONDITIONS OF ANY KIND, either express or implied. See the License for the</span></div><div class="line"><span class="comment">// specific language governing permissions and limitations under the License.</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"net.h"</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/core/core.hpp&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/highgui/highgui.hpp&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;opencv2/imgproc/imgproc.hpp&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Object</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line">    cv::Rect_&lt;<span class="keyword">float</span>&gt; rect;</div><div class="line">    <span class="keyword">int</span> label;</div><div class="line">    <span class="keyword">float</span> prob;</div><div class="line">&#125;</div><div class="line">;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">detect_yolov3</span><span class="params">(<span class="keyword">const</span> cv::Mat&amp; bgr, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Object&gt;&amp; objects)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    ncnn::Net yolov3;</div><div class="line"></div><div class="line">    yolov3.opt.use_vulkan_compute = <span class="literal">false</span>;</div><div class="line"></div><div class="line">    <span class="comment">// original pretrained model from https://github.com/eric612/MobileNet-YOLO</span></div><div class="line">    <span class="comment">// param : https://drive.google.com/open?id=1V9oKHP6G6XvXZqhZbzNKL6FI_clRWdC-</span></div><div class="line">    <span class="comment">// bin : https://drive.google.com/open?id=1DBcuFCr-856z3FRQznWL_S5h-Aj3RawA</span></div><div class="line">    <span class="comment">// the ncnn model https://github.com/nihui/ncnn-assets/tree/master/models</span></div><div class="line">    yolov3.load_param(<span class="string">"./models/mobilenetv2_yolov3.param"</span>);</div><div class="line">    yolov3.load_model(<span class="string">"./models/mobilenetv2_yolov3.bin"</span>);</div><div class="line"></div><div class="line">    <span class="keyword">const</span> <span class="keyword">int</span> target_size = <span class="number">352</span>;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> img_w = bgr.cols;</div><div class="line">    <span class="keyword">int</span> img_h = bgr.rows;</div><div class="line"></div><div class="line">    ncnn::Mat in = ncnn::Mat::from_pixels_resize(bgr.data, ncnn::Mat::PIXEL_BGR, bgr.cols, bgr.rows, target_size, target_size);</div><div class="line"></div><div class="line">    <span class="keyword">const</span> <span class="keyword">float</span> mean_vals[<span class="number">3</span>] = &#123; <span class="number">127.5f</span>, <span class="number">127.5f</span>, <span class="number">127.5f</span> &#125;;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">float</span> norm_vals[<span class="number">3</span>] = &#123; <span class="number">0.007843f</span>, <span class="number">0.007843f</span>, <span class="number">0.007843f</span> &#125;;</div><div class="line">    in.substract_mean_normalize(mean_vals, norm_vals);</div><div class="line"></div><div class="line">    ncnn::Extractor ex = yolov3.create_extractor();</div><div class="line"></div><div class="line">    ex.input(<span class="string">"data"</span>, in);</div><div class="line"></div><div class="line">    ncnn::Mat out;</div><div class="line">    ex.extract(<span class="string">"detection_out"</span>, out);</div><div class="line"></div><div class="line">    <span class="comment">//     printf("%d %d %d\n", out.w, out.h, out.c);</span></div><div class="line">    objects.clear();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; out.h; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">const</span> <span class="keyword">float</span>* values = out.row(i);</div><div class="line"></div><div class="line">        Object object;</div><div class="line">        object.label = values[<span class="number">0</span>];</div><div class="line">        object.prob = values[<span class="number">1</span>];</div><div class="line">        object.rect.x = values[<span class="number">2</span>] * img_w;</div><div class="line">        object.rect.y = values[<span class="number">3</span>] * img_h;</div><div class="line">        object.rect.width = values[<span class="number">4</span>] * img_w - object.rect.x;</div><div class="line">        object.rect.height = values[<span class="number">5</span>] * img_h - object.rect.y;</div><div class="line"></div><div class="line">        objects.push_back(object);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">draw_objects</span><span class="params">(<span class="keyword">const</span> cv::Mat&amp; bgr, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Object&gt;&amp; objects)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">char</span>* class_names[] = &#123;</div><div class="line">            <span class="string">"background"</span>,</div><div class="line">            <span class="string">"aeroplane"</span>,</div><div class="line">            <span class="string">"bicycle"</span>,</div><div class="line">            <span class="string">"bird"</span>,</div><div class="line">            <span class="string">"boat"</span>,</div><div class="line">            <span class="string">"bottle"</span>,</div><div class="line">            <span class="string">"bus"</span>,</div><div class="line">            <span class="string">"car"</span>,</div><div class="line">            <span class="string">"cat"</span>,</div><div class="line">            <span class="string">"chair"</span>,</div><div class="line">            <span class="string">"cow"</span>,</div><div class="line">            <span class="string">"diningtable"</span>,</div><div class="line">            <span class="string">"dog"</span>,</div><div class="line">            <span class="string">"horse"</span>,</div><div class="line">            <span class="string">"motorbike"</span>,</div><div class="line">            <span class="string">"person"</span>,</div><div class="line">            <span class="string">"pottedplant"</span>,</div><div class="line">            <span class="string">"sheep"</span>,</div><div class="line">            <span class="string">"sofa"</span>,</div><div class="line">            <span class="string">"train"</span>,</div><div class="line">            <span class="string">"tvmonitor"</span></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    cv::Mat image = bgr.clone();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; objects.size(); i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">const</span> Object&amp; obj = objects[i];</div><div class="line"></div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>,</div><div class="line">                <span class="string">"%d = %.5f at %.2f %.2f %.2f x %.2f\n"</span>,</div><div class="line">                obj.label,</div><div class="line">                obj.prob,</div><div class="line">                obj.rect.x,</div><div class="line">                obj.rect.y,</div><div class="line">                obj.rect.width,</div><div class="line">                obj.rect.height);</div><div class="line"></div><div class="line">        cv::rectangle(image, obj.rect, cv::Scalar(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>));</div><div class="line"></div><div class="line">        <span class="keyword">char</span> text[<span class="number">256</span>];</div><div class="line">        <span class="built_in">sprintf</span>(text, <span class="string">"%s %.1f%%"</span>, class_names[obj.label], obj.prob * <span class="number">100</span>);</div><div class="line"></div><div class="line">        <span class="keyword">int</span> baseLine = <span class="number">0</span>;</div><div class="line">        cv::Size label_size = cv::getTextSize(text, cv::FONT_HERSHEY_SIMPLEX, <span class="number">0.5</span>, <span class="number">1</span>, &amp;baseLine);</div><div class="line"></div><div class="line">        <span class="keyword">int</span> x = obj.rect.x;</div><div class="line">        <span class="keyword">int</span> y = obj.rect.y - label_size.height - baseLine;</div><div class="line">        <span class="keyword">if</span> (y &lt; <span class="number">0</span>)</div><div class="line">            y = <span class="number">0</span>;</div><div class="line">        <span class="keyword">if</span> (x + label_size.width &gt; image.cols)</div><div class="line">            x = image.cols - label_size.width;</div><div class="line"></div><div class="line">        cv::rectangle(image,</div><div class="line">                      cv::Rect(cv::Point(x, y), cv::Size(label_size.width, label_size.height + baseLine)),</div><div class="line">                      cv::Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>),</div><div class="line">                      <span class="number">-1</span>);</div><div class="line"></div><div class="line">        cv::putText(image,</div><div class="line">                    text,</div><div class="line">                    cv::Point(x, y + label_size.height),</div><div class="line">                    cv::FONT_HERSHEY_SIMPLEX,</div><div class="line">                    <span class="number">0.5</span>,</div><div class="line">                    cv::Scalar(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    cv::imshow(<span class="string">"image"</span>, image);</div><div class="line">    cv::waitKey(<span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Usage: %s [imagepath]\n"</span>, argv[<span class="number">0</span>]);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* imagepath = argv[<span class="number">1</span>];</div><div class="line"></div><div class="line">    cv::Mat m = cv::imread(imagepath, <span class="number">1</span>);</div><div class="line">    <span class="keyword">if</span> (m.empty())</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"cv::imread %s failed\n"</span>, imagepath);</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Object&gt; objects;</div><div class="line">    detect_yolov3(m, objects);</div><div class="line"></div><div class="line">    draw_objects(m, objects);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改CMakeLists.txt</p>
+<ul>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 根据自己的CMake版本设置</span></div><div class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.17</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 复制文件，将模型文件夹和测试图像文件夹复制到CMake编译文件夹中，以便于编译好的二进制文件找到对应的模型文件和测试图像。</span></div><div class="line">file(COPY ./images DESTINATION <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>)</div><div class="line">file(COPY ./models DESTINATION <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置NCNN，设置编译好的ncnn库目录</span></div><div class="line"><span class="keyword">set</span>(ncnn_DIR ~/software/ncnn_with_vulkan/lib/cmake/ncnn)</div><div class="line"><span class="keyword">find_package</span>(ncnn)</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 调用OpenCV</span></div><div class="line"><span class="keyword">find_package</span>( OpenCV <span class="number">3</span> REQUIRED )</div><div class="line"><span class="keyword">if</span> (OPENCV_FOUND)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"OpenCV Found."</span>)</div><div class="line"><span class="keyword">endif</span> ()</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置OpenMP</span></div><div class="line"><span class="keyword">find_package</span>(OpenMP REQUIRED)</div><div class="line"><span class="keyword">if</span>(OPENMP_FOUND)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"OpenMP Found."</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_C_FLAGS <span class="string">"$&#123;CMAKE_C_FLAGS&#125; $&#123;OpenMP_C_FLAGS&#125;"</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; $&#123;OpenMP_CXX_FLAGS&#125;"</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_EXE_LINKER_FLAGS <span class="string">"$&#123;CMAKE_EXE_LINKER_FLAGS&#125; $&#123;OpenMP_EXE_LINKER_FLAGS&#125;"</span>)</div><div class="line"><span class="keyword">endif</span>()</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 生成可执行文件</span></div><div class="line"><span class="keyword">add_executable</span>(ncnn_test src/main.cpp)</div><div class="line"><span class="comment"># 链接库文件</span></div><div class="line"><span class="keyword">target_link_libraries</span>(ncnn_test ncnn <span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</div></pre></td></tr></table></figure>
+<p>完整CMakeLists.txt</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</div><div class="line"><span class="keyword">project</span>(ncnn_test)</div><div class="line"></div><div class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</div><div class="line"></div><div class="line"><span class="comment"># 复制文件</span></div><div class="line">file(COPY ./images DESTINATION <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>)</div><div class="line">file(COPY ./models DESTINATION <span class="variable">$&#123;CMAKE_BINARY_DIR&#125;</span>)</div><div class="line"></div><div class="line"><span class="comment"># 调用OpenCV</span></div><div class="line"><span class="keyword">find_package</span>( OpenCV <span class="number">3</span> REQUIRED )</div><div class="line"><span class="keyword">if</span> (OPENCV_FOUND)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"OpenCV Found."</span>)</div><div class="line"><span class="keyword">endif</span> ()</div><div class="line"></div><div class="line"><span class="comment"># 配置OpenMP</span></div><div class="line"><span class="keyword">find_package</span>(OpenMP REQUIRED)</div><div class="line"><span class="keyword">if</span>(OPENMP_FOUND)</div><div class="line">    <span class="keyword">message</span>(<span class="string">"OpenMP Found."</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_C_FLAGS <span class="string">"$&#123;CMAKE_C_FLAGS&#125; $&#123;OpenMP_C_FLAGS&#125;"</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; $&#123;OpenMP_CXX_FLAGS&#125;"</span>)</div><div class="line">    <span class="keyword">set</span>(CMAKE_EXE_LINKER_FLAGS <span class="string">"$&#123;CMAKE_EXE_LINKER_FLAGS&#125; $&#123;OpenMP_EXE_LINKER_FLAGS&#125;"</span>)</div><div class="line"><span class="keyword">endif</span>()</div><div class="line"></div><div class="line"><span class="comment"># 配置NCNN</span></div><div class="line"><span class="keyword">set</span>(ncnn_DIR ~/software/ncnn_with_vulkan/lib/cmake/ncnn)</div><div class="line"><span class="keyword">find_package</span>(ncnn)</div><div class="line"></div><div class="line"><span class="keyword">add_executable</span>(ncnn_test src/main.cpp)</div><div class="line"></div><div class="line"><span class="keyword">target_link_libraries</span>(ncnn_test ncnn <span class="variable">$&#123;OpenCV_LIBS&#125;</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>设置程序运行参数（<strong>Edit Configurations</strong>），编译执行程序。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310104208109.png" alt="image-20210310104208109"></p>
+</li>
+<li><p>程序正确执行将出现以下结果。</p>
+<ul>
+<li><p>CMake</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310104621265.png" alt="image-20210310104621265"></p>
+</li>
+<li><p>编译Messages</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310104644786.png" alt="image-20210310104644786"></p>
+</li>
+<li><p>Run </p>
+<p>  <img src="http://blog.adminlee.com/img/image-20210310104708543.png" alt="image-20210310104708543"></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2021/06/14/CLion远程Jetson Nano布署调试ncnn/" title="CLion远程Jetson Nano布署调试ncnn">http://ailee.me/2021/06/14/CLion远程Jetson Nano布署调试ncnn/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ncnn/" rel="tag"># ncnn</a>
+          
+            <a href="/tags/Clion/" rel="tag"># Clion</a>
+          
+            <a href="/tags/Jetson-nano/" rel="tag"># Jetson nano</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/14/觉醒年代台词摘录/" rel="next" title="《觉醒年代》台词摘录">
+                <i class="fa fa-chevron-left"></i> 《觉醒年代》台词摘录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

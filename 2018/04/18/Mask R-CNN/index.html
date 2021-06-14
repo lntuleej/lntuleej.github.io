@@ -530,7 +530,8 @@
 
 <center><img src="/2018/04/18/Mask%20R-CNN/表5.jpg" alt="表5　目标检测、掩膜和关键点检测关于person类的多任务学习，在minival数据集上进行评估。为了公平比较，所有方法都在相同的数据集上进行比较。骨干网络为ResNet-50-FPN。" title="表5　目标检测、掩膜和关键点检测关于person类的多任务学习，在minival数据集上进行评估。为了公平比较，所有方法都在相同的数据集上进行比较。骨干网络为ResNet-50-FPN。"></center>
 
-<center><img src="/2018/04/18/Mask%20R-CNN/表6.jpg" alt="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。" title="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。"><br></center>
+<center><img src="/2018/04/18/Mask%20R-CNN/表6.jpg" alt="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。" title="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。">
+</center>
 
 
 
@@ -544,6 +545,7 @@
 
 
 <h1 id="A-街景实验"><a href="#A-街景实验" class="headerlink" title="A 街景实验"></a>A 街景实验</h1><p>　　我们进一步说明在街景数据集上实例分割的结果。这个数据集的2975幅训练图像、500幅验证图像和1525幅测试图像具有精细的标签。有20K幅粗训练图像没有实例注释，这一部分我们没有使用到。所有图像都是2048x1024的分辨率。实例分割任务围绕8个目标类别进行，它们的在精细训练集上的实例数量为：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -570,6 +572,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <p>实例分割在该任务上的表现使用COCO风格的mask AP来进行衡量（IoU阈值的平均值），同时也公布了AP50（IoU为0.5的mask AP）的结果。</p>
 <p><strong>实现：</strong>我们采用具有ResNet-50-FPN骨干网络的Mask R-CNN；我们也测试了101层的版本，由于数据集较小，它们的性能相似。训练的图像尺度从[800,1024]中随机采样，这减小了过拟合；推理在1024像素的单尺度图像上进行。小批的大小为1图/GPU（因此有在8个GPU上有8张图），训练模型进行24k次迭代，学习速率从0.01开始，在经过18k次迭代后降为0.001，其他实现细节和3.1节中保持一致。</p>
 <p><strong>结果：</strong>表7比较了我们的方法与最先进的方法在验证集和测试集上的结果，在没有使用粗训练集的情况下，我们的方法在测试集上获得了26.2的AP，这比使用精细训练集和粗糙训练集的最好的结果相对提升了30%，相比于仅使用精细标签的结果（17.4AP）取得了50%的提升。在8GPU的机器上训练耗时4小时。</p>
@@ -747,7 +750,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -758,7 +761,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -769,7 +772,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-count">52</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
