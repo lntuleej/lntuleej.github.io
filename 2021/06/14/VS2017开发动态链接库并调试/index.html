@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++,dll," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="VS2017开发动态链接库并调试">
+<meta name="keywords" content="C++,dll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VS2017开发动态链接库并调试">
+<meta property="og:url" content="http://ailee.me/2021/06/14/VS2017开发动态链接库并调试/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="VS2017开发动态链接库并调试">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231152814332.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231153427026.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231154144888.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231155244299.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231163729604.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231164830197.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231165520424.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231165642079.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231165903415.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231170011142.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231172624267.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201231172900378.png">
+<meta property="og:updated_time" content="2021-06-14T14:02:35.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VS2017开发动态链接库并调试">
+<meta name="twitter:description" content="VS2017开发动态链接库并调试">
+<meta name="twitter:image" content="http://blog.adminlee.com/img/image-20201231152814332.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2021/06/14/VS2017开发动态链接库并调试/"/>
+
+
+
+
+
+  <title>VS2017开发动态链接库并调试 | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2021/06/14/VS2017开发动态链接库并调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VS2017开发动态链接库并调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-14T22:02:00+08:00">
+                2021-06-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2021-06-14T22:02:35+08:00">
+                2021-06-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/06/14/VS2017开发动态链接库并调试/" class="leancloud_visitors" data-flag-title="VS2017开发动态链接库并调试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> View
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  1,626
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  VS2017开发动态链接库并调试
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一、创建动态链接库工程"><a href="#一、创建动态链接库工程" class="headerlink" title="一、创建动态链接库工程"></a>一、创建动态链接库工程</h1><ol>
+<li><p>启动VS2017，选择菜单栏<strong>文件 &gt; 新建 &gt; 项目 &gt; 已安装 &gt; Visual C++ &gt; Windows桌面 &gt; 具有导出项的(DLL)动态链接库</strong>，设置好工程名称和路径，单击<strong>确定</strong>完成工程创建。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231152814332.png" alt="image-20201231152814332"></p>
+</li>
+<li><p>动态链接库工程创建后，会生成一个模板工程，如图所示。在模板工程中给出了怎样导出<strong>类、变量和函数</strong>的例子。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231153427026.png" alt="image-20201231153427026"></p>
+</li>
+<li><p>在<strong>mydll.h</strong>文件中已经定义好了动态链接库的导出宏。</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 下列 ifdef 块是创建使从 DLL 导出更简单的</span></div><div class="line"><span class="comment">// 宏的标准方法。此 DLL 中的所有文件都是用命令行上定义的 MYDLL_EXPORTS</span></div><div class="line"><span class="comment">// 符号编译的。在使用此 DLL 的</span></div><div class="line"><span class="comment">// 任何项目上不应定义此符号。这样，源文件中包含此文件的任何其他项目都会将</span></div><div class="line"><span class="comment">// MYDLL_API 函数视为是从 DLL 导入的，而此 DLL 则将用此宏定义的</span></div><div class="line"><span class="comment">// 符号视为是被导出的。</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MYDLL_EXPORTS</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllexport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+</li>
+<li><p>为了便于多文件导出目标函数，先对模板工程进行简单修改，在解决方案窗口中，<strong>右键mydll工程 &gt; 添加 &gt; 新建项 &gt; 已安装 &gt; Visual C++ &gt; 头文件</strong>，将文件名修改为<strong>export.h</strong>，单击<strong>添加</strong>完成。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231154144888.png" alt="image-20201231154144888"></p>
+</li>
+<li><p>在<strong>export.h</strong>文件中添加如下代码。</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MYDLL_EXPORT_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_EXPORT_H_</span></div><div class="line"></div><div class="line"><span class="comment">// 下列 ifdef 块是创建使从 DLL 导出更简单的</span></div><div class="line"><span class="comment">// 宏的标准方法。此 DLL 中的所有文件都是用命令行上定义的 MYDLL_EXPORTS</span></div><div class="line"><span class="comment">// 符号编译的。在使用此 DLL 的</span></div><div class="line"><span class="comment">// 任何项目上不应定义此符号。这样，源文件中包含此文件的任何其他项目都会将</span></div><div class="line"><span class="comment">// MYDLL_API 函数视为是从 DLL 导入的，而此 DLL 则将用此宏定义的</span></div><div class="line"><span class="comment">// 符号视为是被导出的。</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MYDLL_EXPORTS</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllexport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// !MYDLL_EXPORT_H_</span></span></div></pre></td></tr></table></figure>
+<p> 删除<strong>mydll.h</strong>中的如下代码</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 下列 ifdef 块是创建使从 DLL 导出更简单的</span></div><div class="line"><span class="comment">// 宏的标准方法。此 DLL 中的所有文件都是用命令行上定义的 MYDLL_EXPORTS</span></div><div class="line"><span class="comment">// 符号编译的。在使用此 DLL 的</span></div><div class="line"><span class="comment">// 任何项目上不应定义此符号。这样，源文件中包含此文件的任何其他项目都会将</span></div><div class="line"><span class="comment">// MYDLL_API 函数视为是从 DLL 导入的，而此 DLL 则将用此宏定义的</span></div><div class="line"><span class="comment">// 符号视为是被导出的。</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MYDLL_EXPORTS</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllexport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MYDLL_API __declspec(dllimport)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p> 在最上方添加</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"export.h"</span></span></div></pre></td></tr></table></figure>
+<p> 当动态链接库工程包含多个文件时，只需在各文件引入头文件<strong>export.h</strong>即可完成目标接口的导出。</p>
+</li>
+<li><p>在菜单栏选择<strong>生成 &gt; 生成解决方案</strong>，生成成功后会生成如下文件。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231155244299.png" alt="image-20201231155244299"></p>
+<p> 并可在VS2017输出窗口查看到编译成功的信息。</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>&gt;------ 已启动生成: 项目: mydll, 配置: Debug Win32 ------</div><div class="line"><span class="number">1</span>&gt;pch.cpp</div><div class="line"><span class="number">1</span>&gt;dllmain.cpp</div><div class="line"><span class="number">1</span>&gt;mydll.cpp</div><div class="line"><span class="number">1</span>&gt;正在生成代码...</div><div class="line"><span class="number">1</span>&gt;  正在创建库 E:\Code-of-C++\vs2017_test\mydll\Debug\MYDLL.lib 和对象 E:\Code-of-C++\vs2017_test\mydll\Debug\MYDLL.exp</div><div class="line"><span class="number">1</span>&gt;mydll.vcxproj -&gt; E:\Code-of-C++\vs2017_test\mydll\Debug\MYDLL.dll</div><div class="line">========== 生成: 成功 <span class="number">1</span> 个，失败 <span class="number">0</span> 个，最新 <span class="number">0</span> 个，跳过 <span class="number">0</span> 个 ==========</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改<strong>mydll.h</strong>和<strong>mydll.cpp</strong>，实现一些具体接口，便于下一步进行调试。</p>
+<ul>
+<li><p><strong>mydll.h</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"export.h"</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @enum	INFO_TYPE</span></div><div class="line"><span class="comment"> * @brief	消息等级</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">enum</span> INFO_TYPE</div><div class="line">&#123;</div><div class="line">	MY_INFO,		<span class="comment">///&lt; 普通消息</span></div><div class="line">	MY_WARNING,		<span class="comment">///&lt; 警告消息</span></div><div class="line">	MY_ERROR,		<span class="comment">///&lt; 错误消息</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @struct	MY_INFO</span></div><div class="line"><span class="comment"> * @brief	定义消息结构体</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">MY_MSG</span> &#123;</span></div><div class="line">	INFO_TYPE infoType;			<span class="comment">///&lt; 消息等级</span></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> msg;			<span class="comment">///&lt; 详细信息</span></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> funcName;		<span class="comment">///&lt; 函数名称</span></div><div class="line">&#125; MY_MSG;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @class	DllTest</span></div><div class="line"><span class="comment"> * @brief	动态链接库导出类测试</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MYDLL_API</span> <span class="title">DllTest</span></span></div><div class="line"><span class="class">&#123;</span></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="comment">/**</span></div><div class="line"><span class="comment">	 * @brief	构造函数</span></div><div class="line"><span class="comment">	 */</span></div><div class="line">	DllTest(<span class="built_in">std</span>::<span class="built_in">string</span> &amp;s);</div><div class="line">	</div><div class="line">	<span class="comment">/**</span></div><div class="line"><span class="comment">	 * @brief	析构函数</span></div><div class="line"><span class="comment">	 */</span></div><div class="line">	~DllTest();</div><div class="line"></div><div class="line">	<span class="function">DllTest &amp;<span class="title">setStr</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> &amp;s)</span></span>;</div><div class="line">	<span class="comment">/**</span></div><div class="line"><span class="comment">	 *******************************************************************************</span></div><div class="line"><span class="comment">	 * @brief 		输出字符串</span></div><div class="line"><span class="comment">	 * @ref  		\n</span></div><div class="line"><span class="comment">	 * @return 		void</span></div><div class="line"><span class="comment">	 * - 返回值描述</span></div><div class="line"><span class="comment">	 * @author		AILEE</span></div><div class="line"><span class="comment">	 * @date		2020-12-31</span></div><div class="line"><span class="comment">	 * @par 示例:</span></div><div class="line"><span class="comment">	 * @code</span></div><div class="line"><span class="comment">	 * @endcode</span></div><div class="line"><span class="comment">	 * @see</span></div><div class="line"><span class="comment">	 *******************************************************************************</span></div><div class="line"><span class="comment">	 */</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printStr</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line"><span class="keyword">private</span>:</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> str;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> *******************************************************************************</span></div><div class="line"><span class="comment"> * @brief 		输出消息</span></div><div class="line"><span class="comment"> * @param[in]  	MY_MSG &amp; msg	: 消息结构体</span></div><div class="line"><span class="comment"> * @ref  		\n</span></div><div class="line"><span class="comment"> * @return 		void</span></div><div class="line"><span class="comment"> * - 无返回值</span></div><div class="line"><span class="comment"> * @author		AILEE</span></div><div class="line"><span class="comment"> * @date		2020-12-31</span></div><div class="line"><span class="comment"> * @par 示例:</span></div><div class="line"><span class="comment"> * @code</span></div><div class="line"><span class="comment"> * @endcode</span></div><div class="line"><span class="comment"> * @see</span></div><div class="line"><span class="comment"> *******************************************************************************</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function">MYDLL_API <span class="keyword">void</span> <span class="title">printInfo</span><span class="params">(MY_MSG &amp;msg)</span></span>;</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>mydll.cpp</strong></p>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// mydll.cpp : 定义 DLL 的导出函数。</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"framework.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mydll.h"</span></span></div><div class="line"></div><div class="line">DllTest::DllTest(<span class="built_in">std</span>::<span class="built_in">string</span> &amp; s) :str(s) &#123;&#125;</div><div class="line"></div><div class="line">DllTest::~DllTest() &#123;&#125;</div><div class="line"></div><div class="line">DllTest &amp; DllTest::setStr(<span class="built_in">std</span>::<span class="built_in">string</span> &amp; s)</div><div class="line">&#123;</div><div class="line">	str = s;</div><div class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> DllTest::printStr()</div><div class="line">&#123;</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; str &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">printInfo</span><span class="params">(MY_MSG &amp;msg)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="keyword">switch</span> (msg.infoType)</div><div class="line">	&#123;</div><div class="line">	<span class="keyword">case</span> MY_INFO:</div><div class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"[INFO]: "</span> &lt;&lt; msg.msg &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">case</span> MY_WARNING:</div><div class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"[WARNING]: "</span> &lt;&lt; msg.funcName &lt;&lt; <span class="string">": "</span> &lt;&lt; msg.msg &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">case</span> MY_ERROR:</div><div class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"[ERROR]: "</span> &lt;&lt; msg.funcName &lt;&lt; <span class="string">": "</span> &lt;&lt; msg.msg &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	<span class="keyword">default</span>:</div><div class="line">		<span class="keyword">break</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>重新编译</p>
+</li>
+</ol>
+<h1 id="2-创建控制台应用工程，调用动态链接库并进行联合调试。"><a href="#2-创建控制台应用工程，调用动态链接库并进行联合调试。" class="headerlink" title="2. 创建控制台应用工程，调用动态链接库并进行联合调试。"></a>2. 创建控制台应用工程，调用动态链接库并进行联合调试。</h1><ol>
+<li><p>选择解决方案窗口，<strong>右键解决方案 &gt; 添加 &gt; 新建项目 &gt; 已安装 &gt; Visual C++ &gt; Windows桌面 &gt; 控制台应用</strong>，设置好项目名称，单击<strong>确定</strong>完成。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231163729604.png" alt="image-20201231163729604"></p>
+</li>
+<li><p>右键解决方案列表中的mydll_example项目，选择<strong>设为启动项目</strong>。</p>
+</li>
+<li><p>右键解决方案列表中的mydll_example项目，选择<strong>生成依赖项 &gt; 项目依赖项</strong>，在弹出的窗口中，勾选<strong>mydll</strong>。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231164830197.png" alt="image-20201231164830197"></p>
+</li>
+<li><p>右键解决方案列表中的mydll_example项目，<strong>选择属性</strong>，在弹出的属性页中，将<strong>配置</strong>改为<strong>所有配置</strong>，然后选择<strong>链接器 &gt; 常规 &gt; 附加库目录 &gt; 编辑 &gt; 宏</strong>，进行如下配置。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231165520424.png" alt="image-20201231165520424"></p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231165642079.png" alt="image-20201231165642079"></p>
+<p> 选择<strong>属性页 &gt; 链接器 &gt; 输入 &gt; 附加依赖项 &gt; 编辑</strong>，添加<strong>MYDLL.lib</strong>。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231165903415.png" alt="image-20201231165903415"></p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231170011142.png" alt="image-20201231170011142"></p>
+<p> 单击<strong>确定</strong>，完成属性设置。</p>
+</li>
+<li><p>在<strong>mydll_example.cpp</strong>的最上面添加，因为mydll工程和mydll_example工程是同一级目录，因此添加<strong>mydll.h</strong>头文件时需要先返回上一级目录。</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"../mydll/mydll.h"</span></span></div></pre></td></tr></table></figure>
+</li>
+<li><p>将<strong>mydll_example.cpp</strong>修改为如下内容</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"../mydll/mydll.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> str = <span class="string">"hello world!\n"</span>;</div><div class="line">	<span class="comment">// 创建对象</span></div><div class="line">	<span class="function">DllTest <span class="title">dllTest</span><span class="params">(str)</span></span>;</div><div class="line">	<span class="comment">// 打印对象中的字符串</span></div><div class="line">	dllTest.printStr();</div><div class="line">	<span class="comment">// 设置对象中的字符串</span></div><div class="line">	str = <span class="string">"hello dll!\n"</span>;</div><div class="line">	dllTest.setStr(str);</div><div class="line">	<span class="comment">// 打印对象中的字符串</span></div><div class="line">	dllTest.printStr();</div><div class="line"></div><div class="line">	<span class="comment">// 调用打印消息函数，输出消息</span></div><div class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> warning_msg = <span class="string">"this is a waring."</span>;</div><div class="line">	MY_MSG msg;</div><div class="line">	msg.infoType = MY_WARNING;</div><div class="line">	msg.funcName = __FUNCTION__;</div><div class="line">	msg.msg = warning_msg;</div><div class="line">	printInfo(msg);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>选择菜单栏中<strong>调试 &gt; 开始执行(不调试)</strong>，将在命令行窗口输出如下内容。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231172624267.png" alt="image-20201231172624267"></p>
+</li>
+<li><p>设置好断点，选择菜单栏中<strong>调试 &gt; 开始调试</strong>，即可进行调试。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201231172900378.png" alt="image-20201231172900378"></p>
+</li>
+<li><p>切换到Release配置，重新生成解决方案，即可在<strong>mydll</strong>工程文件夹下的<strong>Release</strong>文件夹下找到<strong>MYDLL.dll</strong>和<strong>MDLL.lib</strong>，将其拷贝一份，并复制工程对应的头文件，按如下方式组织，即可进行动态链接库的发布，方便以后使用。</p>
+<ul>
+<li>mydll_x86_release<ul>
+<li>bin<ul>
+<li>mydll.dll</li>
+</ul>
+</li>
+<li>include<ul>
+<li>export.h</li>
+<li>framework.h</li>
+<li>mydll.h</li>
+<li>pch.h</li>
+</ul>
+</li>
+<li>lib<ul>
+<li>mydll.lib</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://blog.csdn.net/cynophile/article/details/79749524" target="_blank" rel="external">使用VS2017创建DLL并链接至其他项目中【转】</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2021/06/14/VS2017开发动态链接库并调试/" title="VS2017开发动态链接库并调试">http://ailee.me/2021/06/14/VS2017开发动态链接库并调试/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/dll/" rel="tag"># dll</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/14/VS2017开发Python C++扩展库并调试（二）/" rel="next" title="VS2017开发Python C++扩展库并调试（二）">
+                <i class="fa fa-chevron-left"></i> VS2017开发Python C++扩展库并调试（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">55</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
