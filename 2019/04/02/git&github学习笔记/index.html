@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Git学习笔记">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git&amp;github学习笔记我的2017">
+<meta property="og:url" content="http://ailee.me/2019/04/02/git&github学习笔记/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="Git学习笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/img/git_invate.png">
+<meta property="og:updated_time" content="2019-05-05T02:49:44.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git&amp;github学习笔记我的2017">
+<meta name="twitter:description" content="Git学习笔记">
+<meta name="twitter:image" content="http://blog.adminlee.com/img/git_invate.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2019/04/02/git&github学习笔记/"/>
+
+
+
+
+
+  <title>git&github学习笔记我的2017 | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2019/04/02/git&github学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git&github学习笔记我的2017</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T10:40:43+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2019-05-05T10:49:44+08:00">
+                2019-05-05
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/04/02/git&github学习笔记/" class="leancloud_visitors" data-flag-title="git&github学习笔记我的2017">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  2,996
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Git学习笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.atguigu.com/download_detail.shtml?v=40" target="_blank" rel="external">视频教程：尚硅谷Git&amp;GitHub视频教程</a></p>
+</blockquote>
+<h1 id="一、版本控制工具"><a href="#一、版本控制工具" class="headerlink" title="一、版本控制工具"></a>一、版本控制工具</h1><ol>
+<li>集中式<ul>
+<li>CVS、SVN……</li>
+<li>缺点：可能出现单点故障问题</li>
+</ul>
+</li>
+<li>分布式<ul>
+<li>Git、Mercurial……</li>
+<li>可避免单点故障<h1 id="二、Git和代码托管中心"><a href="#二、Git和代码托管中心" class="headerlink" title="二、Git和代码托管中心"></a>二、Git和代码托管中心</h1></li>
+</ul>
+</li>
+<li>局域网<ul>
+<li>GitLab服务器</li>
+</ul>
+</li>
+<li>外网<ul>
+<li>Github、码云<center>![](http://blog.adminlee.com/img/git.png)
+git流程</center></li>
+</ul>
+</li>
+</ol>
+<h1 id="三、Git-命令行操作"><a href="#三、Git-命令行操作" class="headerlink" title="三、Git 命令行操作"></a>三、Git 命令行操作</h1><h2 id="本地库初始化"><a href="#本地库初始化" class="headerlink" title="本地库初始化"></a>本地库初始化</h2><ul>
+<li>命令：git init<ul>
+<li>命令：git add</li>
+</ul>
+</li>
+</ul>
+<h2 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h2><ol>
+<li>形式：<ul>
+<li>用户名：tom</li>
+<li>Email地址：goodMorning@atguigu.com</li>
+</ul>
+</li>
+<li>作用<ul>
+<li>区分不同开发人员身份</li>
+</ul>
+</li>
+<li>辨析<ul>
+<li>这个签名和登录远程库的账号密码无关系</li>
+</ul>
+</li>
+<li>命令<ul>
+<li>项目级别/仓库级别：仅在当前本地仓库范围内有效<ul>
+<li>git config user.name tom_pro</li>
+<li>git config user.email goodMorning_pro@atguigu.com</li>
+</ul>
+</li>
+<li>系统用户级别：登录当前操作系统的用户范围<ul>
+<li>git config —global user.name tom_pro</li>
+<li>git config —global user.email goodMorning_pro@atguigu.com</li>
+<li>信息保存位置：~/.gitconfig</li>
+</ul>
+</li>
+<li>级别优先级<ul>
+<li>就近原则：项目级别由于系统用户级别，二者都有是，采用项目级别的签名</li>
+<li>如果只有系统用户级别的签名，就以用户级别的签名为准</li>
+<li>二者都没有不允许</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ol>
+<li>状态查看<ul>
+<li>$ git status</li>
+<li>查看工作区、暂存区状态</li>
+</ul>
+</li>
+<li>添加操作<ul>
+<li>$ git add [file name]</li>
+<li>将工作区的“新建/修改”添加到暂存区</li>
+</ul>
+</li>
+<li>提交操作<ul>
+<li>$ git commit -m “commit message” [file name]</li>
+<li>将暂存区的内容提交到本地库</li>
+</ul>
+</li>
+<li>查看历史记录操作<ul>
+<li>$ git log 显示完整历史记录</li>
+<li>$ git log —pretty=oneline 单行显示历史记录（包含完整hash值和提交日志）</li>
+<li>$ git log —oneline 单行显示历史记录（包含部分hash值和提交日志，只显示过去的历史记录）</li>
+<li>$ git reflog 单行显示历史记录（包含部分hash值、HEAD@{移动到当前版本需要的步数}和提交日志，显示所有历史记录 ）</li>
+</ul>
+</li>
+<li>版本前进后退<ul>
+<li>$ git reset —hard [局部hash值]（基于索引值操作）</li>
+<li>$ git reset —hard HEAD^（只能后退，一个^代表回退一个版本）</li>
+<li>$ git reset —hard HEAD~[n]（回退n步）</li>
+</ul>
+</li>
+<li>reset命令的三个参数对比<ul>
+<li>—soft参数<ul>
+<li>仅在本地库移动HEAD指针</li>
+</ul>
+</li>
+<li>—mixed参数<ul>
+<li>在本地库移动HEAD指针</li>
+<li>重置暂存区</li>
+</ul>
+</li>
+<li>—hard参数<ul>
+<li>在本地移动HEAD指针</li>
+<li>重置暂存区</li>
+<li>重置工作区</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>删除文件并找回操作<ul>
+<li>前提：删除前，文件存在时的状态提交到了本地库</li>
+<li>操作：$ git reset —hard [指针位置]<ul>
+<li>删除操作已经提交到本地库：指针位置指向历史记录</li>
+<li>删除操作尚未提交到本地库：指针位置使用HEAD</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>比较文件差异<ul>
+<li>$ git diff [文件名]<ul>
+<li>将工作区中的文件和暂存区进行比较</li>
+</ul>
+</li>
+<li>$ git diff [本地库中历史版本] [文件名]<ul>
+<li>将工作区中的文件和本地库历史记录进行比较</li>
+</ul>
+</li>
+<li>$ git diff <ul>
+<li>不带文件名，比较多个文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><ol>
+<li>什么是分支？<br> 在版本控制过程中，使用多条线同时推进多个任务。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">graph TD</div><div class="line">A[主分支_v1] --&gt;|大版本升级| B[主分支_v2]</div><div class="line">B --&gt;|大版本升级| C[主分支_v3]</div><div class="line">C --&gt;|大版本升级| D[主分支_v4]</div><div class="line">D --&gt;|大版本升级| N[主分支_v5]</div><div class="line">B --&gt;|创建热修复分支| E[热修复分支]</div><div class="line">E --&gt;|合并分支| C</div><div class="line">A --&gt;|创建分支1| F[branch1_v1]</div><div class="line">F --&gt;|分支1版本升级| G[branch1_v2]</div><div class="line">G --&gt;|合并分支| B</div><div class="line">A --&gt;|创建分支2| H[branch2_v1]</div><div class="line">H --&gt;|分支2升级| I[branch2_v2]</div><div class="line">I --&gt;|分支2升级| J[branch2_v3]</div><div class="line">J --&gt;|分支2升级| K[branch2_v4]</div><div class="line">K --&gt;|合并分支| D</div><div class="line">A --&gt;|创建新分支| L[...]</div><div class="line">L --&gt;|...| M[...]</div><div class="line">M --&gt;|合并分支| N</div></pre></td></tr></table></figure>
+<ol>
+<li>分支有什么好处？<ul>
+<li>同时并行推进多个功能开发，提高开发效率</li>
+<li>各个分支在开发过程中，如果某一个分支开发失败，不会对其他分支有任何影响。失败的分支删除重新开始即可。</li>
+</ul>
+</li>
+<li>分支操作<ul>
+<li>创建分支<ul>
+<li>$ git branch [分支名]</li>
+</ul>
+</li>
+<li>查看分支<ul>
+<li>$ git branch -v</li>
+</ul>
+</li>
+<li>切换分支<ul>
+<li>$ git checkout [分支名]</li>
+</ul>
+</li>
+<li>合并分支<ul>
+<li>第一步：切换到接受修改的分支上（被合并，增加新内容）<ul>
+<li>$ git checkout [被合并的分支名]</li>
+</ul>
+</li>
+<li>第二部：执行性merge命令<ul>
+<li>$ merge [有新内容的分支名]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>解决冲突<ul>
+<li>冲突的表现<ul>
+<li>以特殊符号分隔的方式列出合并分支中修改的内容</li>
+</ul>
+</li>
+<li>冲突的解决<ul>
+<li>第一步：编辑文件，删除特殊符号</li>
+<li>第二步：把文件修改到满意的程度，保存退出</li>
+<li>第三步：$ git add [filename]</li>
+<li>第四步：$ git commit -m “log message”<ul>
+<li>PS：此时commit一定不能带具体的文件名。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="git的基本原理"><a href="#git的基本原理" class="headerlink" title="git的基本原理"></a>git的基本原理</h2><ol>
+<li>哈希</li>
+<li>git保存版本的机制<ul>
+<li>集中式版本控制工具的文件管理机制（SVN）<ul>
+<li>以文件变更列表的方式存储信息。这类系统将他们保存的信息看作是一组基本文件和每个文件随时间逐步累积的差异。</li>
+</ul>
+</li>
+<li>git的文件管理机制<ul>
+<li>git把数据看作是小型文件系统的一组快照。每次提交更新时git都会对当前的全部文件制作一个快照并保存这个快照的索引。为了高效，如果文件没有修改，git不再重新存储该文件，而是只保留一个链接指向之前存储的文件。所以git的工作方式可以成为快照流。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>git分支管理机制<ul>
+<li>git通过移动指针来管理不同分支</li>
+</ul>
+</li>
+</ol>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><ol>
+<li>账号信息</li>
+<li>创建远程库</li>
+<li>创建远程库地址别名（基于http）<ul>
+<li>$ git remote -v<ul>
+<li>查看当前所有远程地址别名</li>
+</ul>
+</li>
+<li>$ git remote add [别名] [远程地址]</li>
+</ul>
+</li>
+<li>推送<ul>
+<li>$ git push [别名] [分支名]<ul>
+<li>如果是第一次推送，可能需要进行登录，登录成功后，由于win10具有凭据管理器，会保存登录的账号信息，可通过<strong>凭据管理器</strong>查看。当需要切换用户进行推送时，需要先将保存的凭据删除，重新登录。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>克隆<ul>
+<li>命令<ul>
+<li>$ git clone [远程地址]</li>
+</ul>
+</li>
+<li>效果<ul>
+<li>完整的把远程库下载到本地</li>
+<li>创建origin远程地址别名（可通过$ git remote -v 查看）</li>
+<li>初始化本地库</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>团队成员邀请<ul>
+<li>邀请团队成员进行开发，可以提高工作效率，可以实现更好的分工合作。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">graph LR</div><div class="line">A[需发起邀请方的远程库] --&gt;| | B[Setting]</div><div class="line">B --&gt; C[Collaborators]</div><div class="line">C --&gt; D[填写需要邀请人员的github用户名]</div><div class="line">D --&gt; E[Add collaborator]</div><div class="line">E --&gt; F[Copy invite link]</div><div class="line">F --&gt; G[发送邀请链接]</div><div class="line">H[被邀请方登录github] --&gt; I[在浏览器中粘贴邀请链接]</div><div class="line">I --&gt; J[accept invitation]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="http://blog.adminlee.com/img/git_invate.png" alt=""></p>
+<ol>
+<li>拉取<ul>
+<li>pull = fetch+merge<ul>
+<li>pull 表示从远程库拉取内容到本地库并与本地库进行合并，</li>
+<li>fetch 表示从远程库拉取内容到本地库。</li>
+<li>merger 表示将从远程库拉取到的内容与本地库进行合并。</li>
+</ul>
+</li>
+<li>$ git fetch [远程库地址别名] [远程分支名]<ul>
+<li>可通过 $ git checkout [远程库地址别名/远程分支名]切换到拉取下来的分支查看拉取的内容，待内容确认完毕，通过$ git checkout [本地分支名]切换回本地分支，进行下一步的合并操作。</li>
+</ul>
+</li>
+<li>$ git merge [远程库地址别名/远程分支名] </li>
+<li>$ git pull [远程库地址别名] [远程分支名]</li>
+</ul>
+</li>
+<li>解决冲突<ul>
+<li>团队合作冲突时不可避免的。</li>
+<li>要点：<ul>
+<li>如果不是基于github远程库的最新版所做的修改，不能推送，必须先拉取。</li>
+<li>拉取下来如果进入冲突状态，则按照“分株冲突解决”操作解决即可。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>跨团队协作<ul>
+<li>step 1：Fork远程仓库；</li>
+<li>step 2：克隆到本地进行修改，然后推送到远程；</li>
+<li>step 3：在远程仓库界面发起Pull Request；</li>
+<li>step 4：对话（可选）；</li>
+<li>step 5：审核代码；</li>
+<li>step 6：合并代码；</li>
+<li>step 7：将远程库修改拉取到本地。</li>
+</ul>
+</li>
+<li>SSH登录<ul>
+<li>进入当前用户的home目录<ul>
+<li>$ cd ~</li>
+</ul>
+</li>
+<li>删除原有.ssh目录<ul>
+<li>$ ssh-keygen -t rsa -C [email]</li>
+</ul>
+</li>
+<li>进入.ssh目录查看文件列表<ul>
+<li>$ cd .ssh</li>
+<li>$ ls -lF</li>
+</ul>
+</li>
+<li>查看id_rsa.pub文件内容<ul>
+<li>$ cat id_rsa.pub</li>
+</ul>
+</li>
+<li>复制id_rsa.pub文件内容，登录github，点击用户头像-&gt;Setting-&gt;SSH and GPD key</li>
+<li>New SSH Key</li>
+<li>输入复制的密钥信息</li>
+<li>回到git bash创建远程地址别名<ul>
+<li>$ git remote add [origin_ssh远程地址别名] git@github.com:[用户名]/[仓库名].git</li>
+</ul>
+</li>
+<li>推送文件进行测试</li>
+</ul>
+</li>
+</ol>
+<h1 id="四、Pycharm操作"><a href="#四、Pycharm操作" class="headerlink" title="四、Pycharm操作"></a>四、Pycharm操作</h1><h1 id="五、git工作流"><a href="#五、git工作流" class="headerlink" title="五、git工作流"></a>五、git工作流</h1><ol>
+<li>概念</li>
+<li>分类</li>
+</ol>
+<ul>
+<li><p>集中式工作流</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div></pre></td><td class="code"><pre><div class="line">graph TD</div><div class="line">A((origin/master)) --- |pull/push| B(master 1)</div><div class="line">A --- |pull/push| C(master 2)</div><div class="line">A --- |pull/push| D( ...)</div><div class="line">A --- |pull/push| E(master n)</div><div class="line">``` </div><div class="line">- GitFlow工作流</div><div class="line">```mermaid</div><div class="line">graph LR</div><div class="line">A((主分支 v1.0))</div><div class="line">B((主分支 v1.1))</div><div class="line">C((主分支 v2.0))</div><div class="line">D((主分支 v3.0))</div><div class="line"></div><div class="line">E(热修复分支)</div><div class="line"></div><div class="line">F((开发分支))</div><div class="line">G((开发分支))</div><div class="line">H((开发分支))</div><div class="line">I((开发分支))</div><div class="line">J((开发分支))</div><div class="line"></div><div class="line">K[功能1]</div><div class="line">L[功能1]</div><div class="line"></div><div class="line">M[功能2]</div><div class="line">N[功能2]</div><div class="line">O[功能2]</div><div class="line">P[功能2]</div><div class="line"></div><div class="line">Q&gt;预发布分支]</div><div class="line">R&gt;预发布分支]</div><div class="line">S&gt;预发布分支]</div><div class="line"></div><div class="line">A --&gt; B</div><div class="line">B --&gt; C</div><div class="line">C --&gt; D</div><div class="line"></div><div class="line">A --&gt; E</div><div class="line">E --&gt; B</div><div class="line">E --&gt; G</div><div class="line">A --&gt; F</div><div class="line">F --&gt; G</div><div class="line">G --&gt; H</div><div class="line">H --&gt; Q</div><div class="line">Q --&gt; R</div><div class="line">R --&gt; C</div><div class="line">R --&gt; I</div><div class="line">H --&gt; I</div><div class="line">I --&gt; J</div><div class="line">J --&gt; S</div><div class="line"></div><div class="line">F --&gt; K</div><div class="line">K --&gt; L</div><div class="line">L --&gt; H</div><div class="line"></div><div class="line">F --&gt; M</div><div class="line">M --&gt; N</div><div class="line">N --&gt; O</div><div class="line">O --&gt; P</div><div class="line">P --&gt; S</div><div class="line">S --&gt; D</div></pre></td></tr></table></figure>
+</li>
+<li><p>Forking工作流<br>  Forking 工作流是在GitFlow 基础上，充分利用了Git 的Fork 和pull request 的功能以达到代码审核的目的。更适合安全可靠地管理大团队的开发者，而且能接受不信任贡献者的提交。</p>
+</li>
+</ul>
+<ol>
+<li>GitFlow工作流<ul>
+<li>分支种类<ul>
+<li>主干分支（master）<ul>
+<li>主要负责管理正在运行的生产环境代码。永远保持与正在运行的生产环境完全一致。</li>
+</ul>
+</li>
+<li>开发分支（develop）<ul>
+<li>主要负责正在开发过程中的代码，一般情况下应该是最新的代码。</li>
+</ul>
+</li>
+<li>bug修复分支（hot_fix）<ul>
+<li>主要负责管理生产环境下出现的紧急修复代码。从主干分支分出，修复完毕并测试上线后，并回主分支，并回后可视情况删除该分支</li>
+</ul>
+</li>
+<li>准生产分支（预发布分支release）<ul>
+<li>较大的版本上线前，会从开发分支中分出准生产分支，进行最后阶段的集成测试。该版本上线后，合并到主分支。</li>
+</ul>
+</li>
+<li>功能分支（feature）<ul>
+<li>为了不影响较短周期的开发工作，一般吧中长期开发模块从开发分支中独立出来。开发完成后合并回开发分支。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="六、GitLab服务器搭建过程"><a href="#六、GitLab服务器搭建过程" class="headerlink" title="六、GitLab服务器搭建过程"></a>六、GitLab服务器搭建过程</h1><ol>
+<li><p>官网地址</p>
+<ul>
+<li><a href="https://about.gitlab.com/" target="_blank" rel="external">首页</a></li>
+<li><a href="https://about.gitlab.com/installation/" target="_blank" rel="external">安装说明</a></li>
+</ul>
+</li>
+<li><p>安装说明</p>
+</li>
+</ol>
+<ul>
+<li>系统：Centos 7</li>
+<li>命令<blockquote>
+<ul>
+<li>sudo yum install -y curl policycoreutils-python openssh-server cronie</li>
+<li>sudo lokkit -s http -s ssh</li>
+<li>sudo yum install postfix</li>
+<li>sudo service postfix start</li>
+<li>sudo chkconfig postfix on</li>
+<li>curl <a href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh" target="_blank" rel="external">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh</a> | sudo bash</li>
+<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com" target="_blank" rel="external">http://gitlab.example.com</a>“ yum -y install gitlab-ee</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>实际问题：yum安装gitlab-ee（或者ce）时，需要联网下载几百兆的安装文件，非常耗时，所以应提前把所需的RPM包下载并安装好。</strong><br>    下载地址：<a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm" target="_blank" rel="external">https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm</a></p>
+<ol>
+<li>调整好的安装过程<blockquote>
+<ul>
+<li><strong>sudo rpm -ivh /opt/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm</strong></li>
+<li>sudo yum install -y curl policycoreutils-python openssh-server cronie</li>
+<li>sudo lokkit -s http -s ssh</li>
+<li>sudo yum install postfix</li>
+<li>sudo service postfix start</li>
+<li>sudo chkconfig postfix on</li>
+<li>curl <a href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh" target="_blank" rel="external">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh</a> | sudo bash</li>
+<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com" target="_blank" rel="external">http://gitlab.example.com</a>“ yum -y install gitlab-ce</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<p>当前操作完成后重启。</p>
+<ol>
+<li><p>GitLab服务操作</p>
+<ul>
+<li>初始化配置GitLab<ul>
+<li># gitlab-ctl reconfigure</li>
+</ul>
+</li>
+<li>启动GitLab服务<ul>
+<li># gitlab-ctl start</li>
+</ul>
+</li>
+<li>停止GitLab服务<ul>
+<li># gitlab-ctl stop</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>浏览器访问</p>
+<ul>
+<li>在浏览器中输入Linux服务器的IP地址即可访问配置好的GitLab。</li>
+<li>初次登录时需要为GitLab的root用户设置密码。</li>
+<li>初次访问可能出现无法加载的情况，此时可能需要修改服务的防火墙配置。<ul>
+<li>停止服务器防火墙：# service firewalld stop</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2019/04/02/git&github学习笔记/" title="git&github学习笔记我的2017">http://ailee.me/2019/04/02/git&github学习笔记/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/28/Windows10+Cmake+VS2015编译caffe/" rel="next" title="Windows10+Cmake+VS2015编译caffe">
+                <i class="fa fa-chevron-left"></i> Windows10+Cmake+VS2015编译caffe
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/05/TensorFlow C和C++ API设置GPU选项/" rel="prev" title="TensorFlow C/C++ API设置GPU选项">
+                TensorFlow C/C++ API设置GPU选项 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

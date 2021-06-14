@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="目标检测,深度学习,Mask R-CNN," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Mask R-CNN 论文翻译">
+<meta name="keywords" content="目标检测,深度学习,Mask R-CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mask R-CNN">
+<meta property="og:url" content="http://ailee.me/2018/04/18/Mask R-CNN/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="Mask R-CNN 论文翻译">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图1.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图2.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图3.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图4.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表1.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图5.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表2.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表3.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表4.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表5.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表6.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/表7.jpg">
+<meta property="og:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图7.jpg">
+<meta property="og:updated_time" content="2019-01-31T13:39:53.584Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mask R-CNN">
+<meta name="twitter:description" content="Mask R-CNN 论文翻译">
+<meta name="twitter:image" content="http://ailee.me/2018/04/18/Mask%20R-CNN/图1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2018/04/18/Mask R-CNN/"/>
+
+
+
+
+
+  <title>Mask R-CNN | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/04/18/Mask R-CNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mask R-CNN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T15:42:36+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2019-01-31T21:39:53+08:00">
+                2019-01-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/18/Mask R-CNN/" class="leancloud_visitors" data-flag-title="Mask R-CNN">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  8,577
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Mask R-CNN 论文翻译
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　我们提出了一种从概念上来说简单、灵活的综合框架，该框架应用于目标实例分割。我们的方法在高效的检测图像中目标的同时能对每一个目标实例生成高质量的分割掩膜。我们将该方法称为Mask R-CNN，是从Faster R-CNN扩展而来，在Faster R-CNN的基础上增加了一个用于预测目标掩膜的分支，该分支与已存在的边界框分类分支平行。Mask R-CNN训练简单，且只在Faster R-CNN的基础上增减很少的时间消耗，运行速率达到5fps。而且，Mask R-CNN容易适用于其他任务，例如：允许我们对网络做微小的改变，使用相同的网络用于预测人体姿态。我们给出了在COCO系列挑战中的所有三类挑战的结果，包括实例分割、目标边界框检测和人体关键点检测。Mask R-CNN在所有任务上胜过了目前所有的单模型网络，包括COCO 2016的胜利者。我希望我们这个简单有效的模型能够成为一个稳定的基线模型，促进实例水平识别的进一步发展。源码即将开源。</p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　视觉社区在短时间内快速提升了对象检测和语义分割结果。在很大程度上，这些改进是基于一些强大的基线模型的，例如：用于目标检测和语义分割的Fast/Faster R-CNN和完全卷积网络（FCN）。这些模型从理论上讲是直观灵活且鲁棒性好的，并且训练速和运行度快。在本文中，我们的目标是开发一个具有可比性的用于实例分割的框架。</p>
+<p>　　实例分割是一项具有挑战性的任务，因为它需要准确的检测出图像中的所有目标，同时还有准确的分割每一个目标实例。因此实例分割包含两个部分：一是分类计算目标检测的视觉任务，其目标是分类每一个目标，并且使用边界框对其定位。二是语义分割，其目标是在不区分目标实例的情况下将每一像素分类到类别的固定像素组中。鉴于此，如果想要达到一个好的检测出效果，可能需要一种复杂的方法。然而，我们展示了一个非常简单、灵活而且快速的系统，该系统胜过了目前最优秀的实例分割的结果。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图1.jpg" alt="图1　Mask R-CNN框架" title="图1　Mask R-CNN框架"></center>
+
+
+
+<p>　　我们的方法是通过增加应用在每一个RoI上预测分割掩膜的分支从Faster R-CNN扩展而来，该分支与已存在的分类分支和边界框回归分支保持平行（如图1所示），我们称该方法为Mask R-CNN。Mask分支是一个应用在每一个RoI上的小全卷积网络（FCN），以像素到像素的方式来预测分割掩膜。Mask R-CNN在给定的Faster R-CNN框架下实现和训练简单，Faster R-CNN促进了灵活广泛的结构设计。再者，mask分支只增加了很少的消耗，实现了一个快速的实例分割系统。</p>
+<p>　　原则上Mask R-CNN是对Faster R-CNN的一种直接扩展，但是，正确的构造mask分支对于获得良好的效果至关重要。最重要的是，Faster R-CNN网络的输入输出没有设计像素到像素的对齐，RoIPool是参与实例的实际核心操作，它为粗略的空间量化提供特征提取，这一点最为明显。为了弥补这一不足，我们提出了一种称为RoIAlign的简单且量化容易的层，该层能忠实的保留准确的空间位置。尽管从表面上看只是微小的改变，但RoIAlign却有很大的影响：它提高了掩膜精度达10%到50%，在严格定位指标下获得了更大的增益。第二，我们发现解耦掩膜和分类预测至关重要：我们在不与其他class产生竞争的情况下，独立的为每一class预测一个二元掩膜， 并且，依赖网络的RoI分类分支来预测class的类别。相比起来，FCN通常进行每一像素的多class分类，并且，从我们的实验来看，实例分割的效果很差。</p>
+<p>　　毫不夸张的说，在COCO实例分割任务中，Mask R-CNN胜过之前所有最先进single-model的结果，包括来自2016年的重量级作品。作为一个副产物，我们的方法在COCO目标检测任务上的表现也很出色。在消除实验中，我们对多个基本实例进行了评估，以证明其鲁棒性，并分析了核心因素的影响。</p>
+<p>　　我们的模型在一个GPU上的运行速度为200毫秒每帧，在COCO数据集上进行训练，采用8GPU的机器需要花费1-2天。我们相信，快速的训练和测试速度，以及框架的灵活性和准确性，将有益于并简化实例分割未来的研究。</p>
+<p>　　最后，我们通过COCO关键点数据集上的人体姿态估计任务展示了我们的框架的通用性。通过将每一个关键点视为一个one-hot二元掩膜，并最小限度的修改Mask R-CNN，以用于检测特定实例的姿态。毫无悬念，Mask R-CNN胜过了2016年COCO关键点竞赛的冠军，并且获得了相同的运行速率——5fps。因此，Mask R-CNN可以更广泛的视为实例级识别额灵活框架，并且可以很容易地扩展到更复杂的任务中。</p>
+<p>　　我们将开源代码以方便将来的研究。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图2.jpg" alt="图2　Mask R-CNN在COCO测试集上的结果，该结果基于ResNet-101，mask AP为35.7，运行速度5fps。掩膜用彩色表示，同时显示了边界框、类别和置信度。" title="图2　Mask R-CNN在COCO测试集上的结果，该结果基于ResNet-101，mask AP为35.7，运行速度5fps。掩膜用彩色表示，同时显示了边界框、类别和置信度。"></center>
+
+
+
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h1><p><strong>R-CNN：</strong>基于边界框目标检测方法是关注可管理数量的候选目标区域，并在每一个RoI上独立评估卷积网络。R-CNN被扩展为允许在特征图上使用RoIPool，从而实现更快的速度和更好的准确性。Faster R-CNN通过学习区域建议网络（RPN）的attention机制来推进这样一流程。Faster R-CNN对后续许多改进具有灵活性和鲁棒性，并且是几个基线测试中目前领先的框架。</p>
+<p><strong>实例分割：</strong>在R-CNN的有效性的驱动下，实例分割的许多方法都是基于分割建议的。早期的方法采用自下而上的分割片段。DeepMask和以后的工作提出分割候选区域，然后由Fast R-CNN进行分类。分割之前先识别的这些方法速度慢且准确度低。同样的，Dai等人提出一种复杂的多阶段级联方法，该方法在分类之后从目标边界框预测分割候选区域。不同的是，我们的方法是基于并行掩膜和类别标签预测的，该方法简单且更加灵活。</p>
+<p>　　最近，Li等人组合分割建议系统和目标检测系统用于全卷积实例分割（FCIS）。共同昂思想是预测一组完全卷积的位置敏感的输出通道。这些通道同时的处理目标类别、边界框和掩膜，使得系统运行快。但是FCIS在重叠实例上展示了系统错误并且生成虚假边界，表明它受到了分割实例的根本困难的挑战。</p>
+<h1 id="3-Mask-R-CNN"><a href="#3-Mask-R-CNN" class="headerlink" title="3 Mask R-CNN"></a>3 Mask R-CNN</h1><p>　　从理论上来说，Mask R-CNN是简单的：Faster R-CNN对于每一个候选目标有两个输出——类别标签和边界框坐标；至此，我们增加了第三个分支，用于输出目标掩膜。因此Mask R-CNN是自然的直观的。但是新增的掩膜分支与分类和边界框输出不同，它需要提取目标更加精细的空间布局。接下来，我们将介绍Mask R-CNN的关键部分，包括像素到像素的对齐，这是Fast/Faster R-CNN中主要缺失的部分。</p>
+<p><strong>Faster R-CNN：</strong>我们通过简单的回顾Faster R-CNN检测器开始。Faster R-CNN由两个阶段组成，第一阶段为RPN，生成候选目标边界框；第二阶段本质上是Fast R-CNN，使用RoIPool从每一个候选目标区域提取特征，并且进行分类和边界框回归。这些由两个阶段共享的特征用于更快的推理。推荐读者参考文献[<a href="https://arxiv.org/abs/1611.10012" target="_blank" rel="external">21</a>]，以得到Faster R-CNN与其他框架之间的全面比较。</p>
+<p><strong>Mask R-CNN：</strong>Mask R-CNN采用相同的两阶段处理过程，第一阶段完全相同（RPN）。在第二阶段中，并行的预测类别和边界框坐标，Mask R-CNN也为每一个RoI输出一个二元掩膜。这与最近的系统形成对比，这些系统中的分类依赖于掩膜。我们的方法遵循Fast R-CNN的特点，即并行应用边界框分类和回归（这大大简化了原始R-CNN的多阶段过程）。</p>
+<p>　　正式的，在训练时，我们定义每一个被抽样的RoI的多任务损失为<em>L=Lcls+Lbox+Lmask</em>。分类损失<em>Lcls</em>和边界框回归损失<em>Lbox</em>与[<a href="https://arxiv.org/pdf/1504.08083.pdf" target="_blank" rel="external">12</a>]中的定义相同。掩膜分支对于每一个RoI有K个mxm维的输出，这编码了K个mxm像素的二元掩膜，每一个都与K个类别中的一个对应。我们采用了per-pixel Sigmoid，并且定义<em>Lmask</em>为平均二元交叉熵损失。对于每一个与真实边界框相关联的RoI，<em>Lmask</em>仅在第k个掩膜上进行定义（其他掩膜输出对损失函数没有贡献）。</p>
+<p>　　我们定义的损失函数允许网络在与其他类别不产生竞争的情况下为每一类生成掩膜；我们依赖专用的分类分支来预测类别标签用于选择掩膜输出。这种方法解耦了分类和掩膜预测。这与FCN应用于语义分割的常见做法不同，后者通常使用per-pixel softmax和多项式交叉熵损失。如果那样的话，掩膜与分类相互竞争；在我们的方法中，采用per-pixel Sigmoid和二元损失，而后者后者没有这样做。通过实验表明，该方法是获得良好的实例分割结果的关键。</p>
+<p><strong>掩膜表示：</strong>掩膜结合了输出目标的空间布局。因此，不像分类标签和边界框坐标一样，可以通过全连接层不可避免的分解成短向量输出，提取掩膜的空间布局可以通过由卷积提供的像素到像素的一致性自然的处理。</p>
+<p>　　特别的，我们使用FCN为每一个RoI预测一个mxm的掩膜，这要求掩膜分支的每一层显示的保持mxm目标的空间布局，而不将其分解为确实空间布局信息的向量表示。不像之前凭借全连接层进行掩膜预测的方法，我们的全卷积表示需要的的参数量更少，并且实验表明该方法准确的更高。</p>
+<p>　　这种像素到像素的行为需要RoI特征，而这种特征本来就是小的特征图，能够进行很好的对齐，以忠实的保留每一像素的空间对应信息。这促使我们开发了下面的RoIAlign层，该层对于掩膜预测起了关键作用。</p>
+<p><strong>RoIAlign：</strong>RoIPool是用于从每一个RoI中突出小特征图的标准操作。RoIPool首先将浮点数的RoI量化成特征映射图的离散粒度，然后这些量化的RoI被细分到本身量化好的空间盒子中，最后聚合每个盒子所包含的特征值（使用最大值池化）。量化是这样进行的，例如：在一个连续坐标x上计算[x/16]，其中16为特征图的跨度，[·]表示范围；同样的，再将其划分为多个容器时进行量化（例如：7x7）。这些量化在RoI和提取的特征之间引入了不对齐。这种不对齐可能不会影响分类，因为它对于小的变化具有鲁棒性，但是对于预测像素准确度的掩膜会产生很大额消极影响。</p>
+<p>　　为了解决这个问题，我们提出了RoIAlign层，该层去除了RoIPool的粗量化，使提取的特征与输入良好的对齐。我们提出的改变非常简单：我们避免了对RoI边界进行量化（即：我们使用x/16代替[x/16]）。使用双线性插值在每一个RoI盒子的四个固定采样点计算输入特征的准确值，然后聚合计算结果（采用最大值池化）。</p>
+<p>　　RoIAlign取得了巨大的提升。我们也比较了[<a href="https://arxiv.org/pdf/1512.04412.pdf" target="_blank" rel="external">10</a>]中提出的RoIWarp操作。不想RoIAlign，RoIWarp忽略了对齐问题，他在[10]中的实现和RoIPool类似。因此，尽管RoIWarp也采用了双线性插值，但是在实验中，它的表现和RoIPool相同（更多详细信息见表2c），这证明了对齐的关键作用。</p>
+<p><strong>网络结构：</strong>为了证明我们方法额通用性，我们采用多种结构实现了Mask R-CNN。为了清除起见，我们做了区分：（i）在整个图像上进行特征提取的卷积骨干结构，（ii）分别应用于每一个RoI用于目标边界框识别（分类和回归）和掩膜预测的head网络。</p>
+<p>　　我们使用<em>network-depth-feature</em>来表示骨干网络。我们评估了深度为50和101的ResNet和ResNeXt网络。Faster R-CNN的原始实现采用ResNet从第四阶段的最后一个卷积层提取的特征，我们成为C4。例如：采用ResNet-50的骨干网络使用ResNet-50-C4表示，这是一种常用的表示方法。</p>
+<p>　　我们也探索了由Lin等人提出的更加有效的骨干网络——特征金字塔网络（FPN）。FPN使用具有横向连接的自顶向下的结构从单一尺度输入构建in-network特征金字塔。具有FPN骨干网络的Faster R-CNN根据其尺度从特征金字塔的不同层次提取特征，但是除此之外的其他部分和ResNet相同。Mask R-CNN使用ResNet-FPN的骨干网络进行特征提取在精度和速度两方面都获得了巨大的提升。FPN的更多细节请参阅[<a href="https://arxiv.org/pdf/1612.03144.pdf" target="_blank" rel="external">27</a>]。</p>
+<p>　　对于网络的head，我们密切关注以前工作中提出的架构，并在其中添加完全卷积掩膜预测分支。特别的是，我们从FPN和ResNet的论文中扩展了Faster R-CNN的边界框head。具体细节如图2所示。ResNet-C4骨干网络上的head包括计算密集的ResNet的第5阶段（即：ResNet第9层‘res5’）。对于FPN，骨干网络已经包含了res5，因此，允许使用具有更少滤波器的更加有效的head网络。</p>
+<p>　　我们注意到掩膜分支具有一个简单的结构。更加复杂的设计可能会提高性能，但这不是我们研究的重点。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图3.jpg" alt="图3　Head 结构" title="图3　Head 结构"></center>
+
+
+
+<h2 id="3-1-实现细节"><a href="#3-1-实现细节" class="headerlink" title="3.1 实现细节"></a>3.1 实现细节</h2><p>　　我们根据Fast/Faster R-CNN来设置超参数。尽管这些决策在原始论文中是用于目标检测的，但是我们发现他对于我们提出的实例分割网络同样具有鲁棒性。</p>
+<p><strong>训练：</strong>同Fast R-CNN中一样，如果RoI与真实边界框的不小于0.5则将该RoI作为正样本，其余剩下的所有RoI作为负样本。掩膜损失<em>Lmask</em>仅在正样本RoI上定义。掩膜的目标是RoI和与之相关的真实边界框的交集。</p>
+<p>　　我们采用image-centric进行训练。图像被调整到短边800像素，每一个小批的每一个GPU包含两幅图像，并且每一幅图像采样N个RoI，其中RoI的正负样本比例为1:3。在C4骨干网络中N为64，FPN骨干网络中N为512。我们在8个GPU上进行（因此有效小批的大小为16）160K迭代训练，学习速率为0.02，学习速率在120K次迭代时降低10倍，权重衰减为0.0001，动量为0.9。</p>
+<p>　　RPN  anchor采用5种尺度3种纵横比。为了便于进行消除实验，RPN是单独训练的，除非指定，否则不与Mask R-CNN共享特征。对于文中的每一个条目，RPN和Mask R-CNN都具有相同的背景，所以它们之间是可以共享的。</p>
+<p><strong>推理：</strong>在测试时，C4骨干网络的候选框数量为300，FPN的为1000。我们在这些候选框之中进行边界框预测，然后进行非最大抑制。然后掩膜分支应用到得分最高的100个检测到的边界框上。尽管这与训练中所使用的并行计算不同，但是它加速了推理并提高了准确度（由于使用了更少、更准确的RoI）。掩膜分支可以为每一个RoI预测K个掩膜，但是我们仅使用第k个掩膜，其中k是由分类分支预测的类别。然后将mxm浮点数掩膜输出调整到RoI大小，并在阈值0.5下进行二值化。</p>
+<p>　　注意，由于我们仅在前100个检测框上计算掩膜，Mask R-CNN只在Faster R-CNN上增加了很少的运行时间。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图4.jpg" alt="图4　Mask R-CNN在COCO测试图像上的更多结果，采用ResNet-101-FPN，运行速度5fps，mask AP35.7。" title="图4　Mask R-CNN在COCO测试图像上的更多结果，采用ResNet-101-FPN，运行速度5fps，mask AP35.7。"></center>
+
+<center><img src="/2018/04/18/Mask%20R-CNN/表1.jpg" alt="表1　COCO test-dev数据集上实例分割mask AP。MNC和FCIS分别是COCO 2015和COCO 2016分割挑战的冠军，毫不吹嘘，Mask R-CNN胜过更加复杂的FCIS+++。" title="表1　COCO test-dev数据集上实例分割mask AP。MNC和FCIS分别是COCO 2015和COCO 2016分割挑战的冠军，毫不吹嘘，Mask R-CNN胜过更加复杂的FCIS+++。"></center>
+
+
+
+
+<h1 id="4-实验：实例分割"><a href="#4-实验：实例分割" class="headerlink" title="4 实验：实例分割"></a>4 实验：实例分割</h1><p>　　我们将Mask R-CNN与最先进的方法进行了全面透彻的消除实验。所有的实验均使用COCO数据集。我们声明标准的COCO指标包括AP（IoU阈值的平均值）、AP50、AP75、APs、APm和APl（不同比例下的AP值）。除非特殊声明，AP使用掩膜IoU来评估。在之前的工作中，我们使用80k训练图像和验证图像的子集的35k图像的合集进行训练。我们在验证集剩下的5k图像上进行消除声明。我们也在不包含公开标签的test-dev数据集上公布了结果。在出版之后，我们将按照建议把test-dev的完整结果上传到公开排行榜上。</p>
+<h2 id="4-1-主要结果"><a href="#4-1-主要结果" class="headerlink" title="4.1 主要结果"></a>4.1 主要结果</h2><p>　　我们将Mask R-CNN与表1中最先进的的实例分割方法进行了比较。我们的模型的所有实例性能均优于上述最先进的基线变体。包括MNC和FCIS，它们分别是COCO2015和2016实例分割挑战的胜利者。毫不吹嘘，具有ResNet-101-FPN骨干网络的Mask R-CNN性能优于FCIS+++，它包含多尺度训练/测试，水平翻转和在线困难样本挖掘（OHEM）。然而在本任务范围之内，我们期待能有很多类似的提到为我们所适用。</p>
+<p>　　Mask R-CNN的输出结果如图2和图4所示。Mask R-CNN即使在具有挑战的情况下依然能够呈现出很好的结果。在图5中，我们将Mask R-CNN基线网络与FCIS+++进行比较。在重叠实例中，FCIS+++会产生系统性的伪掩膜，这表示该方法收到了实例分割的基本困难的挑战。Mask R-CNN则不会出现这样的伪掩膜。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图5.jpg" alt="图5　FCIS+++（上） vs. Mask R-CNN（下）" title="图5　FCIS+++（上） vs. Mask R-CNN（下）"></center>
+
+<center><img src="/2018/04/18/Mask%20R-CNN/表2.jpg" alt="表2　Mask R-CNN消除实验结果。在trainval 135k数据集上训练，在minival数据集上测试。" title="表2　Mask R-CNN消除实验结果。在trainval 135k数据集上训练，在minival数据集上测试。"></center>
+
+
+
+<h2 id="4-2-消除实验"><a href="#4-2-消除实验" class="headerlink" title="4.2 消除实验"></a>4.2 消除实验</h2><p>　　我们进行了一系列的消除实验，其结果如表2所示，接下来我们将对每个实验进行详细讨论。</p>
+<p><strong>结构：</strong>表2a展示了不同结构的Mask R-CNN。它得益于深度网络（50vs.101）以及包括FPN和ResNeXt的先进设计。我们发现，并不是所有框架都能自动的从更深的或者是先进的网络中受益。</p>
+<p><strong>Multinomial vs. Independent Mask：</strong>Mask  R-CNN解耦了掩膜和类别预测： 和已存在的边界框分支预测类别标签一样，我们在不与其他类产生竞争的情况下为每一个类别生成一个掩膜（使用per-pixel Sigmoid和二元损失）。在表2b中我们将此方法与per-pixel softmax和多项式损失（通常应用于FCN）进行比较。上述替代方法中，掩膜任务与分类预测结合，结果在掩膜AP中出现了严重损失（5.5个百分点）。这个结果表明，一旦实例被分类为整体（通过边界框分支），预测二元掩膜就足够了，而不用考虑别的，这使得模型更易于训练。</p>
+<p><strong>类特定vs.类不可知掩膜：</strong>我们默认预测类特定额实例掩膜，即：每一类输出mxm的掩膜。有趣的是，Mask R-CNN在类不可知的实例掩膜几乎是同样有效（在不考虑类别的情况下预测一个mxm的掩膜输出）。与ResNet-50-C4骨干网络的类特定实例分割结果相比为19.7vs.30.0掩膜AP。这进一步强调了我们方法中的分工很大程度上分离了分类和分割。</p>
+<p><strong>RoIALign：</strong>对于我们提出的RoIAlign层的评估如表2c所示。在该实验中我们使用了ResNet-50-C4骨干网络，其步幅为16。RoIAlign使AP相比于RoIPool提高了大约3个百分点。大部分的提升来自高IoU（AP75）。RoIAlign对max/average pool池化方式不敏感，在接下来的论文中，我们使用平均值池化。</p>
+<p>　　此外，我们与MNC中提出的RoIWarp进行了比较，该方法也采用双线性插值。正如第三节中所讨论的，RoIWarp仍然对RoI进行量化，与输入失去了对齐。正如表2c所示，RoIWarp能与RoIPool相提并论但是要比RoIAlign逊色很多。这强调了适当对齐关键作用。</p>
+<p>　　我们也使用ResNet-50-C5骨干网络来评估RoIAlign，该方法拥有更大的步幅，即32像素。由于res5不适用，我们使用与图3（右）相同的head网络。如表2d所示，RoIAlign将掩膜AP提高了近7.3个百分点，将AP75提升了10.5个点。此外，我们发现RoIAlign在使用步幅为32的C5特征（30.9AP）时比步幅为16的C4特征要更精确。RoIAlign解决了长期以来使用大步幅特征用于目标检测和分割的挑战。</p>
+<p>　　最后，当使用具有多种精细步幅的FPN时，RoIAlign取得了1.5的mask AP和0.5的box AP提升。对于需要更精细对齐的关键点检测，FPN+RoIAlign表现出了很大的提升（表6）。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/表3.jpg" alt="表3　目标检测在test-dev数据集上single-model结果 vs. 最先进结果。Mask R-CNN使用ResNet-101-FPN胜过之前所有最先进模型的基本变体（在这些实验中忽略了掩膜输出）。Mask R-CNN的增益来自于使用RoIAlign（+1.1APbb）、多任务训练（+0.9APbb）和ResNeXt-101（+1.6APbb）。" title="表3　目标检测在test-dev数据集上single-model结果 vs. 最先进结果。Mask R-CNN使用ResNet-101-FPN胜过之前所有最先进模型的基本变体（在这些实验中忽略了掩膜输出）。Mask R-CNN的增益来自于使用RoIAlign（+1.1APbb）、多任务训练（+0.9APbb）和ResNeXt-101（+1.6APbb）。"></center>
+
+
+
+<p><strong>掩膜分支：</strong>分割是一种像素到像素的任务，我们使用FCN来开发掩膜的空间布局。在表2c中，我们使用ResNet-50-FPN骨干网络比较了多层感知机（MLP）和FCN。FCN在MLP的基础上获得了2.1mask AP的提升。我们注意到，选择这种骨干网络，对于MLP，为了公平起见，因此FCN中的卷积层没有进行预训练。</p>
+<h2 id="4-3-边界框检测结果"><a href="#4-3-边界框检测结果" class="headerlink" title="4.3 边界框检测结果"></a>4.3 边界框检测结果</h2><p>　　我们将Mask R-CNN与表3中最先进的COCO边界框目标检测方法进行了比较。对于这个结果，尽管训练了完整的Mask R-CNN模型，但是推理中只使用了分类和边界框回归两个分支（忽略掩膜输出）。使用ResNet-50-FPN的Mask R-CNN性能优于之前所有最先进的模型的变体，包括单模型GPMI的变体，即COCO2016目标检测的获胜者。使用ResNeXt-101-FPN使Mask R-CNN的结果得到了进一步的提升，比之前最好的单模型（使用Inception-ResNet-v2-TDM）提高了3.0个百分点的box AP。</p>
+<p>　　作为进一步的比较，我们训练了没有掩膜分支版本的Mask R-CNN，在表3中表示为“Faster R-CNN，RoIAlign”。由于RoIAlign的存在，这个模型比[<a href="https://arxiv.org/pdf/1612.03144.pdf" target="_blank" rel="external">27</a>]中的模型性能要好。另一方面，它比Mask R-CNN降低了0.9个百分点的box AP。因此，在目标检测中Mask R-CNN的这种差距是由多任务训练产生的。</p>
+<p>　　最后，我们发现Mask R-CNN在掩膜和目标检测之间存在细微的差距：例如：在37.1（掩膜，表1）和39.8（目标检测，表3）之间相差2.7个百分点。这表明我们的方法在很大程度上缩减了目标检测与更具挑战性的实例分割任务之间的差距。</p>
+<h2 id="4-4-时间"><a href="#4-4-时间" class="headerlink" title="4.4 时间"></a>4.4 时间</h2><p><strong>推理：</strong>我们训练了一个ResNet-101-FPN模型，在Faster R-CNN的第4步训练完之后，该模型在FPN和Mask R-CNN阶段共享特征。该模型在单个NVIDIA Tesla M40 GPU上的运行速度为195ms/图。并在统计上实现了与未共享特征模型相同的mask AP。同时，我们也公布了ResNet-101-C4变体的时间——大约为400ms/图，因为该变体有更耗时的head网络（图3）。因此，在实际使用时，我们不建议使用C4变体。</p>
+<p>　　尽管Mask R-CNN很快，我们注意到，该方法没有针对速度进行优化，还能够在速度和准确度之间进行更好的取舍。例如：通过改变图像大小和候选框的数量，但是这超出了本文的研究范围。</p>
+<p><strong>训练：</strong>Mask R-CNN的训练也很快。在COCOtrainval135K数据集上训练ResNet-50-FPN，8块GPU同时工作需要32小时，训练ResNet-101-FPN需要44小时。事实上，当在训练集上进行训练时，可以将训练时间压缩到一天。我们希望这样快速的训练能够消除该领域的巨大障碍，并鼓励更多的人来研究具有该挑战的课题。</p>
+<h1 id="5-实验：人体姿态预测"><a href="#5-实验：人体姿态预测" class="headerlink" title="5 实验：人体姿态预测"></a>5 实验：人体姿态预测</h1><p>　　我们的框架能很容易额扩展到人体姿态预测上。我们将一个关键点的位置提取出来作为一个one-hot掩膜，并采用Mask R-CNN预测K个掩膜，每一个掩膜都K个关键点一一对应（例如：左肩、右手肘）。该任务体现了Mask R-CNN的灵活性。</p>
+<p>　　需注意，因为这些实验主要是为了体现我们的框架的普适性，所以我们系统只使用了少量的人体姿态领域的知识。我们期待该领域的知识（例如模型结构）能对我们简单额方法进行补充，但是这不是本文研究的范围。</p>
+<p><strong>实现细节：</strong>我们对分割系统进行了细微的改变以使其适用于关键点检测。对于一个实例的K个关键点中的每一个，训练目标是输出一个one-hot编码的mxm二元掩膜，该掩膜只有一个像素被标示为前景。在训练中，对每一个可视的真实关键点，我们在m^2-way softmax输出上最小化交叉熵损失。在实例分割中，K个关键点任然是独立处理的。</p>
+<p>　　我们采用ResNet-FPN变体，而关键点检测的head网络结构与图3（右）相似。关键点检测head由8个3x3的512维的卷积层堆叠组成。接着是一个反卷积层和2个双线性上采样层，产生一个分辨率为56x56的输出。我们发现，为了实现关键点水平的精确定位，需要一个相对高分辨的输出结果（和分割掩膜相比）。</p>
+<p>　　模型是在包含关键点注释的COCO trainval135K数据集上训练的。为了减小过拟合，当训练集更小时，我们从图像中随机采样[680,800]像素来训练模型。推理则在800像素的单尺度上进行。训练进行了90k次迭代，学习速率从0.02开始，在60k次和80k次迭代时减小10倍。边界框非最大抑制的阈值为0.5。其他实现细节与3.1节中完全相同。</p>
+<center></center>
+
+<center><img src="/2018/04/18/Mask%20R-CNN/表4.jpg" alt="表4　COCO test-dev数据集上关键点检测AP。我们的方法（ResNet-50-FPN）是单模型，运行速度5fps。CMU-Pose+++是2016年竞赛的冠军，它在CPM上多尺度测试和后处理。G-RMI在COCO+MPII数据集（25k幅图像）上训练，使用两个模型（Inception-ResNet-v2+ResNet-101）。由于他们使用了更多的数据，所以这和Mask R-CNN不是一个直接的比较。" title="表4　COCO test-dev数据集上关键点检测AP。我们的方法（ResNet-50-FPN）是单模型，运行速度5fps。CMU-Pose+++是2016年竞赛的冠军，它在CPM上多尺度测试和后处理。G-RMI在COCO+MPII数据集（25k幅图像）上训练，使用两个模型（Inception-ResNet-v2+ResNet-101）。由于他们使用了更多的数据，所以这和Mask R-CNN不是一个直接的比较。"></center>
+
+<center><img src="/2018/04/18/Mask%20R-CNN/表5.jpg" alt="表5　目标检测、掩膜和关键点检测关于person类的多任务学习，在minival数据集上进行评估。为了公平比较，所有方法都在相同的数据集上进行比较。骨干网络为ResNet-50-FPN。" title="表5　目标检测、掩膜和关键点检测关于person类的多任务学习，在minival数据集上进行评估。为了公平比较，所有方法都在相同的数据集上进行比较。骨干网络为ResNet-50-FPN。"></center>
+
+<center><img src="/2018/04/18/Mask%20R-CNN/表6.jpg" alt="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。" title="表6　RoIAlign vs. RoIPool在minival数据集上进行关键点检测。">
+</center>
+
+
+
+<p><strong>人体姿态预测实验：</strong>我们使用ResNet-50-FPN来评估人体关键点AP（APkp）。我们也对ResNet-101进行了实验，发现它们的结果相似，可能是更深的模型能从更多的数据中收益，而该数据集相对较小。</p>
+<p>　　表4展示了我们的结果（62.7APkp），该结果比COCO2016关键点检测中使用多阶段处理过程的优胜者（见表4的题注）还高0.9个百分点。我们的模型无疑是更简单，更快速的。</p>
+<p>　　更重要的是，我们的模型能同时预测目标边界框、分割和关键点，且运行速度为5fps。在test-dev数据集上增加一个掩膜分支（对于行人这一类）将APkp提升到63.1。表5中列出了在minival数据上更多多任务学习的消除结果。将掩膜分支添加到仅目标检测（Faster R-CNN）或者仅有关键点检测的版本上，可以持续改进这些任务。然而增加关键点检测分支轻微的减小了box/mask AP，表明关键点检测从多任务训练中受益时就不能帮助其他任务了。不过，一起学习三个任务能够实现一个能同时有效的预测所有输出结果的完整系统（图6）。</p>
+<p>　　我们也研究了RoIAlign在关键点检测上的有效性（表6）。尽管ResNet-50-FPN骨干网络已经有了精细步幅（例如：在最精细水平上的4个像素点），但是RoIAlign仍然表现出了比RoIPool明显的提升，将APkp提高了近4.4个百分点。这是因为关键点检测对位置的准确度更加敏感。这又一次证明了对于像素水平的定位，包括掩膜和关键点检测任务，对齐是至关重要的。</p>
+<p>　　在给出Mask R-CNN对于提取目标的边界框，掩膜和关键点检测的结果之后，我们期待它能够成为其他实例水平任务的一种有效的框架。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/表7.jpg" alt="表7　Cityscapes val（‘AP[val]’列）和test（剩下的列）数据集上的结果，采用ResNet-50-FPN。" title="表7　Cityscapes val（‘AP[val]’列）和test（剩下的列）数据集上的结果，采用ResNet-50-FPN。"></center>
+
+
+
+<h1 id="A-街景实验"><a href="#A-街景实验" class="headerlink" title="A 街景实验"></a>A 街景实验</h1><p>　　我们进一步说明在街景数据集上实例分割的结果。这个数据集的2975幅训练图像、500幅验证图像和1525幅测试图像具有精细的标签。有20K幅粗训练图像没有实例注释，这一部分我们没有使用到。所有图像都是2048x1024的分辨率。实例分割任务围绕8个目标类别进行，它们的在精细训练集上的实例数量为：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>person</th>
+<th style="text-align:left">rider</th>
+<th style="text-align:left">car</th>
+<th style="text-align:left">trunk</th>
+<th style="text-align:left">bus</th>
+<th style="text-align:left">train</th>
+<th style="text-align:left">mcycle</th>
+<th style="text-align:left">bicycle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>17.9k</td>
+<td style="text-align:left">1.8k</td>
+<td style="text-align:left">26.9k</td>
+<td style="text-align:left">0.5k</td>
+<td style="text-align:left">0.4k</td>
+<td style="text-align:left">0.2k</td>
+<td style="text-align:left">0.7k</td>
+<td style="text-align:left">3.7k</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>实例分割在该任务上的表现使用COCO风格的mask AP来进行衡量（IoU阈值的平均值），同时也公布了AP50（IoU为0.5的mask AP）的结果。</p>
+<p><strong>实现：</strong>我们采用具有ResNet-50-FPN骨干网络的Mask R-CNN；我们也测试了101层的版本，由于数据集较小，它们的性能相似。训练的图像尺度从[800,1024]中随机采样，这减小了过拟合；推理在1024像素的单尺度图像上进行。小批的大小为1图/GPU（因此有在8个GPU上有8张图），训练模型进行24k次迭代，学习速率从0.01开始，在经过18k次迭代后降为0.001，其他实现细节和3.1节中保持一致。</p>
+<p><strong>结果：</strong>表7比较了我们的方法与最先进的方法在验证集和测试集上的结果，在没有使用粗训练集的情况下，我们的方法在测试集上获得了26.2的AP，这比使用精细训练集和粗糙训练集的最好的结果相对提升了30%，相比于仅使用精细标签的结果（17.4AP）取得了50%的提升。在8GPU的机器上训练耗时4小时。</p>
+<center><img src="/2018/04/18/Mask%20R-CNN/图7.jpg" alt="图7　Cityscapes test数据集上Mask R-CNN的结果（32.0AP）。右下图是失败的预测。" title="图7　Cityscapes test数据集上Mask R-CNN的结果（32.0AP）。右下图是失败的预测。"></center>
+
+
+
+<p>　　对于person和car类，该街景数据集展现了很多重叠实例（每幅图像平均6个人9台车）。我们表明同类重叠是实例分割中的核心困难。我们的方法相比于之前最好的方法取得了巨大的提升（person类：从16.5到30.5，相对提升了85%；car类：从35.7到46.9，相对提升了30%）。</p>
+<p>　　街景数据集的一个主要挑战是在低数据样本（low-data regime）下训练模型，尤其是对于trunk、bus和train类，它们都只有200-500个样本。为了补救这个问题，我们进一步公布了使用COCO预训练的结果。为此，我们从预训练的COCO Mask R-CNN模型初始化街景数据集中对应的7类（rider随机初始化）。我们微调迭代模型4k次，在3k次迭代后降低学习速率，在给定额COCO模型上训练耗时1小时。</p>
+<p>　　COCO 预训练的Mask R-CNN模型在测试集上获得了32.0的AP，比仅使用精细标签的版本绝对提升了6个百分点。这表明了训练数据数量的重要性，同时也说明街景的实例分割可能会受他们low-shot的影响。使用COCO预训练模型是减轻本数据集数据量有限的一种有效的策略。</p>
+<p>　　最后，我们观察val和test AP的偏差，我们发现这个偏差主要是由trunk、bus和train类造成的，它们在仅使用精细标签的模型中的val/test AP分别为28.8/22.8、53.5/32.2、30.0/18.6。这表明，这些类上存在一个主要的变化，且它们也没多少训练数据。COCO预训练模型在这些类上帮助它们提升了结果，然而，这种变化仍然存在，它们的val/test AP分别为38.0/30.1、57.5/40.9和41.2/30.9。在person和car类上我们没有发现这种偏差。</p>
+<p>　　街景数据集上额示例如图7所示。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2018/04/18/Mask R-CNN/" title="Mask R-CNN">http://ailee.me/2018/04/18/Mask R-CNN/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+            <a href="/tags/Mask-R-CNN/" rel="tag"># Mask R-CNN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/04/NVIDIA Jetson TX2 学习笔记（1）——开箱/" rel="next" title="NVIDIA Jetson TX2 学习笔记（1）——开箱">
+                <i class="fa fa-chevron-left"></i> NVIDIA Jetson TX2 学习笔记（1）——开箱
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/25/Fully Convolutional Networks for Semantic Segmentation/" rel="prev" title="Fully Convolutional Networks for Semantic Segmentation">
+                Fully Convolutional Networks for Semantic Segmentation <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

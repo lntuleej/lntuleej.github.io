@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Python对文件及文件夹进行相关操作">
+<meta property="og:url" content="http://ailee.me/2018/09/10/Python文件及文件夹操作/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-14T13:35:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Python对文件及文件夹进行相关操作">
+<meta name="twitter:description" content="利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2018/09/10/Python文件及文件夹操作/"/>
+
+
+
+
+
+  <title>利用Python对文件及文件夹进行相关操作 | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/09/10/Python文件及文件夹操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用Python对文件及文件夹进行相关操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T19:21:36+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2018-09-14T21:35:48+08:00">
+                2018-09-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/10/Python文件及文件夹操作/" class="leancloud_visitors" data-flag-title="利用Python对文件及文件夹进行相关操作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  1,243
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  利用python对文件夹及文件进行相关操作，即：列出文件夹文件数目、文件夹目录、新建文件夹、移动文件、复制文件等
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-统计指定文件夹下所有子文件夹数目及文件数目"><a href="#1-统计指定文件夹下所有子文件夹数目及文件数目" class="headerlink" title="1 统计指定文件夹下所有子文件夹数目及文件数目"></a>1 统计指定文件夹下所有子文件夹数目及文件数目</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line"><span class="string">"""</span></div><div class="line"><span class="string">@author: Ad</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">Operating environment： Windows+python3</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="comment"># 导入必要的包</span></div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line">root = <span class="string">".\\"</span></div><div class="line"><span class="comment"># 初始化计数器</span></div><div class="line">fileCount = <span class="number">0</span></div><div class="line">dirCount = <span class="number">0</span></div><div class="line"></div><div class="line"><span class="comment"># 使用os.walk()递归遍历所有文件夹</span></div><div class="line"><span class="comment"># x：目录</span></div><div class="line"><span class="comment"># y：子目录</span></div><div class="line"><span class="comment"># z：文件</span></div><div class="line"><span class="keyword">for</span> x, y, z <span class="keyword">in</span> os.walk(os.path.dirname(root)):</div><div class="line">    <span class="keyword">if</span> len(x) != <span class="number">0</span>:</div><div class="line">        fileCount = <span class="number">0</span></div><div class="line">        dirCount = <span class="number">0</span></div><div class="line">        <span class="comment"># 列出当前文件夹下的所有子文件夹及文件</span></div><div class="line">        paths = os.listdir(x)</div><div class="line">        <span class="comment"># 统计当前文件夹下的子文件夹数目及文件数目</span></div><div class="line">        <span class="keyword">for</span> path <span class="keyword">in</span> paths:</div><div class="line">            <span class="comment"># 重构路径，以便于判断当前路径为文件夹还是文件</span></div><div class="line">            path = os.path.sep.join([x, path])</div><div class="line">            <span class="keyword">if</span> os.path.isdir(path):</div><div class="line">                dirCount += <span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> os.path.isfile(path):</div><div class="line">                fileCount += <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="comment"># 输出结果</span></div><div class="line">        print(x)</div><div class="line">        print(<span class="string">"\tfiles: &#123;&#125;"</span>.format(fileCount))</div><div class="line">        print(<span class="string">"\tdirs: &#123;&#125;"</span>.format(dirCount))</div></pre></td></tr></table></figure>
+<h1 id="2-列出目录及子目录下的所有文件并保存为SCV文件"><a href="#2-列出目录及子目录下的所有文件并保存为SCV文件" class="headerlink" title="2 列出目录及子目录下的所有文件并保存为SCV文件"></a>2 列出目录及子目录下的所有文件并保存为SCV文件</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 初始化文件列表</span></div><div class="line">fileList=[]</div><div class="line"><span class="comment"># 使用os.walk()递归遍历所有文件夹</span></div><div class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(PATH):</div><div class="line">    fileList.append([])</div><div class="line">    <span class="comment"># 将目录保存到列表的第一列</span></div><div class="line">    fileList[<span class="number">-1</span>].append(root)</div><div class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">        <span class="comment"># 保存当前目录下的文件名到列表</span></div><div class="line">        fileList[<span class="number">-1</span>].append(file)</div><div class="line"></div><div class="line"><span class="comment"># 将列表转换为DataFrame</span></div><div class="line">csvFileList = pd.DataFrame(fileList)</div><div class="line"><span class="comment"># 保存为CSV文件</span></div><div class="line">csvFileList.to_csv(<span class="string">"filelist.csv"</span>)</div></pre></td></tr></table></figure>
+<p><a href="https://gist.github.com/gitleej/853c6eec9e449ea1087f3287eb4a7098" target="_blank" rel="external">完整代码</a></p>
+<h1 id="3-利用python重组文件夹结构"><a href="#3-利用python重组文件夹结构" class="headerlink" title="3 利用python重组文件夹结构"></a>3 利用python重组文件夹结构</h1><p><strong>示例</strong></p>
+<blockquote>
+<p>原始文件夹结构<br>|——root<br>|　　|——000<br>|　　|　　 |——left<br>|　　|　　 |　　|——index_1.bmp<br>|　　|　　 |　　|——index_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——middle_1.bmp<br>|　　|　　 |　　|——middle_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——ring_1.bmp<br>|　　|　　 |　　|——ring_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |——right<br>|　　|　　 |　　|——index_1.bmp<br>|　　|　　 |　　|——index_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——middle_1.bmp<br>|　　|　　 |　　|——middle_2.bmp<br>|　　|　　 |　　|——……<br>|　　|　　 |　　|——ring_1.bmp<br>|　　|　　 |　　|——ring_2.bmp<br>|　　|　　 |　　|——……<br>|　　|——001<br>|　　|——……</p>
+</blockquote>
+<p>将文件夹结构进行重组，重组格式为：</p>
+<blockquote>
+<p>root\000\left\index_.bmp ——&gt; root\0000<br>root\000\left\middle_.bmp ——&gt; root\0001<br>root\000\left\ring_.bmp ——&gt; root\0002<br>root\000\right\index_.bmp ——&gt; root\0003<br>root\000\right\middle_.bmp ——&gt; root\0004<br>root\000\right\ring_.bmp ——&gt; root\0005<br>…………</p>
+</blockquote>
+<h2 id="3-1-导入必要的包"><a href="#3-1-导入必要的包" class="headerlink" title="3.1 导入必要的包"></a>3.1 导入必要的包</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> imutils <span class="keyword">import</span> paths</div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> shutil</div></pre></td></tr></table></figure>
+<h2 id="3-2-重构文件夹结构"><a href="#3-2-重构文件夹结构" class="headerlink" title="3.2 重构文件夹结构"></a>3.2 重构文件夹结构</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imagePaths = sorted(paths.list_images(<span class="string">"./Finger_Vein_Database_oring"</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imagePaths[<span class="number">-10</span>:]</div></pre></td></tr></table></figure>
+<blockquote>
+<p>[‘./Finger_Vein_Database_oring/106/right/middle_3.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/middle_4.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/middle_5.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/middle_6.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_1.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_2.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_3.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_4.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_5.bmp’,<br> ‘./Finger_Vein_Database_oring/106/right/ring_6.bmp’]</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">total = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> imagePath <span class="keyword">in</span> imagePaths:</div><div class="line">    ddir = str(total / <span class="number">6</span>)</div><div class="line">    newdir = os.path.sep.join([<span class="string">"./Finger_Vein_Database"</span>, <span class="string">"&#123;&#125;"</span>.format(ddir.zfill(<span class="number">4</span>))])</div><div class="line">    <span class="comment"># 判断文件夹是否存在，如果不存在，则创建文件夹</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newdir):</div><div class="line">        print(<span class="string">"[INFO] mkdir: &#123;&#125;"</span>.format(newdir))</div><div class="line">        os.mkdir(newdir)</div><div class="line">    print(<span class="string">"[INFO] move '&#123;&#125;' to '&#123;&#125;' "</span>.format(imagePath, newdir))</div><div class="line">    <span class="comment"># 移动文件到指定文件夹</span></div><div class="line">    shutil.move(imagePath,  newdir)</div><div class="line">    total += <span class="number">1</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>[INFO] move ‘./Finger_Vein_Database_oring/001/left/index_1.bmp’ to ‘./Finger_Vein_Database/0000’<br>[INFO] move ‘./Finger_Vein_Database_oring/001/left/index_2.bmp’ to ‘./Finger_Vein_Database/0000’<br>……<br>[INFO] move ‘./Finger_Vein_Database_oring/001/left/middle_1.bmp’ to ‘./Finger_Vein_Database/0001’<br>[INFO] move ‘./Finger_Vein_Database_oring/001/left/middle_2.bmp’ to ‘./Finger_Vein_Database/0001’<br>……<br>[INFO] move ‘./Finger_Vein_Database_oring/001/left/ring_1.bmp’ to ‘./Finger_Vein_Database/0002’<br>[INFO] move ‘./Finger_Vein_Database_oring/001/left/ring_2.bmp’ to ‘./Finger_Vein_Database/0002’<br>……<br>……</p>
+</blockquote>
+<h2 id="3-3-构建训练集"><a href="#3-3-构建训练集" class="headerlink" title="3.3 构建训练集"></a>3.3 构建训练集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dataImagePaths = sorted(paths.list_images(<span class="string">"./Finger_Vein_Database"</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">total = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> dataImagePath <span class="keyword">in</span> dataImagePaths:</div><div class="line">    ddir = str(total / <span class="number">6</span>)</div><div class="line">    newdir = os.path.sep.join([<span class="string">"./Finger_Vein_Database_train"</span>, <span class="string">"&#123;&#125;"</span>.format(ddir.zfill(<span class="number">4</span>))])</div><div class="line">    <span class="comment"># 判断文件夹是否存在，如果不存在，则创建文件夹</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newdir):</div><div class="line">        print(<span class="string">"[INFO] mkdir: &#123;&#125;"</span>.format(newdir))</div><div class="line">        os.mkdir(newdir)</div><div class="line">    temp = dataImagePath.split(os.path.sep)[<span class="number">-1</span>]</div><div class="line">    <span class="keyword">if</span>(<span class="string">"1"</span> <span class="keyword">in</span> temp) <span class="keyword">or</span> (<span class="string">"2"</span> <span class="keyword">in</span> temp) <span class="keyword">or</span> (<span class="string">"3"</span> <span class="keyword">in</span> temp) <span class="keyword">or</span> (<span class="string">"6"</span> <span class="keyword">in</span> temp):</div><div class="line">        print(<span class="string">"[INFO] copy '&#123;&#125;' to '&#123;&#125;' "</span>.format(dataImagePath, newdir))</div><div class="line">        <span class="comment"># 复制文件到指定文件夹</span></div><div class="line">        shutil.copy(dataImagePath,  newdir)</div><div class="line">    total += <span class="number">1</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>[INFO] mkdir: ./Finger_Vein_Database_train/0000<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_1.bmp’ to ‘./Finger_Vein_Database_train/0000’<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_2.bmp’ to ‘./Finger_Vein_Database_train/0000’<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_3.bmp’ to ‘./Finger_Vein_Database_train/0000’<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_6.bmp’ to ‘./Finger_Vein_Database_train/0000’<br>[INFO] mkdir: ./Finger_Vein_Database_train/0001<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_1.bmp’ to ‘./Finger_Vein_Database_train/0001’<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_2.bmp’ to ‘./Finger_Vein_Database_train/0001’<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_3.bmp’ to ‘./Finger_Vein_Database_train/0001’<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_6.bmp’ to ‘./Finger_Vein_Database_train/0001’<br>    ……</p>
+</blockquote>
+<h2 id="3-4-构建测试集"><a href="#3-4-构建测试集" class="headerlink" title="3.4 构建测试集"></a>3.4 构建测试集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">total = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> dataImagePath <span class="keyword">in</span> dataImagePaths:</div><div class="line">    ddir = str(total / <span class="number">6</span>)</div><div class="line">    newdir = os.path.sep.join([<span class="string">"./Finger_Vein_Database_test"</span>, <span class="string">"&#123;&#125;"</span>.format(ddir.zfill(<span class="number">4</span>))])</div><div class="line">    <span class="comment"># 判断文件夹是否存在，如果不存在，则创建文件夹</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(newdir):</div><div class="line">        print(<span class="string">"[INFO] mkdir: &#123;&#125;"</span>.format(newdir))</div><div class="line">        os.mkdir(newdir)</div><div class="line">    temp = dataImagePath.split(os.path.sep)[<span class="number">-1</span>]</div><div class="line">    <span class="keyword">if</span>(<span class="string">"4"</span> <span class="keyword">in</span> temp) <span class="keyword">or</span> (<span class="string">"5"</span> <span class="keyword">in</span> temp):</div><div class="line">        print(<span class="string">"[INFO] copy '&#123;&#125;' to '&#123;&#125;' "</span>.format(dataImagePath, newdir))</div><div class="line">        <span class="comment"># 复制文件到指定文件夹</span></div><div class="line">        shutil.copy(dataImagePath,  newdir)</div><div class="line">    total += <span class="number">1</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>[INFO] mkdir: ./Finger_Vein_Database_test/0000<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_4.bmp’ to ‘./Finger_Vein_Database_test/0000’<br>[INFO] copy ‘./Finger_Vein_Database/0000/index_5.bmp’ to ‘./Finger_Vein_Database_test/0000’<br>[INFO] mkdir: ./Finger_Vein_Database_test/0001<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_4.bmp’ to ‘./Finger_Vein_Database_test/0001’<br>[INFO] copy ‘./Finger_Vein_Database/0001/middle_5.bmp’ to ‘./Finger_Vein_Database_test/0001’<br>……</p>
+</blockquote>
+<p><a href="https://gist.github.com/gitleej/c059342c2c6ae34ee5ee575da22c2756" target="_blank" rel="external">完整代码</a></p>
+<hr>
+<blockquote>
+<h3 id="Updata-加入修改文件夹名称代码"><a href="#Updata-加入修改文件夹名称代码" class="headerlink" title="Updata: 加入修改文件夹名称代码"></a>Updata: 加入修改文件夹名称代码</h3><p>当shutil库所处理的<strong>路径中带空格</strong>时，上述代码将会报“NOT FIND”的错误，可以使用下列代码替换或删除原文件夹（文件）名中的空格，以满足shutil的处理要求。<br><strong>代码转自</strong>：<a href="https://blog.csdn.net/sinat_31206523/article/details/78824014" target="_blank" rel="external">文件及文件夹的重命名— python实现</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#! /bin/usr/python3</span></div><div class="line"><span class="comment"># _*_coding:utf-8_*_</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cur_file_dir</span><span class="params">(path)</span>:</span></div><div class="line">    <span class="comment"># 获取当前文件路径</span></div><div class="line">    <span class="comment"># path = sys.path[0]</span></div><div class="line">    <span class="keyword">if</span> os.path.isdir(path):</div><div class="line">        <span class="keyword">return</span> path</div><div class="line">    <span class="keyword">elif</span> os.path.isfile(path):</div><div class="line">        <span class="keyword">return</span> os.path.dirname(path)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">rename</span><span class="params">(path)</span>:</span></div><div class="line">    <span class="comment"># print("当前目录:",path)</span></div><div class="line">    file_list = os.listdir(path)</div><div class="line">    <span class="comment"># print(file_list)  </span></div><div class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> file_list:</div><div class="line">        <span class="comment"># print(file)         </span></div><div class="line">        old_dir = os.path.join(path,file)          </div><div class="line">        filename = os.path.splitext(file)[<span class="number">0</span>]</div><div class="line">        <span class="comment"># print(filename)</span></div><div class="line">        filetype = os.path.splitext(file)[<span class="number">1</span>]</div><div class="line">        <span class="comment"># print(filetype)</span></div><div class="line">        old_name = filename + filetype</div><div class="line">        print(<span class="string">"old name is:"</span>, old_name)</div><div class="line">        new_filename = filename.replace(<span class="string">" "</span>, <span class="string">""</span>)    <span class="comment"># 这里替换的是重点</span></div><div class="line">        new_name = new_filename.replace(<span class="string">""</span>, <span class="string">""</span>)     <span class="comment"># 如果无法一次替换成功，可以进行多次替换</span></div><div class="line">        print(<span class="string">"new name is:"</span>, new_name)</div><div class="line">        new_dir = os.path.join(path, new_name + filetype)  <span class="comment"># 新的文件路径</span></div><div class="line">        os.rename(old_dir, new_dir)                 <span class="comment"># 重命名</span></div><div class="line">        <span class="comment"># print("DONE")     </span></div><div class="line">        <span class="keyword">if</span> os.path.isdir(new_dir):</div><div class="line">            rename(new_dir)                     <span class="comment"># 注意这里是重点，这里使用了递归</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>: </div><div class="line">    rename(cur_file_dir(<span class="string">"test11"</span>))</div><div class="line">    print(<span class="string">"ALL DONE!!!"</span>)</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2018/09/10/Python文件及文件夹操作/" title="利用Python对文件及文件夹进行相关操作">http://ailee.me/2018/09/10/Python文件及文件夹操作/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/Relation Networks for Object Detection/" rel="next" title="Relation Networks for Object Detection">
+                <i class="fa fa-chevron-left"></i> Relation Networks for Object Detection
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/10/Keras运行时指定GPU并限制GPU显存用量/" rel="prev" title="Keras 运行时指定GPU并限制GPU显存用量">
+                Keras 运行时指定GPU并限制GPU显存用量 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

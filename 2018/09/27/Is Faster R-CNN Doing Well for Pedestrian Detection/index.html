@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="目标检测,R-CNN,深度学习," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Is Faster R-CNN Doing Well for Pedestrian Detection ?论文笔记">
+<meta name="keywords" content="目标检测,R-CNN,深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Is Faster R-CNN Doing Well for Pedestrian Detection ?">
+<meta property="og:url" content="http://ailee.me/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="Is Faster R-CNN Doing Well for Pedestrian Detection ?论文笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图1.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图2.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图3.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图4.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图5.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图6.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图7.jpg">
+<meta property="og:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图8.jpg">
+<meta property="og:updated_time" content="2019-01-31T13:25:54.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Is Faster R-CNN Doing Well for Pedestrian Detection ?">
+<meta name="twitter:description" content="Is Faster R-CNN Doing Well for Pedestrian Detection ?论文笔记">
+<meta name="twitter:image" content="http://ailee.me/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/"/>
+
+
+
+
+
+  <title>Is Faster R-CNN Doing Well for Pedestrian Detection ? | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Is Faster R-CNN Doing Well for Pedestrian Detection ?</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T11:04:06+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2019-01-31T21:25:54+08:00">
+                2019-01-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/目标检测/" itemprop="url" rel="index">
+                    <span itemprop="name">目标检测</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/" class="leancloud_visitors" data-flag-title="Is Faster R-CNN Doing Well for Pedestrian Detection ?">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  6,231
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Is Faster R-CNN Doing Well for Pedestrian Detection ?论文笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>论文原文：<a href="http://kaiminghe.com/publications/eccv16ped.pdf" target="_blank" rel="external">Is Faster R-CNN Doing Well for Pedestrian Detection ?</a><br>论文代码：<a href="https://github.com/zhangliliang/RPN_BF" target="_blank" rel="external">https://github.com/zhangliliang/RPN_BF</a></p>
+</blockquote>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　行人检测成为目标检测任务中的一个特别话题。尽管目前像Fast/Faster R-CNN等深度学习的目标检测器对于一般的目标检测表现出良好的性能，但是它们在行人检测中受到了限制，之前主要的行人检测器是结合手工特征和深度卷积特征的一般混合方法。在本文中，围绕Faster R-CNN研究了在行人检测方面的问题。我们发现Faster R-CNN中的RPN在独立的行人检测器中表现良好，但是，意外的是，其后的分类器降低了检测结果。我们认为有两个原因导致准确度下降：<strong>1.用于处理小对象实例的特征图分辨率不足；2.对于挖掘困难负样本缺乏自助策略。</strong>鉴于以上的观察，我们提出了一种非常简单但是高效的用于行人检测的基线模型，该模型在高分辨率卷积特征图上使用RPN，然后使用增强森林。我们在一些标准上综合的评估了该方法，表现出了具有竞争力的准确度和速度。</p>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><p>　　行人检测作为像自动驾驶和智能监控这类实际应用的关键部件，受到了比一般目标检测更特别的关注。<strong>尽管在计算机视觉领域中，深度学习特征取得了普遍的成功，但是目前主要的行人检测器仍是使用传统手工特征和深度卷积特征结合的一般混合方法实现</strong>，例如：文献[<a href="https://ieeexplore.ieee.org/document/7299034/" target="_blank" rel="external">3</a>]中采用独立的行人检测器作为高选择性的提议器，然后使用R-CNN进行分类。在最先进的行人检测方法中，手工特征看起来似乎十分重要。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图1.jpg" alt="图1：Fast/Faster R-CNN在行人检测方面的两个挑战。（a）在低分辨率特征图上，小目标可能会RoI池化失败。（b）困难负样本在Fast/Faster R-CNN中没有受到特别的关注。" title="图1：Fast/Faster R-CNN在行人检测方面的两个挑战。（a）在低分辨率特征图上，小目标可能会RoI池化失败。（b）困难负样本在Fast/Faster R-CNN中没有受到特别的关注。"></center>
+
+<p>　　另一方面，Faster R-CNN是一种非常成功的通用目标检测方法。它由两部分组成：一部分是用于生成候选区域的全卷积RPN网络，另一部分是RPN网络之后的Fast R-CNN分类器。 因此，Faster R-CNN是一个没有使用手工特征（例如：基于低水平特征的选择性搜索）纯基于CNN的目标检测系统。尽管Faster R-CNN在一些多类基准上的精确度领先，但是在流行的行人检测数据集上，它还没有表现出具有竞争力的结果。<br>　　在本文中，我们围绕Faster R-CNN作为行人检测器进行了研究。有趣的是，我们发现，作为一个独立的行人检测器，针对行人检测特别设计的RPN获得了具有竞争力的结果，但是，令人惊讶的是，把这些区域建议输入到Fast R-CNN的分类器后，其准确度降低了。我们认为这种差强人意的性能是以下两个原因造成的。<br>　　第一，对于检测小目标，Fast R-CNN分类器中的卷积特征图对于检测小目标分辨率低。典型的行人检测场景中通常呈现出小尺寸的行人实例（例如：Caltech数据集中的$28\times 70$），例如自动驾驶和智能监控。在小目标上（图1(a)），RoI池化层在低分辨率的特征图上执行会导致单像素特征。这些特征对于小区域来说没有什么区别，因此降低了后面分类器的性能。我们注意到这与具有更精细分辨率的手工制作功能形成对比。我们通过从具有高分辨率的浅层池化特征来解决这个问题，并且通过hole算法（即稀疏滤波）来增加特征图的大小。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图2.jpg" alt="图2. RPN用于计算候选边界框、得分以及卷积特征图。使用由RPN计算的卷积特征图汇集的特征，将候选框馈送到级联的Boosted森林（BF）中进行分类。" title="图2. RPN用于计算候选边界框、得分以及卷积特征图。使用由RPN计算的卷积特征图汇集的特征，将候选框馈送到级联的Boosted森林（BF）中进行分类。"></center>
+
+<p>　　第二，行人检测中的错误预测主要是由复杂背景实例混淆（图1（b））引起的，这与一般的目标检测形成对比。一般的目标检测中，主要的混淆是由多类比引起的。为了处理困难负样本，我们采用级联的Boosted Forest，它可以进行有效的困难负样本挖掘和样本重新加权，来分类RPN建议。和之前使用手工特征来训练forest的方法不同，在我们的方法中，BF重新使用了RPN的深度卷积特征，这种策略不仅通过共享特征减少；额分类的计算消耗，而且利用了深度学习的特征。<br>　　同样的，我们给出了一个非常简单但是有效的基于RPN和BF的行人检测基线模型。我们的方法克服了Faster R-CNN的两大限制，即：将Faster R-CNN用于行人检测和摆脱传统手工特征的使用。在一些评价基准上，我们也给出了一些较好的结果，包括Caltech、INRIA、ETH和KITTI。值得注意的是，我们的方法实质上具有更好的定位精度，并且在Caltech数据集上基于0.7的IoU评价标准相对提升了40%。同时，我们的方法的测试速度为0.5秒每图，这是一个与之前的主要方法具有竞争力的结果。<br>　　此外，我们揭示了传统行人检测方法在近来的方法中使用的两个原因。第一，手工特征的高分辨率以及它们的金字塔有助于检测小目标；第二，使用有效的自举用于困难样本挖掘。然而，如果在深度学习系统中适当地处理这些关键因素，就会得到很好的结果。</p>
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2 相关工作"></a>2 相关工作</h1><p>　　由Viola-Jones框架扩展而来的Integrate Channel Features（ICF）检测器是最流行的不使用深度学习特征的行人检测器。ICF检测器涉及通道特征金字塔和增强分类器。ICF的特征表示已经在几个方面得到了改进，包括ACF、LDCF、SCF以及一些其他方面，但该增强算法仍然是行人检测的关键组成部分。<br>　　受R-CNN在一般目标检测中的成功启发，最近的一系列方法采用两阶段过程用于行人检测。在文献[<a href="https://ieeexplore.ieee.org/document/7299034/" target="_blank" rel="external">3</a>]中，SCF行人检测器先提出建议区域，然后使用R-CNN进行分类；TA-CNN采用ACF检测器来生成建议区域，并训练一个R-CNN风格的网络来联合优化具有语义任务的行人检测器；DeepParts方法应用LDCF检测器来shen建议区域，并通过神经网络学习一组互补的部分。我们注意到这些方法都是由手工特征和增强分类器组成的独立行人检测器。<br>　　和以上基于R-CNN的方法不同，CompACT方法在混合手工特征和深度卷积特征之上学习增强分类器。与我们工作密切相关的是，CCF检测器是深度卷积特征的金字塔上的增强分类器，而且没有使用区域建议。我们的方法没有金字塔，并且比CCF检测器更快准确率更高。</p>
+<h1 id="3-方法"><a href="#3-方法" class="headerlink" title="3 方法"></a>3 方法</h1><p>　　我们的方法由两部分组成（如图2所示）：用于产生候选边界框以及卷积特征图的RPN；使用这些卷积特征分类这些候选框的增强森林。</p>
+<h2 id="3-1-RPN用于行人检测"><a href="#3-1-RPN用于行人检测" class="headerlink" title="3.1 RPN用于行人检测"></a>3.1 RPN用于行人检测</h2><p>　　Faster R-CNN中的RPN在多类别目标检测场景中作为类无关的检测器，对于单类别检测，RPN自然是唯一类别的检测器。我们为行人检测量身定做了RPN，关于RPN的介绍如下所述。<br>　　我们采用纵横比为0.41（宽比高）的anchor，这是文献[<a href="https://ieeexplore.ieee.org/document/5975165" target="_blank" rel="external">14</a>]中所提出的行人的平均纵横比，这与具有多种不同纵横比的原始RPN不同。不合适的纵横比只与很少的对象实例有关联，因此会给检测带来噪声以及影响检测的准确率。此外，我们使用了9种不同尺度的anchor，从40像素高开始，以每1.3倍像素增长。这个尺度比文献[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]中所提出的的尺度范围更广。多尺度锚的使用，放弃了使用特征金字塔来检测多尺度物体的要求。<br>　　根据文献[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]，我们采用在ImageNet数据集上预训练的VGG-16网络作为骨干网络，RPN网络建立在Conv5_3层之上，其后是一个$3\times 3$的卷积层，以及两个用于分类和边界框回归的并列$1 \times 1$卷积层（更多细节详见[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]）。这样，RPN回归框具有16像素的步幅。分类层提供预测边界框的置信得分，可用于随后的增强森林级联的初始分数。<br>　　值得注意的是，尽管我们将在接下来的章节中使用“a trous”技巧来提高分辨率以及削减不服，但是RPN依旧使用16像素每步。a trous技巧仅在提取特征时才使用，但在微调中不使用。</p>
+<h2 id="3-2-特征提取"><a href="#3-2-特征提取" class="headerlink" title="3.2 特征提取"></a>3.2 特征提取</h2><p>　　根据RPN所提出的的建议，我们采用RoI池化从区域中提取固定长度的特征。这些特征将用于训练BF。与需要将这些特征放入原始的全连接层以此来限制特征维度的Faster R-CNN不同，BF分类器对特征的维度没有限制。例如：我们可以从Conv3_3（步幅=4像素）和Conv4_3（步幅=8像素）的RoI上提取特征。我们将特征降采样到$7 \times 7$的固定分辨率。多亏了BF分类器的灵活性，这些来自不同层的特征只是简单的连接，没有进行归一化；相比之下，对于深度分类器，在进行特征连接时，特征归一化需要进行精心处理。<br>　　值得指出的是，由于没有特征维度的限制，我们可以灵活的使用增加分辨率的特征。尤其，考虑到来自RPN（步幅分别为Conv_3=4，Conv_4=8，Conv_5=16）的微调层，我们使用a trous技巧来计算更高分辨率的卷积特征图。例如：我们可以将Pool3的步幅设置为1，将所有Conv4的步幅扩大为2，这样可以将Conv4的步幅从8削减为4。与之前微调扩大滤波器的方法不同，在我们的方法中，我们仅使用它们用于特征提取，而没有微调一个新的RPN。<br>　　尽管我们采用了与Faster R-CNN中相同的RoI分辨率（$7\times 7$），但是这些RoI比Fast R-CNN（Conv5_3）具有更高分辨率的特征图（例如：Conv3_3, Conv4_3或者Conv4_3 a trous）如果RoI的输入分辨率比输出小（即：$&lt; 7 \times 7$），pooling bins collapse和特征将会变得“flat”并且没有区分度。这个问题在我们的方法中有所减轻，因为它在后续的分类器中使用Conv5_3的特征不受限制。</p>
+<h2 id="3-3-增强森林"><a href="#3-3-增强森林" class="headerlink" title="3.3 增强森林"></a>3.3 增强森林</h2><p>　　RPN生成了区域建议、置信得分以及特征，它们都用来训练级联的增强森林分类器。我们采用RealBoost算法，主要参照文献[<a href="https://ieeexplore.ieee.org/document/7410741" target="_blank" rel="external">6</a>]中的超参数。我们正式地自举训练6次，在每一阶段，森林中具有$\{64,128,256,512,1024,1536\}$颗树。最初，训练集由所有的正样本组成（大约50000个）并在候选区域中随机采样相同数量的负样本。在每一阶段，被挖掘出来的额外的负样本（正样本数量的%10）添加到训练集中。最后，在所有自举极端完成之后一个具有2048棵树的森林训练完成。最后的森林分类器用于推理。我们是基于文献[<a href="https://pdollar.github.io/toolbox/" target="_blank" rel="external">28</a>]实现的。<br>　　我们注意到，没必要平等的处理初始建议，因为我们的建议具有由RPN计算得到的初始置信得分。换种说法就是，RPN可以被认为是阶段0的分类器$f_0$，我们根据RealBoost的形式设置$f_0=\frac{1}{2}\log{\frac{s}{1-s}}$其中$s$为RealBoost形式中建议区域的得分（在标准增强算法中$f_0$是一个常数）。在其他阶段都按照标准RealBoost进行设置。</p>
+<h2 id="3-4-实现细节"><a href="#3-4-实现细节" class="headerlink" title="3.4 实现细节"></a>3.4 实现细节</h2><p>　　我们采用与文献[<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="external">15</a>,<a href="https://ieeexplore.ieee.org/document/7410526" target="_blank" rel="external">1</a>,<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]一致单尺度训练与测试，不适用特征金字塔。图像缩放到短边具有$N$像素（Caltech数据集N=720，INRIA数据集N=600，ETH数据集N=810，KITTI数据集N=500）。对于RPN训练，如果anchor与真实边界框的IOU比率大于0.5则被视为正样本，其他的则视为负样本。我们采用图像中心训练方案，每一个小批由1张图像和120个用于计算loss随机采样的anchor组成。每一个小批中的正负样本比例为1:5。RPN的其他超参数与文献[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]中的一致，并且采用文献[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]公开的代码来微调RPN。我们注意到，在文献[<a href="https://arxiv.org/abs/1506.01497v2" target="_blank" rel="external">2</a>]中，跨界的anchor在训练过程中被忽略了，但是在我们的实现中，我们在微调时保留了这些跨界的负样本，从经验而言，它们在这些数据集上提升了准确率。<br>　　利用微调的RPN，我们采用0.7的非最大抑制阈值来过滤建议区域。然后将建议区域按照其得分进行排序。对于BF的训练，我们选择每张图像的前1000个区域建议（以及真实边界框）作为训练集。对于C阿里特产数据集和KITTI数据集，树的深度设置为5，对于INRIA数据集和ETH数据集，树的深度设置为2，这些都是根据数据集的大小按照经验设置的。在测试时，我们仅使用每张图像的前100个建议区域，然后由BF进行分类。
+　　</p>
+<h1 id="4-实验及分析"><a href="#4-实验及分析" class="headerlink" title="4 实验及分析"></a>4 实验及分析</h1><p>　　我们在4个评价标准上进行了全面的评估，包括：CAltech、INRIA、ETH以及KITTI。默认使用0.5的IoU阈值来确定这些数据集上的真正积极因素。<br>　　在Caltech数据集上，根据文献[<a href="https://ieeexplore.ieee.org/document/7299034/" target="_blank" rel="external">3</a>]训练数据扩充了10倍（42782张图像）。标准数据集中的4024张图像用于在合理设置的情况下（行人具有50像素高却至少有65%可见）对原始注释进行评估。评价标准为对数平均错失率（根据文献[<a href="https://ieeexplore.ieee.org/document/7780510" target="_blank" rel="external">29</a>]表示为$\text{MR}_{-2}$，或者$\text{short MR}$）。此外，我们也在文献[<a href="https://ieeexplore.ieee.org/document/7780510" target="_blank" rel="external">29</a>]提供的新标注下测试了我们的模型，新标注的数据集对原始标注做了误差校正，该数据集表示为“Caltech-New”。Caltech-New数据集上的评价标准为$\text{MR}_{-2}$和$\text{MR}_{-4}$。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图3.jpg" alt="图3 Caltech数据集上，RPN与3种已有方法就建议质量（召回率$vs.$IoU） 而言的对照，每张图像平均在1个、4个、以及100个建议上进行评估" title="图3 Caltech数据集上，RPN与3种已有方法就建议质量（召回率$vs.$IoU） 而言的对照，每张图像平均在1个、4个、以及100个建议上进行评估"></center>
+
+<p>　　INRIA和ETH数据集通常用于验证模型的泛化能力。根据文献[<a href="">30</a>]中的设置，我们的模型在具有614张正样本与1218张负样本图像的INRIA数据集上训练得到。模型在具有288张测试图像的INRIA数据集和具有1804张图像的ETH数据集上尽心评估，评估标准为$\text{MR}_{-2}$。<br>　　KITTI数据集由具有立体数据的图像组成。我们在左摄像头的7481张图像上训练模型，在标准的7518张测试图像上进行评估，KITTI评价标准为PASCAL风格的mAP且具有3种困难等级：简单、适中和困难。</p>
+<h2 id="4-2-消除实验"><a href="#4-2-消除实验" class="headerlink" title="4.2 消除实验"></a>4.2 消除实验</h2><p>　　在本节，我们在Caltech数据集上进行消除实验。<br><strong>RPN对行人检测有好处吗？</strong><br>　　在图3中，我们就区域建议质量对RPN进行了研究，在不同的IoU阈值下通过召回率对其进行了评估，对每个图像的平均1、4或100个建议进行评估。图3显示，一般来说，RPN比基于传统的三种主要方法表现更好：SCF、LDCF和Checkerboards。在IoU阈值为0.7时，每张图像具有100个建议，RPN取得了$&gt;95\%$的召回率。<br>　　更重要的是，RPN作为一个独立的行人检测器取得了$14.9\%$的$\text{MR}$（表1）。这一结果具有竞争力，并且该结果优于CAltech数据集中除两个最先进的结果之外的所有结果（图4）。我们注意到，不同的是，RoI池化可能受小区域的影响，而RPN本质上来说基于固定大小的滑动窗口（以全连接风格），因此避免了collapsing bins。RPN通过使用小的anchor来预测小目标。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">method</th>
+<th style="text-align:center">RoI features</th>
+<th style="text-align:center">$\text{MR}(\%)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">RPN stand-along</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">14.9</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+R-CNN</td>
+<td style="text-align:center">raw pixels</td>
+<td style="text-align:center">13.1</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+Fast R-CNN</td>
+<td style="text-align:center">Conv5_3</td>
+<td style="text-align:center">20.2</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+Fast R-CNN</td>
+<td style="text-align:center">Conv5_3, a trous</td>
+<td style="text-align:center">16.2</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+BF</td>
+<td style="text-align:center">Conv5_3</td>
+<td style="text-align:center">18.2</td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+BF</td>
+<td style="text-align:center">Conv4_3</td>
+<td style="text-align:center"><strong>12.6</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">RPN+BF</td>
+<td style="text-align:center">Conv5_3, a trous</td>
+<td style="text-align:center">13.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>表1：Caltech数据集上，不同分类器和特征的比较。所有方法都基于VGG-16（包括R-CNN）。所有方法都使用相同的RPN建议设置。</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">RoI features</th>
+<th style="text-align:center">time/img</th>
+<th style="text-align:center">$\text{MR}(\%)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Conv2_2</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center">15.9</td>
+</tr>
+<tr>
+<td style="text-align:left">Conv2_3</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center"><strong>12.4</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">Conv4_3</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center">12.6</td>
+</tr>
+<tr>
+<td style="text-align:left">Conv5_3</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center">18.2</td>
+</tr>
+<tr>
+<td style="text-align:left">Conv3_3, Conv4_3</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center"><strong>11.5</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">Conv2_2, Conv4_3, Conv5_3</td>
+<td style="text-align:center">0.37s</td>
+<td style="text-align:center">11.9</td>
+</tr>
+<tr>
+<td style="text-align:left">Conv2_2, (Conv4_3, a trous)</td>
+<td style="text-align:center">0.51s</td>
+<td style="text-align:center"><strong>9.6</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>表2：Caltech数据集上，不同特征在RPN+BF方法中的比较。所有条目都基于VGG-16，且RPN建议的设置相同。</center>
+
+<p><strong>特征的分辨率有多重要？</strong><br>　　我们首先报告R-CNN的准确率（“slow”）。为了公平比较，我们使用VGG-16网络微调R-CNN，且建议也来自相同的RPN。该方法具有13.1%的MR，比它的建议要好（stand-alone RPN，14.9%）。R-CNN从原图像裁剪原始像素并扭曲到一个固定的尺寸（$224\times 224$），因此，从小目标中得到的信息更少。这个结果表明，如果可以提取出可靠的特征，那么随后的分类器准确率将会得到提升。<br>　　出乎意料的是，在相同的RPN建议设置下训练Fast R-CNN分类器实际上降低了准确率：MR显著的增加到了20.2%（$vs.$RPN 14.9%，表1）。虽然R-CNN在该任务上表现不错，但是Fast R-CNN却得到了一个糟糕的结果。<br>　　该问题部分是因为低分辨率的特征。为了证明这一点，我们在Conv5上采用a trous技巧训练了Fast R-CNN（使用和上面相同的RPN建议设置），将步幅从16像素削减到8像素。该问题得到了缓解（16.2%，表1），这证明了高分辨率是有用的，但是，这个结果还是远远落后于stand-alone RPN和R-CNN（表1）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th style="text-align:center">RoI features</th>
+<th style="text-align:center">bootstrapped？</th>
+<th style="text-align:center">$\text{MR}(\%)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPN+Fast R-CNN</td>
+<td style="text-align:center">Conv5_3, a trous</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">16.2</td>
+</tr>
+<tr>
+<td>RPN+Fast R-CNN</td>
+<td style="text-align:center">Conv5_3, a trous</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">14.3</td>
+</tr>
+<tr>
+<td>RPN+BF</td>
+<td style="text-align:center">Conv5_3, a trous</td>
+<td style="text-align:center">$\checkmark$</td>
+<td style="text-align:center">13.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>表3：Caltech数据集上，自举/不自举比较。</center>
+
+<p>　　低分辨率特征的影响也在我们的BF分类器中观察到了。使用Conv5_3特征的BF具有18.2%的MR（表1），比stand-alone RPN低。在提取特征时在Conv5上使用a trous技巧后，BF取得了更好的MR 13.7%。<br>　　但是，BF分类器更加灵活，而且可有利用不同分辨率特征的优点。表2展示了在我们的方法中，使用不同特征的结果。Conv3_3或者Conv4_3就能产生很好的结果（12.4%和12.6%），这证明了高分辨率特征的影响。Conv2_2开始呈现出下降趋势（15.9%），这可用浅层的表示能力弱来解释。BF在Conv3_3和Conv4_3的特征级联上将MR削减到了11.5%。该方法中的特征组合几乎是零消耗。并且，与之前的跳层连接不同，在决策森林分类器中不需要对特征进行规范化。<br>　　最后，将Conv3_3与使用a trous的Conv4_3组合，我们取得了最好的结果——9.6%MR。我们注意到这会增加额外的计算开销（表2），因为它需要使用a trous技巧重复计算Conv4的特征。尽管如此，我们方法的速度仍然是具有竞争力的。<br><strong>自举有多重要？</strong><br>　　为了验证自举方案在BF中的重要性（而不是树形结构的BF分类器），我们使用Fast R-CNN分类器替换了最后一阶段的BF分类器，其结果如表3所示。在6个阶段的自举之后，使用自举后的训练集来训练Fast R-CNN分类器（替换最后阶段具有2048棵树的BF）。我们使用Conv5_3上的RoI特征进行比较。自举Fast R-CNN获得了14.3%的MR，接近BF的13.7%，比不使用自举的Fast R-CNN要好。这个比较表明：BF和Fast R-CNN的主要提升是由自举引起的，而分类器的类型（forest $vs. \text{MLP}$）并不那么重要。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图4.jpg" alt="图4：Caltech数据集上的比较（标签表示MR）" title="图4：Caltech数据集上的比较（标签表示MR）"></center>
+
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图5.jpg" alt="图5：使用0.7的IoU阈值来检测正阳性在Caltech数据集上的比较（标签表示MR）" title="图5：使用0.7的IoU阈值来检测正阳性在Caltech数据集上的比较（标签表示MR）"></center>
+
+<h2 id="4-3-与最先进的方法进行比较"><a href="#4-3-与最先进的方法进行比较" class="headerlink" title="4.3 与最先进的方法进行比较"></a>4.3 与最先进的方法进行比较</h2><p><strong>Caltech</strong> 图4和图6展示了Caltech数据集上的结果。在使用原始标注的情况下（图4），我们的方法取得了9.6%的MR，该结果比除此之外最好的结果（CompactACT-Deep 11.7%）还好2个百分点；在使用校正过的标注的情况下（图6），我们的方法取得了7.3%的$\text{MR}_{-2}$和16.8%的$\text{MR}_{-4}$，该结果都比之前最好的方法要好2个百分点。<br>　　此外，对CCF（18.7%的MR），该方法是唯一一个不使用手中特征的方法（MR 9.6%）。我们的结果表明，在Caltech数据集上，对于不错的准确率，手工特征不是必需的；而高分辨率特征以及自举才是提升准确率的关键，但是这两点在原始的Fast R-CNN检测器中都缺失了。<br>　　图5展示了使用0.7IoU阈值（替换默认的0.5）在Caltech数据集上来确定正阳性的结果。有了这个更具挑战性的指标，大多数方法的性能都有显著的下降，例如：CompactACT-Deep/DeepParts的MR从11.7%/11.9%增加到了38.1%/40.7%。我们的方法具有23.5%的MR，和最好的结果相比相对提升了大约40%。这个比较证明了我们的方法确实具有较好的定位精度。同时也证明了在这个被广泛用于评估的数据集上，对于定位性能还有很大的提升空间。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图6.jpg" alt="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）" title="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）">
+图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）</center>
+
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">method</th>
+<th style="text-align:center">hardware</th>
+<th style="text-align:center">time/img(s)</th>
+<th style="text-align:center">$\text{MR}\%$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LDCF</td>
+<td style="text-align:center">CPU</td>
+<td style="text-align:center">0.6</td>
+<td style="text-align:center">24.8</td>
+</tr>
+<tr>
+<td style="text-align:center">CCF</td>
+<td style="text-align:center">Titan Z GPU</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center">17.3</td>
+</tr>
+<tr>
+<td style="text-align:center">CompAct-Deep</td>
+<td style="text-align:center">Tesla K40 GPU</td>
+<td style="text-align:center"><strong>0.5</strong></td>
+<td style="text-align:center">11.7</td>
+</tr>
+<tr>
+<td style="text-align:center">RPN+BF</td>
+<td style="text-align:center">Tesla K40 GPU</td>
+<td style="text-align:center"><strong>0.5</strong></td>
+<td style="text-align:center"><strong>9.6</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<center>表4：在Caltech数据集上运行时间的比较。LDCF和CCF的时间参考文献[[25]()]，CompactACT-Deep的运行时间参考文献[[6]()]。</center>
+
+<p>　　表4比较了在Caltech数据集上的运行时间。我们的方法和CompactACT-Deep方法一样快，比采用特征金字塔的CCF方法快很多。我们的方法在RPN和BF之间共享特征，并且在速度和准确率之间达到了一个很好的平衡。</p>
+<p><strong>INRIA 和ETH</strong> 图7和图8展示了INRIA和ETH数据集上的结果。在INRIA数据集上，我们的方法取得了6.9%的MR，明显的比最具竞争力的结果11.2%MR要好很多。在ETH数据集上，我们的结果（30.2%）比之前的主要方法（TA-CNN）要好5个百分点。</p>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图7.jpg" alt="图7：INRIA数据集上的比较（标签表示MR）" title="图7：INRIA数据集上的比较（标签表示MR）"></center>
+
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图8.jpg" alt="图8：ETH数据集上的比较（标签表示MR）" title="图8：ETH数据集上的比较（标签表示MR）"></center>
+
+<p><strong>KITTI</strong> 表5展示了在KITTI数据集上的性能比较。我们的方法具有有竞争力的准确率和速度。</p>
+<h1 id="5-结论和讨论"><a href="#5-结论和讨论" class="headerlink" title="5 结论和讨论"></a>5 结论和讨论</h1><p>　　在本文中，我们提出了一种使用RPN和BF用于行人检测的基线模型，该模型不仅非常简单而且又非常有效。在RPN建议和特征之上，BF分类器可灵活用于：（1）组合来自任意层的任意分辨率的特征，而不受限于预训练网络的分类器结构；（2）采用有效的自举来挖掘困难负样本。这些优良的属性克服了Fast R-CNN系统用于行人检测的限制。我们的方法是一种不使用混合特征的独立解决方案。<br>　　值得关注的是，我们表明，随着深度神经网络的发展，自举依然是一个关键的部分。使用相同的自举策略以及相同的RoI特征，不管是树形结构的BF分类器还是基于区域的MLP分类器（Fast R-CNN）都能取得相同的结果（表3）。与此同时，被称为在线困难样本挖掘（Online Hard Example Mining，OHEM）方法已近开发出来用于训练Fast R-CNN以用于一般目标检测。这种端到端、在线挖掘形式与多阶段、级联自举方式都值得研究。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/" title="Is Faster R-CNN Doing Well for Pedestrian Detection ?">http://ailee.me/2018/09/27/Is Faster R-CNN Doing Well for Pedestrian Detection/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
+          
+            <a href="/tags/R-CNN/" rel="tag"># R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/Win10 Word2016 64bit 添加 Mathtype支持/" rel="next" title="Win10 Word2016 64bit 添加 Mathtype支持">
+                <i class="fa fa-chevron-left"></i> Win10 Word2016 64bit 添加 Mathtype支持
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/28/Windows10下编译GPU版TensorFlow/" rel="prev" title="Windows10下编译GPU版TensorFlow">
+                Windows10下编译GPU版TensorFlow <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
