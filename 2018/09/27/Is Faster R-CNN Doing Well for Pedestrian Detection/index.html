@@ -456,6 +456,7 @@
 
 <p>　　INRIA和ETH数据集通常用于验证模型的泛化能力。根据文献[<a href="">30</a>]中的设置，我们的模型在具有614张正样本与1218张负样本图像的INRIA数据集上训练得到。模型在具有288张测试图像的INRIA数据集和具有1804张图像的ETH数据集上尽心评估，评估标准为$\text{MR}_{-2}$。<br>　　KITTI数据集由具有立体数据的图像组成。我们在左摄像头的7481张图像上训练模型，在标准的7518张测试图像上进行评估，KITTI评价标准为PASCAL风格的mAP且具有3种困难等级：简单、适中和困难。</p>
 <h2 id="4-2-消除实验"><a href="#4-2-消除实验" class="headerlink" title="4.2 消除实验"></a>4.2 消除实验</h2><p>　　在本节，我们在Caltech数据集上进行消除实验。<br><strong>RPN对行人检测有好处吗？</strong><br>　　在图3中，我们就区域建议质量对RPN进行了研究，在不同的IoU阈值下通过召回率对其进行了评估，对每个图像的平均1、4或100个建议进行评估。图3显示，一般来说，RPN比基于传统的三种主要方法表现更好：SCF、LDCF和Checkerboards。在IoU阈值为0.7时，每张图像具有100个建议，RPN取得了$&gt;95\%$的召回率。<br>　　更重要的是，RPN作为一个独立的行人检测器取得了$14.9\%$的$\text{MR}$（表1）。这一结果具有竞争力，并且该结果优于CAltech数据集中除两个最先进的结果之外的所有结果（图4）。我们注意到，不同的是，RoI池化可能受小区域的影响，而RPN本质上来说基于固定大小的滑动窗口（以全连接风格），因此避免了collapsing bins。RPN通过使用小的anchor来预测小目标。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -502,8 +503,10 @@
 </tr>
 </tbody>
 </table>
+</div>
 <center>表1：Caltech数据集上，不同分类器和特征的比较。所有方法都基于VGG-16（包括R-CNN）。所有方法都使用相同的RPN建议设置。</center>
 
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -550,9 +553,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <center>表2：Caltech数据集上，不同特征在RPN+BF方法中的比较。所有条目都基于VGG-16，且RPN建议的设置相同。</center>
 
 <p><strong>特征的分辨率有多重要？</strong><br>　　我们首先报告R-CNN的准确率（“slow”）。为了公平比较，我们使用VGG-16网络微调R-CNN，且建议也来自相同的RPN。该方法具有13.1%的MR，比它的建议要好（stand-alone RPN，14.9%）。R-CNN从原图像裁剪原始像素并扭曲到一个固定的尺寸（$224\times 224$），因此，从小目标中得到的信息更少。这个结果表明，如果可以提取出可靠的特征，那么随后的分类器准确率将会得到提升。<br>　　出乎意料的是，在相同的RPN建议设置下训练Fast R-CNN分类器实际上降低了准确率：MR显著的增加到了20.2%（$vs.$RPN 14.9%，表1）。虽然R-CNN在该任务上表现不错，但是Fast R-CNN却得到了一个糟糕的结果。<br>　　该问题部分是因为低分辨率的特征。为了证明这一点，我们在Conv5上采用a trous技巧训练了Fast R-CNN（使用和上面相同的RPN建议设置），将步幅从16像素削减到8像素。该问题得到了缓解（16.2%，表1），这证明了高分辨率是有用的，但是，这个结果还是远远落后于stand-alone RPN和R-CNN（表1）。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -583,6 +588,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <center>表3：Caltech数据集上，自举/不自举比较。</center>
 
 <p>　　低分辨率特征的影响也在我们的BF分类器中观察到了。使用Conv5_3特征的BF具有18.2%的MR（表1），比stand-alone RPN低。在提取特征时在Conv5上使用a trous技巧后，BF取得了更好的MR 13.7%。<br>　　但是，BF分类器更加灵活，而且可有利用不同分辨率特征的优点。表2展示了在我们的方法中，使用不同特征的结果。Conv3_3或者Conv4_3就能产生很好的结果（12.4%和12.6%），这证明了高分辨率特征的影响。Conv2_2开始呈现出下降趋势（15.9%），这可用浅层的表示能力弱来解释。BF在Conv3_3和Conv4_3的特征级联上将MR削减到了11.5%。该方法中的特征组合几乎是零消耗。并且，与之前的跳层连接不同，在决策森林分类器中不需要对特征进行规范化。<br>　　最后，将Conv3_3与使用a trous的Conv4_3组合，我们取得了最好的结果——9.6%MR。我们注意到这会增加额外的计算开销（表2），因为它需要使用a trous技巧重复计算Conv4的特征。尽管如此，我们方法的速度仍然是具有竞争力的。<br><strong>自举有多重要？</strong><br>　　为了验证自举方案在BF中的重要性（而不是树形结构的BF分类器），我们使用Fast R-CNN分类器替换了最后一阶段的BF分类器，其结果如表3所示。在6个阶段的自举之后，使用自举后的训练集来训练Fast R-CNN分类器（替换最后阶段具有2048棵树的BF）。我们使用Conv5_3上的RoI特征进行比较。自举Fast R-CNN获得了14.3%的MR，接近BF的13.7%，比不使用自举的Fast R-CNN要好。这个比较表明：BF和Fast R-CNN的主要提升是由自举引起的，而分类器的类型（forest $vs. \text{MLP}$）并不那么重要。</p>
@@ -591,8 +597,10 @@
 <center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图5.jpg" alt="图5：使用0.7的IoU阈值来检测正阳性在Caltech数据集上的比较（标签表示MR）" title="图5：使用0.7的IoU阈值来检测正阳性在Caltech数据集上的比较（标签表示MR）"></center>
 
 <h2 id="4-3-与最先进的方法进行比较"><a href="#4-3-与最先进的方法进行比较" class="headerlink" title="4.3 与最先进的方法进行比较"></a>4.3 与最先进的方法进行比较</h2><p><strong>Caltech</strong> 图4和图6展示了Caltech数据集上的结果。在使用原始标注的情况下（图4），我们的方法取得了9.6%的MR，该结果比除此之外最好的结果（CompactACT-Deep 11.7%）还好2个百分点；在使用校正过的标注的情况下（图6），我们的方法取得了7.3%的$\text{MR}_{-2}$和16.8%的$\text{MR}_{-4}$，该结果都比之前最好的方法要好2个百分点。<br>　　此外，对CCF（18.7%的MR），该方法是唯一一个不使用手中特征的方法（MR 9.6%）。我们的结果表明，在Caltech数据集上，对于不错的准确率，手工特征不是必需的；而高分辨率特征以及自举才是提升准确率的关键，但是这两点在原始的Fast R-CNN检测器中都缺失了。<br>　　图5展示了使用0.7IoU阈值（替换默认的0.5）在Caltech数据集上来确定正阳性的结果。有了这个更具挑战性的指标，大多数方法的性能都有显著的下降，例如：CompactACT-Deep/DeepParts的MR从11.7%/11.9%增加到了38.1%/40.7%。我们的方法具有23.5%的MR，和最好的结果相比相对提升了大约40%。这个比较证明了我们的方法确实具有较好的定位精度。同时也证明了在这个被广泛用于评估的数据集上，对于定位性能还有很大的提升空间。</p>
-<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图6.jpg" alt="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）" title="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）"><br>图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）</center>
+<center><img src="/2018/09/27/Is%20Faster%20R-CNN%20Doing%20Well%20for%20Pedestrian%20Detection/图6.jpg" alt="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）" title="图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）">
+图6： Caltech-New数据集上的比较（标签表示$\text{MR}_{-2}(\text{MR}{-4})$）</center>
 
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -629,7 +637,8 @@
 </tr>
 </tbody>
 </table>
-<center>表4：在Caltech数据集上运行时间的比较。LDCF和CCF的时间参考文献[<a href="">25</a>]，CompactACT-Deep的运行时间参考文献[<a href="">6</a>]。</center>
+</div>
+<center>表4：在Caltech数据集上运行时间的比较。LDCF和CCF的时间参考文献[[25]()]，CompactACT-Deep的运行时间参考文献[[6]()]。</center>
 
 <p>　　表4比较了在Caltech数据集上的运行时间。我们的方法和CompactACT-Deep方法一样快，比采用特征金字塔的CCF方法快很多。我们的方法在RPN和BF之间共享特征，并且在速度和准确率之间达到了一个很好的平衡。</p>
 <p><strong>INRIA 和ETH</strong> 图7和图8展示了INRIA和ETH数据集上的结果。在INRIA数据集上，我们的方法取得了6.9%的MR，明显的比最具竞争力的结果11.2%MR要好很多。在ETH数据集上，我们的结果（30.2%）比之前的主要方法（TA-CNN）要好5个百分点。</p>
@@ -720,8 +729,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/28/Windows10+Cmake+VS2015编译caffe/" rel="prev" title="Windows10+Cmake+VS2015编译caffe">
-                Windows10+Cmake+VS2015编译caffe <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/28/Windows10下编译GPU版TensorFlow/" rel="prev" title="Windows10下编译GPU版TensorFlow">
+                Windows10下编译GPU版TensorFlow <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1066,7 +1075,7 @@
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>AV.initialize("hJp8BAFun848hsX1QQEWxnGn-gzGzoHsz", "JwomSp3ItNHn1f8MJibbCQAs");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);

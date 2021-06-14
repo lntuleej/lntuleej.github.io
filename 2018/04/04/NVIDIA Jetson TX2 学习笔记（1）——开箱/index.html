@@ -101,17 +101,13 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="NVIDIA Jetson TX2 开箱">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog.adminlee.com/18-4-25/78955814.jpg">
-<meta property="og:image" content="http://blog.adminlee.com/18-4-25/75193664.jpg">
-<meta property="og:image" content="http://blog.adminlee.com/18-4-25/71868286.jpg">
 <meta property="og:image" content="http://blog.adminlee.com/18-4-25/31235480.jpg">
 <meta property="og:image" content="http://blog.adminlee.com/18-4-25/75529726.jpg">
-<meta property="og:image" content="http://blog.adminlee.com/18-4-25/14163062.jpg">
 <meta property="og:updated_time" content="2019-04-01T15:56:59.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NVIDIA Jetson TX2 学习笔记（1）——开箱">
 <meta name="twitter:description" content="NVIDIA Jetson TX2 开箱">
-<meta name="twitter:image" content="http://blog.adminlee.com/18-4-25/78955814.jpg">
+<meta name="twitter:image" content="http://blog.adminlee.com/18-4-25/31235480.jpg">
 
 
 
@@ -405,7 +401,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  694
+                  735
                 </span>
               
 
@@ -433,7 +429,10 @@
       
         <p>　　在此之前对于开发板的接触应该还是蛮多的，从51单片机开发板到STM32开发板，再到Intel的伽利略或者是ARM A9的嵌入式开发板。在第一次亲手接到这高端大气上档次，相当不低调，仍旧抵挡不住其奢华和内涵的NVIDIA Jetson TX2时，顿时觉得以前的眼界实在是太窄了。第一次拿到板子自然是小心翼翼，毕竟这么贵，和以前的比起来都是便宜货了。话不多说，先介绍一波Jetson TX2。</p>
 <h1 id="1-Jetson-TX2-简介"><a href="#1-Jetson-TX2-简介" class="headerlink" title="1 Jetson TX2 简介"></a>1 Jetson TX2 简介</h1><p>　　Jetson TX2是基于 NVIDIA Pascal™ 架构的 AI 单模块超级计算机，性能强大（1 TFLOPS），外形小巧，节能高效（7.5W），非常适合机器人、无人机、智能摄像机和便携医疗设备等智能终端设备。<br>Jatson TX2 与 TX1 相比，内存和 eMMC 提高了一倍，CUDA 架构升级为 Pascal，每瓦性能提高一倍，支持 Jetson TX1 模块的所有功能，支持更大、更深、更复杂的深度神经网络。</p>
-<center><br><br><img src="http://blog.adminlee.com/18-4-25/78955814.jpg" alt=""><br>图1：Jetson TX2内部结果</center>
+<center>
+
+![](http://blog.adminlee.com/18-4-25/78955814.jpg)
+图1：Jetson TX2内部结果</center>
 
 
 <h2 id="1-1-处理单元"><a href="#1-1-处理单元" class="headerlink" title="1.1 处理单元"></a>1.1 处理单元</h2><ul>
@@ -491,28 +490,32 @@
 <li><p>19VDC电源适配器</p>
 </li>
 </ul>
-<center><br><br><img src="http://blog.adminlee.com/18-4-25/75193664.jpg" alt=""><br><img src="http://blog.adminlee.com/18-4-25/71868286.jpg" alt=""><br>图2：Jetson TX2开发套件</center>
+<center>
+
+![](http://blog.adminlee.com/18-4-25/75193664.jpg)
+![](http://blog.adminlee.com/18-4-25/71868286.jpg)
+图2：Jetson TX2开发套件</center>
 
 <h1 id="3-上电测试"><a href="#3-上电测试" class="headerlink" title="3 上电测试"></a>3 上电测试</h1><ul>
 <li>将天线按要求安装到Jetson TX2开发板，将显示器与开发板连接（如显示器不支持HDMI，则需要HDMI/VGA转接线），连接好键盘鼠标（需要一个USB集线器），将电源适配器和Jetson TX2开发板正确连接。<center>
 
 </center></li>
 </ul>
-<p><img src="http://blog.adminlee.com/18-4-25/31235480.jpg" alt=""></p>
+<p><img src="http://blog.adminlee.com/18-4-25/31235480.jpg" alt="">&lt;/center&gt;</p>
 <ul>
 <li>按下POWER按钮，可以观察到显示器滚动显示开机信息，最终显示如下信息。<center>
 
 </center></li>
 </ul>
-<p><img src="http://blog.adminlee.com/18-4-25/75529726.jpg" alt=""></p>
+<p><img src="http://blog.adminlee.com/18-4-25/75529726.jpg" alt="">&lt;/center&gt;</p>
 <ul>
 <li><p>按照显示器上显示的信息，按步骤进行操作</p>
 <ul>
-<li><p>Step 1）：更改目录到NVIDIA installation目录。<br>cd “${HOME}/NVIDIA-INSTALLER”</p>
+<li><p>Step 1）：更改目录到NVIDIA installation目录。&lt;/br&gt;cd “${HOME}/NVIDIA-INSTALLER”</p>
 </li>
-<li><p>Step 2）：运行安装脚本，提取和安装NVIDIA Linux驱动。<br>sudo ./installer.sh</p>
+<li><p>Step 2）：运行安装脚本，提取和安装NVIDIA Linux驱动。&lt;/br&gt;sudo ./installer.sh</p>
 </li>
-<li><p>Step 3）：重启系统，进入Ubuntu桌面环境。<br>sudo reboot</p>
+<li><p>Step 3）：重启系统，进入Ubuntu桌面环境。&lt;/br&gt;sudo reboot</p>
 </li>
 </ul>
 </li>
@@ -521,7 +524,10 @@
 <li><p>选择用户“nvidia”，输入密码“nvidia”。</p>
 </li>
 </ul>
-<center><br><br><img src="http://blog.adminlee.com/18-4-25/14163062.jpg" alt=""><br>图3：Jetson TX2 Ubuntu桌面</center>
+<center>
+
+![](http://blog.adminlee.com/18-4-25/14163062.jpg)
+图3：Jetson TX2 Ubuntu桌面</center>
 
 <p>　　至此，开箱上电测试已经结束。按照套路，接下来就可以进行刷机操作了，将Jetson TX2的Jetpack更新到最新版本。</p>
 
@@ -951,7 +957,7 @@
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>AV.initialize("hJp8BAFun848hsX1QQEWxnGn-gzGzoHsz", "JwomSp3ItNHn1f8MJibbCQAs");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);

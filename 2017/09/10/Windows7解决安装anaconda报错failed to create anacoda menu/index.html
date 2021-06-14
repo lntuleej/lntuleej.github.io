@@ -101,13 +101,10 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="在Windows上安装anaconda时，总是报failed to create anaconda menu的错误。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog.adminlee.com/17-9-10/11466514.jpg">
-<meta property="og:image" content="http://blog.adminlee.com/17-9-10/26560664.jpg">
 <meta property="og:updated_time" content="2019-04-01T16:09:45.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows7解决安装anaconda报错failed to create anacoda menu">
 <meta name="twitter:description" content="在Windows上安装anaconda时，总是报failed to create anaconda menu的错误。">
-<meta name="twitter:image" content="http://blog.adminlee.com/17-9-10/11466514.jpg">
 
 
 
@@ -401,7 +398,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  216
+                  237
                 </span>
               
 
@@ -428,8 +425,12 @@
 
       
         <h1 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h1><p>在Windows7上安装anaconda时，快到安装完成了，总是报failed to create anaconda menu的错误，重试也无法解决问题，然后选择忽略，忽略，提示安装完成，但是没有菜单，也没有快捷方式，只能在控制面板——&gt;程序和功能里找到对应的软件已经安装。</p>
-<h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h1><p>点击win键+R，输入cmd，回车，进入控制台。<br>使用”cd”命令进入anaconda的安装位置，我的安装位置为D:\ProgramData\Anaconda2\<br>然后执行 python .\Lib\_nsis.py mkmenus<br>执行过程会出现一连串的successful，表明操作成功。<br>据体过程如下图所示<center><br><img src="http://blog.adminlee.com/17-9-10/11466514.jpg" alt=""><br></center></p>
-<p>上述命令执行完成之后可在菜单栏看到如下图所示的一系列图标<center><br><img src="http://blog.adminlee.com/17-9-10/26560664.jpg" alt="结果图"><br></center></p>
+<h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h1><p>点击win键+R，输入cmd，回车，进入控制台。<br>使用”cd”命令进入anaconda的安装位置，我的安装位置为D:\ProgramData\Anaconda2\<br>然后执行 python .\Lib\_nsis.py mkmenus<br>执行过程会出现一连串的successful，表明操作成功。<br>据体过程如下图所示<center>
+![](http://blog.adminlee.com/17-9-10/11466514.jpg)
+</center></p>
+<p>上述命令执行完成之后可在菜单栏看到如下图所示的一系列图标<center>
+![结果图](http://blog.adminlee.com/17-9-10/26560664.jpg)
+</center></p>
 <p>至此，该问题完美解决。<br>【转】<a href="http://blog.csdn.net/lixiangyong123/article/details/55816168" target="_blank" rel="external">windows安装anaconda 报错failed to create anacoda menu ？</a></p>
 
       
@@ -858,7 +859,7 @@
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>AV.initialize("hJp8BAFun848hsX1QQEWxnGn-gzGzoHsz", "JwomSp3ItNHn1f8MJibbCQAs");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);

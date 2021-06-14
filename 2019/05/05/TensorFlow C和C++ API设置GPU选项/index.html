@@ -398,7 +398,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  454
+                  455
                 </span>
               
 
@@ -431,14 +431,14 @@
 <li>在Python端设置GPU选项，然后把配置转化为序列化的protobuf字符串；</li>
 </ol>
 </li>
-<li><ol start="2">
+<li><ol>
 <li>将序列化的protobuf字符串提供给c_api中的TF_SetConfig()函数。</li>
 </ol>
 </li>
 </ul>
 <p>下面举例说明：</p>
 <ul>
-<li><strong>Python端设置</strong><br>tensorflow中GPU的选项描述，可以到<a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto" target="_blank" rel="external">这里</a>查看，具体这里就不详细描述。对于visible_device_list选项的描述，具体在<a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/common_runtime/gpu/gpu_id.h" target="_blank" rel="external">这里</a>有描述。</li>
+<li><strong>Python端设置</strong>&lt;/br&gt;tensorflow中GPU的选项描述，可以到<a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/protobuf/config.proto" target="_blank" rel="external">这里</a>查看，具体这里就不详细描述。对于visible_device_list选项的描述，具体在<a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/common_runtime/gpu/gpu_id.h" target="_blank" rel="external">这里</a>有描述。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf  </div><div class="line">gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=<span class="number">0.333</span>, </div><div class="line">                            allow_growth=<span class="keyword">True</span>,</div><div class="line">                            visible_device_list=<span class="string">'0'</span>)</div><div class="line">config = tf.ConfigProto(gpu_options=gpu_options)</div><div class="line">serialized = config.SerializeToString()</div><div class="line">list(map(hex, serialized))</div></pre></td></tr></table></figure>
 <p>输出结果为<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="string">'0x32'</span>, <span class="string">'0xe'</span>, <span class="string">'0x9'</span>, <span class="string">'0x1d'</span>, <span class="string">'0x5a'</span>, <span class="string">'0x64'</span>, <span class="string">'0x3b'</span>, <span class="string">'0xdf'</span>, <span class="string">'0x4f'</span>, <span class="string">'0xd5'</span>, <span class="string">'0x3f'</span>, <span class="string">'0x20'</span>, <span class="string">'0x1'</span>, <span class="string">'0x2a'</span>, <span class="string">'0x1'</span>, <span class="string">'0x30'</span>]</div></pre></td></tr></table></figure></p>
@@ -883,7 +883,7 @@
 
   
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("3JEOnLBbeCkTnDLXdRB4RQNh-gzGzoHsz", "LpdXae1Pn9iCAuW8OVklkOqp");</script>
+  <script>AV.initialize("hJp8BAFun848hsX1QQEWxnGn-gzGzoHsz", "JwomSp3ItNHn1f8MJibbCQAs");</script>
   <script>
     function showTime(Counter) {
       var query = new AV.Query(Counter);
