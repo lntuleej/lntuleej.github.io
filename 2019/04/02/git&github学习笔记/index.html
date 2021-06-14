@@ -101,12 +101,13 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="Git学习笔记">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/img/git.png">
 <meta property="og:image" content="http://blog.adminlee.com/img/git_invate.png">
 <meta property="og:updated_time" content="2019-05-05T02:49:44.062Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git&amp;github学习笔记我的2017">
 <meta name="twitter:description" content="Git学习笔记">
-<meta name="twitter:image" content="http://blog.adminlee.com/img/git_invate.png">
+<meta name="twitter:image" content="http://blog.adminlee.com/img/git.png">
 
 
 
@@ -395,7 +396,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  2,996
+                  2,989
                 </span>
               
 
@@ -440,8 +441,7 @@
 </ul>
 </li>
 <li>外网<ul>
-<li>Github、码云<center>![](http://blog.adminlee.com/img/git.png)
-git流程</center></li>
+<li>Github、码云<center><img src="http://blog.adminlee.com/img/git.png" alt=""><br>git流程</center></li>
 </ul>
 </li>
 </ol>
@@ -454,7 +454,7 @@ git流程</center></li>
 <h2 id="设置签名"><a href="#设置签名" class="headerlink" title="设置签名"></a>设置签名</h2><ol>
 <li>形式：<ul>
 <li>用户名：tom</li>
-<li>Email地址：goodMorning@atguigu.com</li>
+<li>Email地址：<a href="mailto:goodMorning@atguigu.com" target="_blank" rel="external">goodMorning@atguigu.com</a></li>
 </ul>
 </li>
 <li>作用<ul>
@@ -468,12 +468,12 @@ git流程</center></li>
 <li>命令<ul>
 <li>项目级别/仓库级别：仅在当前本地仓库范围内有效<ul>
 <li>git config user.name tom_pro</li>
-<li>git config user.email goodMorning_pro@atguigu.com</li>
+<li>git config user.email <a href="mailto:goodMorning_pro@atguigu.com" target="_blank" rel="external">goodMorning_pro@atguigu.com</a></li>
 </ul>
 </li>
 <li>系统用户级别：登录当前操作系统的用户范围<ul>
-<li>git config —global user.name tom_pro</li>
-<li>git config —global user.email goodMorning_pro@atguigu.com</li>
+<li>git config –global user.name tom_pro</li>
+<li>git config –global user.email <a href="mailto:goodMorning_pro@atguigu.com" target="_blank" rel="external">goodMorning_pro@atguigu.com</a></li>
 <li>信息保存位置：~/.gitconfig</li>
 </ul>
 </li>
@@ -504,28 +504,28 @@ git流程</center></li>
 </li>
 <li>查看历史记录操作<ul>
 <li>$ git log 显示完整历史记录</li>
-<li>$ git log —pretty=oneline 单行显示历史记录（包含完整hash值和提交日志）</li>
-<li>$ git log —oneline 单行显示历史记录（包含部分hash值和提交日志，只显示过去的历史记录）</li>
+<li>$ git log –pretty=oneline 单行显示历史记录（包含完整hash值和提交日志）</li>
+<li>$ git log –oneline 单行显示历史记录（包含部分hash值和提交日志，只显示过去的历史记录）</li>
 <li>$ git reflog 单行显示历史记录（包含部分hash值、HEAD@{移动到当前版本需要的步数}和提交日志，显示所有历史记录 ）</li>
 </ul>
 </li>
 <li>版本前进后退<ul>
-<li>$ git reset —hard [局部hash值]（基于索引值操作）</li>
-<li>$ git reset —hard HEAD^（只能后退，一个^代表回退一个版本）</li>
-<li>$ git reset —hard HEAD~[n]（回退n步）</li>
+<li>$ git reset –hard [局部hash值]（基于索引值操作）</li>
+<li>$ git reset –hard HEAD^（只能后退，一个^代表回退一个版本）</li>
+<li>$ git reset –hard HEAD~[n]（回退n步）</li>
 </ul>
 </li>
 <li>reset命令的三个参数对比<ul>
-<li>—soft参数<ul>
+<li>–soft参数<ul>
 <li>仅在本地库移动HEAD指针</li>
 </ul>
 </li>
-<li>—mixed参数<ul>
+<li>–mixed参数<ul>
 <li>在本地库移动HEAD指针</li>
 <li>重置暂存区</li>
 </ul>
 </li>
-<li>—hard参数<ul>
+<li>–hard参数<ul>
 <li>在本地移动HEAD指针</li>
 <li>重置暂存区</li>
 <li>重置工作区</li>
@@ -535,7 +535,7 @@ git流程</center></li>
 </li>
 <li>删除文件并找回操作<ul>
 <li>前提：删除前，文件存在时的状态提交到了本地库</li>
-<li>操作：$ git reset —hard [指针位置]<ul>
+<li>操作：$ git reset –hard [指针位置]<ul>
 <li>删除操作已经提交到本地库：指针位置指向历史记录</li>
 <li>删除操作尚未提交到本地库：指针位置使用HEAD</li>
 </ul>
@@ -562,7 +562,7 @@ git流程</center></li>
 <li>什么是分支？<br> 在版本控制过程中，使用多条线同时推进多个任务。</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">graph TD</div><div class="line">A[主分支_v1] --&gt;|大版本升级| B[主分支_v2]</div><div class="line">B --&gt;|大版本升级| C[主分支_v3]</div><div class="line">C --&gt;|大版本升级| D[主分支_v4]</div><div class="line">D --&gt;|大版本升级| N[主分支_v5]</div><div class="line">B --&gt;|创建热修复分支| E[热修复分支]</div><div class="line">E --&gt;|合并分支| C</div><div class="line">A --&gt;|创建分支1| F[branch1_v1]</div><div class="line">F --&gt;|分支1版本升级| G[branch1_v2]</div><div class="line">G --&gt;|合并分支| B</div><div class="line">A --&gt;|创建分支2| H[branch2_v1]</div><div class="line">H --&gt;|分支2升级| I[branch2_v2]</div><div class="line">I --&gt;|分支2升级| J[branch2_v3]</div><div class="line">J --&gt;|分支2升级| K[branch2_v4]</div><div class="line">K --&gt;|合并分支| D</div><div class="line">A --&gt;|创建新分支| L[...]</div><div class="line">L --&gt;|...| M[...]</div><div class="line">M --&gt;|合并分支| N</div></pre></td></tr></table></figure>
-<ol>
+<ol start="2">
 <li>分支有什么好处？<ul>
 <li>同时并行推进多个功能开发，提高开发效率</li>
 <li>各个分支在开发过程中，如果某一个分支开发失败，不会对其他分支有任何影响。失败的分支删除重新开始即可。</li>
@@ -668,7 +668,7 @@ git流程</center></li>
 </li>
 </ol>
 <p><img src="http://blog.adminlee.com/img/git_invate.png" alt=""></p>
-<ol>
+<ol start="7">
 <li>拉取<ul>
 <li>pull = fetch+merge<ul>
 <li>pull 表示从远程库拉取内容到本地库并与本地库进行合并，</li>
@@ -725,7 +725,7 @@ git流程</center></li>
 <li>New SSH Key</li>
 <li>输入复制的密钥信息</li>
 <li>回到git bash创建远程地址别名<ul>
-<li>$ git remote add [origin_ssh远程地址别名] git@github.com:[用户名]/[仓库名].git</li>
+<li>$ git remote add [origin_ssh远程地址别名] <a href="mailto:git@github.com" target="_blank" rel="external">git@github.com</a>:[用户名]/[仓库名].git</li>
 </ul>
 </li>
 <li>推送文件进行测试</li>
@@ -743,7 +743,7 @@ git流程</center></li>
 <li><p>Forking工作流<br>  Forking 工作流是在GitFlow 基础上，充分利用了Git 的Fork 和pull request 的功能以达到代码审核的目的。更适合安全可靠地管理大团队的开发者，而且能接受不信任贡献者的提交。</p>
 </li>
 </ul>
-<ol>
+<ol start="3">
 <li>GitFlow工作流<ul>
 <li>分支种类<ul>
 <li>主干分支（master）<ul>
@@ -791,13 +791,13 @@ git流程</center></li>
 <li>sudo service postfix start</li>
 <li>sudo chkconfig postfix on</li>
 <li>curl <a href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh" target="_blank" rel="external">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.rpm.sh</a> | sudo bash</li>
-<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com" target="_blank" rel="external">http://gitlab.example.com</a>“ yum -y install gitlab-ee</li>
+<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com&quot;" target="_blank" rel="external">http://gitlab.example.com&quot;</a> yum -y install gitlab-ee</li>
 </ul>
 </blockquote>
 </li>
 </ul>
 <p><strong>实际问题：yum安装gitlab-ee（或者ce）时，需要联网下载几百兆的安装文件，非常耗时，所以应提前把所需的RPM包下载并安装好。</strong><br>    下载地址：<a href="https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm" target="_blank" rel="external">https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/7/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm</a></p>
-<ol>
+<ol start="3">
 <li>调整好的安装过程<blockquote>
 <ul>
 <li><strong>sudo rpm -ivh /opt/gitlab-ce-10.8.2-ce.0.el7.x86_64.rpm</strong></li>
@@ -807,13 +807,13 @@ git流程</center></li>
 <li>sudo service postfix start</li>
 <li>sudo chkconfig postfix on</li>
 <li>curl <a href="https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh" target="_blank" rel="external">https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh</a> | sudo bash</li>
-<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com" target="_blank" rel="external">http://gitlab.example.com</a>“ yum -y install gitlab-ce</li>
+<li>sudo EXTERNAL_URL=”<a href="http://gitlab.example.com&quot;" target="_blank" rel="external">http://gitlab.example.com&quot;</a> yum -y install gitlab-ce</li>
 </ul>
 </blockquote>
 </li>
 </ol>
 <p>当前操作完成后重启。</p>
-<ol>
+<ol start="4">
 <li><p>GitLab服务操作</p>
 <ul>
 <li>初始化配置GitLab<ul>
