@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,C++,numpy," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="VS2017开发Python C++扩展库并调试">
+<meta name="keywords" content="Python,C++,numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VS2017开发Python C++扩展库并调试">
+<meta property="og:url" content="http://ailee.me/2021/06/14/VS2017开发Python C++扩展库并调试/index.html">
+<meta property="og:site_name" content="AILEE">
+<meta property="og:description" content="VS2017开发Python C++扩展库并调试">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203094106327.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203095305937.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203105645880.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203101611465.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203102127938.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203102524519.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203104412930.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203163152276.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203163835534.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203165052440.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203165635622.png">
+<meta property="og:image" content="http://blog.adminlee.com/img/image-20201203170912923.png">
+<meta property="og:updated_time" content="2021-06-14T13:35:00.220Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VS2017开发Python C++扩展库并调试">
+<meta name="twitter:description" content="VS2017开发Python C++扩展库并调试">
+<meta name="twitter:image" content="http://blog.adminlee.com/img/image-20201203094106327.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ailee.me/2021/06/14/VS2017开发Python C++扩展库并调试/"/>
+
+
+
+
+
+  <title>VS2017开发Python C++扩展库并调试 | AILEE</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?1e9e36dfff2baf430f723f50d54d376e";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AILEE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ailee.me/2021/06/14/VS2017开发Python C++扩展库并调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ailee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AILEE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VS2017开发Python C++扩展库并调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-14T21:22:00+08:00">
+                2021-06-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Update</span>
+              
+              <time title="Update" itemprop="dateModified" datetime="2021-06-14T21:35:00+08:00">
+                2021-06-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Category</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/06/14/VS2017开发Python C++扩展库并调试/" class="leancloud_visitors" data-flag-title="VS2017开发Python C++扩展库并调试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i> View
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">&nbsp;&nbsp;|&nbsp;&nbsp;
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words</span>
+                
+                <span title="Words">
+                  2,048
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  VS2017开发Python C++扩展库并调试
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="VS2017开发Python-C-扩展库并调试"><a href="#VS2017开发Python-C-扩展库并调试" class="headerlink" title="VS2017开发Python C++扩展库并调试"></a>VS2017开发Python C++扩展库并调试</h1><h1 id="1-Prerequisites"><a href="#1-Prerequisites" class="headerlink" title="1. Prerequisites"></a>1. Prerequisites</h1><ol>
+<li><p>VS2017或更高版本</p>
+</li>
+<li><p>安装好Python开发环境依赖</p>
+<ul>
+<li><p>打开Visual Studio install &gt; 修改 &gt; 选择Python开发，按图进行配置。</p>
+<p><img src="http://blog.adminlee.com/img/image-20201203094106327.png" alt="image-20201203094106327"></p>
+</li>
+</ul>
+</li>
+<li><p>配置环境变量：此电脑 &gt; 属性 &gt; 高级系统设置 &gt; 环境变量</p>
+<ul>
+<li><p>选择用户环境变量中的Path进行编辑，将上一步安装好的Python环境添加到用户环境变量的Path中。</p>
+<p><img src="http://blog.adminlee.com/img/image-20201203095305937.png" alt="image-20201203095305937"></p>
+</li>
+</ul>
+</li>
+<li><p>选择新建，创建PYTHONHOME环境变量。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203105645880.png" alt="image-20201203105645880"></p>
+</li>
+</ol>
+<h1 id="2-创建Python工程"><a href="#2-创建Python工程" class="headerlink" title="2. 创建Python工程"></a>2. 创建Python工程</h1><ol>
+<li><p>文件 &gt; 新建 &gt; 项目 &gt; 已安装 &gt; 其他语言 &gt; Python &gt; Python应用程序，设置好名称后选择确定，完成Python工程创建。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203101611465.png" alt="image-20201203101611465"></p>
+</li>
+<li><p>检查解决方案窗口中Python工程的Python环境是否为之前通过Visual Studio Installer安装的版本，如果不是，则右键选择<strong>Python环境</strong> &gt; 查看所有Python环境 &gt; 选择合适的Python环境，然后点击<strong>将此作为新项目的默认环境</strong>。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203102127938.png" alt="image-20201203102127938"></p>
+</li>
+<li><p>在Python脚本下添加以下代码。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> itertools <span class="keyword">import</span> islice</div><div class="line"><span class="keyword">from</span> random <span class="keyword">import</span> random</div><div class="line"><span class="keyword">from</span> time <span class="keyword">import</span> perf_counter</div><div class="line"></div><div class="line">COUNT = <span class="number">500000</span>  <span class="comment"># Change this value depending on the speed of your computer</span></div><div class="line">DATA = list(islice(iter(<span class="keyword">lambda</span>: (random() - <span class="number">0.5</span>) * <span class="number">3.0</span>, <span class="keyword">None</span>), COUNT))</div><div class="line"></div><div class="line">e = <span class="number">2.7182818284590452353602874713527</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sinh</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="number">1</span> - (e ** (<span class="number">-2</span> * x))) / (<span class="number">2</span> * (e ** -x))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cosh</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> (<span class="number">1</span> + (e ** (<span class="number">-2</span> * x))) / (<span class="number">2</span> * (e ** -x))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tanh</span><span class="params">(x)</span>:</span></div><div class="line">    tanh_x = sinh(x) / cosh(x)</div><div class="line">    <span class="keyword">return</span> tanh_x</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(fn, name)</span>:</span></div><div class="line">    start = perf_counter()</div><div class="line">    result = fn(DATA)</div><div class="line">    duration = perf_counter() - start</div><div class="line">    print(<span class="string">'&#123;&#125; took &#123;:.3f&#125; seconds\n\n'</span>.format(name, duration))</div><div class="line"></div><div class="line">    <span class="keyword">for</span> d <span class="keyword">in</span> result:</div><div class="line">        <span class="keyword">assert</span> <span class="number">-1</span> &lt;= d &lt;= <span class="number">1</span>, <span class="string">" incorrect values"</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    print(<span class="string">'Running benchmarks with COUNT = &#123;&#125;'</span>.format(COUNT))</div><div class="line"></div><div class="line">    test(<span class="keyword">lambda</span> d: [tanh(x) <span class="keyword">for</span> x <span class="keyword">in</span> d], <span class="string">'[tanh(x) for x in d] (Python implementation)'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>选择<strong>调试</strong> &gt; 开始执行(不调试)，运行Python脚本，正常情况下会输出如下结果。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203102524519.png" alt="image-20201203102524519"></p>
+</li>
+</ol>
+<h1 id="3-创建Python扩展库C-工程（CPython）"><a href="#3-创建Python扩展库C-工程（CPython）" class="headerlink" title="3. 创建Python扩展库C++工程（CPython）"></a>3. 创建Python扩展库C++工程（CPython）</h1><ol>
+<li><p>右键<strong>解决方案</strong> &gt; 添加 &gt; 新建项目 &gt; 已安装 &gt; Visual C++ &gt; Python  &gt; Python扩展模块，设置好名称后选择确定，完成Python工程创建。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203104412930.png" alt="image-20201203104412930"></p>
+</li>
+<li><p>右键<strong>C++工程(本文为superfastcode)</strong> &gt; 属性，按照下表进行属性配置</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>属性</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配置</td>
+<td></td>
+<td>所有配置</td>
+</tr>
+<tr>
+<td>平添</td>
+<td></td>
+<td>x64</td>
+</tr>
+<tr>
+<td>常规</td>
+<td>目标文件名</td>
+<td><strong>$(ProjectName)</strong></td>
+</tr>
+<tr>
+<td>C/C++ &gt; 预处理器</td>
+<td>预处理器定义</td>
+<td>添加<strong>Py_LIMITED_API</strong>，只有使用CPython才添加，使用PyBind11时，应去掉此选项。</td>
+</tr>
+</tbody>
+</table>
+<ol start="3">
+<li><p>在<strong>superfastcode.c</strong>中添加如下代码</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Python.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;Windows.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;math.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> e = <span class="number">2.7182818284590452353602874713527</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">sinh_impl</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="number">1</span> - <span class="built_in">pow</span>(e, (<span class="number">-2</span> * x))) / (<span class="number">2</span> * <span class="built_in">pow</span>(e, -x));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">double</span> <span class="title">cosh_impl</span><span class="params">(<span class="keyword">double</span> x)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="number">1</span> + <span class="built_in">pow</span>(e, (<span class="number">-2</span> * x))) / (<span class="number">2</span> * <span class="built_in">pow</span>(e, -x));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @brief 计算双曲正切值</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="comment">// tanh_impl(x)说明文档</span></div><div class="line">PyDoc_STRVAR(superfastcode_tanh_impl_doc, <span class="string">"tanh_impl(x) tanh function"</span>);</div><div class="line"><span class="comment">// tanh_impl(x)方法实现</span></div><div class="line"><span class="function">PyObject* <span class="title">tanh_impl</span><span class="params">(PyObject *self, PyObject* args)</span> </span>&#123;</div><div class="line">	<span class="keyword">double</span> x = PyFloat_AsDouble(args);</div><div class="line">	<span class="keyword">double</span> tanh_x = sinh_impl(x) / cosh_impl(x);</div><div class="line">	<span class="keyword">return</span> PyFloat_FromDouble(tanh_x);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * List of functions to add to superfastcode in exec_superfastcode().</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">static</span> PyMethodDef superfastcode_functions[] = &#123;</div><div class="line">	&#123; <span class="string">"fast_tanh"</span>, (PyCFunction)tanh_impl, METH_O, superfastcode_tanh_impl_doc&#125;,</div><div class="line">	&#123; <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span> &#125; <span class="comment">/* marks end of array */</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Initialize superfastcode. May be called multiple times, so avoid</span></div><div class="line"><span class="comment"> * using static state.</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">exec_superfastcode</span><span class="params">(PyObject *<span class="keyword">module</span>)</span> </span>&#123;</div><div class="line">    PyModule_AddFunctions(<span class="keyword">module</span>, superfastcode_functions);</div><div class="line"></div><div class="line">    PyModule_AddStringConstant(<span class="keyword">module</span>, <span class="string">"__author__"</span>, <span class="string">"AILEE"</span>);</div><div class="line">    PyModule_AddStringConstant(<span class="keyword">module</span>, <span class="string">"__version__"</span>, <span class="string">"1.0.0"</span>);</div><div class="line">    PyModule_AddIntConstant(<span class="keyword">module</span>, <span class="string">"year"</span>, <span class="number">2020</span>);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">/* success */</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Documentation for superfastcode.</span></div><div class="line"><span class="comment"> */</span></div><div class="line">PyDoc_STRVAR(superfastcode_doc, <span class="string">"The superfastcode module"</span>);</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">static</span> PyModuleDef_Slot superfastcode_slots[] = &#123;</div><div class="line">    &#123; Py_mod_exec, exec_superfastcode &#125;,</div><div class="line">    &#123; <span class="number">0</span>, <span class="literal">NULL</span> &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @brief 模块定义</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">static</span> PyModuleDef superfastcode_def = &#123;</div><div class="line">    PyModuleDef_HEAD_INIT,</div><div class="line">    <span class="string">"superfastcode"</span>,	<span class="comment">/* 模块名 */</span></div><div class="line">    superfastcode_doc,	<span class="comment">/* 模块说明 通过help */</span></div><div class="line">    <span class="number">0</span>,              	<span class="comment">/* m_size： 模块空间，子解释器用，-1为不使用*/</span></div><div class="line">    <span class="literal">NULL</span>,           	<span class="comment">/* m_methods */</span></div><div class="line">    superfastcode_slots,</div><div class="line">    <span class="literal">NULL</span>,           	<span class="comment">/* m_traverse */</span></div><div class="line">    <span class="literal">NULL</span>,           	<span class="comment">/* m_clear */</span></div><div class="line">    <span class="literal">NULL</span>,           	<span class="comment">/* m_free */</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * @brief 扩展库入口函数，PyInit_+模块名，固定格式。</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function">PyMODINIT_FUNC <span class="title">PyInit_superfastcode</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// 模块创建函数</span></div><div class="line">    <span class="comment">// 当使用该方式创建模块时，应使用PyModuleDef_Slot，并将m_size设置为非负值，</span></div><div class="line">    <span class="comment">// 启用子解释器。 否则报错。</span></div><div class="line">    <span class="comment">// Traceback (most recent call last):</span></div><div class="line">  	<span class="comment">//   File "E:\Code-of-C++\Python_Ext\test_python\test_python\test_python.py", line 5, in &lt;module&gt;</span></div><div class="line">    <span class="comment">//     from superfastcode import fast_tanh</span></div><div class="line">    <span class="comment">// SystemError: module superfastcode: m_size may not be negative for multi-phase initialization</span></div><div class="line">    <span class="comment">//</span></div><div class="line">    <span class="keyword">return</span> PyModuleDef_Init(&amp;superfastcode_def);</div><div class="line"></div><div class="line">    <span class="comment">// 当使用该方式创建模块时，应将模块定义内容修改如下，</span></div><div class="line">    <span class="comment">// static PyModuleDef superfastcode_def = &#123;</span></div><div class="line">    <span class="comment">//     PyModuleDef_HEAD_INIT,</span></div><div class="line">    <span class="comment">//     "superfastcode",</span></div><div class="line">    <span class="comment">//     superfastcode_doc,</span></div><div class="line">    <span class="comment">//     -1,              			/* m_size 模块空间，子解释器用，-1不使用 */</span></div><div class="line">	<span class="comment">//     superfastcode_functions,     /* m_methods 模块函数*/</span></div><div class="line">    <span class="comment">//     NULL,						/* m_slots */</span></div><div class="line">    <span class="comment">//     NULL,           				/* m_traverse */</span></div><div class="line">    <span class="comment">//     NULL,           				/* m_clear */</span></div><div class="line">    <span class="comment">//     NULL,           				/* m_free */</span></div><div class="line">    <span class="comment">//     &#125;;</span></div><div class="line">    <span class="comment">// 否则报错：</span></div><div class="line">    <span class="comment">// Traceback (most recent call last):</span></div><div class="line">    <span class="comment">//   File "E:\Code-of-C++\Python_Ext\test_python\test_python\test_python.py", line 5, in &lt;module&gt;</span></div><div class="line">    <span class="comment">//     from superfastcode import fast_tanh</span></div><div class="line">    <span class="comment">// SystemError: module superfastcode: PyModule_Create is incompatible with m_slots</span></div><div class="line">    <span class="comment">// return PyModule_Create(&amp;superfastcode_def);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置成<strong>Release</strong>模式，选择<strong>生成</strong> &gt; 生成解决方案（快捷键：F7）</p>
+</li>
+<li><p>Python调用刚生成的模块，进行测试。</p>
+<ul>
+<li><p><strong>右键</strong>解决方案窗口中Python工程的<strong>引用</strong> &gt; 添加引用，勾选<strong>superfastcode</strong>。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20201203163152276.png" alt="image-20201203163152276"></p>
+</li>
+<li><p>在<strong>test_python.py</strong>脚本里添加如下程序，调用superfastcode包。</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> superfastcode <span class="keyword">import</span> fast_tanh</div><div class="line">test(<span class="keyword">lambda</span> d: [fast_tanh(x) <span class="keyword">for</span> x <span class="keyword">in</span> d], <span class="string">'[fast_tanh(x) for x in d] (CPython C++ extension)'</span>)</div></pre></td></tr></table></figure>
+</li>
+<li><p>单击<strong>调试</strong> &gt; 开始执行(不调试)，运行Python代码。出现如下结果即为成功。</p>
+<p>  <img src="http://blog.adminlee.com/img/image-20201203163835534.png" alt="image-20201203163835534"></p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="4-联合调试C-代码"><a href="#4-联合调试C-代码" class="headerlink" title="4. 联合调试C++代码"></a>4. 联合调试C++代码</h1><ol>
+<li><p>在<strong>解决方案</strong>窗口中，右键<strong>Python工程(test_python)</strong> &gt; 属性 &gt; 调试，勾选<strong>启用本机代码调试</strong>，Ctrl+S保存。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203165052440.png" alt="image-20201203165052440"></p>
+</li>
+<li><p>配置为<strong>Debug</strong>模式，在C++代码中设置好断点，选择<strong>调试</strong> &gt; 开始调试，(快捷键：F5)如图所示。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203165635622.png" alt="image-20201203165635622"></p>
+</li>
+</ol>
+<h1 id="5-发布安装扩展包"><a href="#5-发布安装扩展包" class="headerlink" title="5. 发布安装扩展包"></a>5. 发布安装扩展包</h1><ol>
+<li><p>在<strong>解决方案</strong>窗口中，右键<strong>C++工程(superfastcode)</strong> &gt; 添加 &gt; 新建项 &gt; 已安装 &gt; Visual C++ &gt; 实用工具 &gt; 文本文件，将名称修改为<strong>setup.py</strong>，选择添加完成。</p>
+<p> <img src="http://blog.adminlee.com/img/image-20201203170912923.png" alt="image-20201203170912923"></p>
+</li>
+<li><p>在<strong>setup.py</strong>中添加如下代码。</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup, Extension, DEBUG</div><div class="line"></div><div class="line">sfc_module = Extension(<span class="string">'superfastcode'</span>, sources = [<span class="string">'superfastcode.c'</span>])</div><div class="line"></div><div class="line">setup(name = <span class="string">'superfastcode'</span>, version = <span class="string">'1.0'</span>,</div><div class="line">    description = <span class="string">'Python Package with superfastcode C++ extension'</span>,</div><div class="line">    ext_modules = [sfc_module]</div><div class="line">    )</div></pre></td></tr></table></figure>
+</li>
+<li><p>打开PowerShell(cmd也可以，PowerShell操作更方便)，切换到superfastcode目录，本文如下</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">PS E:\Code-of-C++\Python_Ext\test_python\superfastcode&gt; ls</div><div class="line"></div><div class="line"></div><div class="line">    目录: E:\Code-of-C++\Python_Ext\test_python\superfastcode</div><div class="line"></div><div class="line"></div><div class="line">Mode                 LastWriteTime         Length Name</div><div class="line">----                 -------------         ------ ----</div><div class="line">d-----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">11</span>:<span class="number">03</span>                x64</div><div class="line">-a----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">17</span>:<span class="number">10</span>            <span class="number">278</span> setup.py</div><div class="line">-a----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">16</span>:<span class="number">25</span>           <span class="number">1981</span> superfastcode.c</div><div class="line">-a----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">15</span>:<span class="number">42</span>          <span class="number">13609</span> superfastcode.vcxproj</div><div class="line">-a----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">15</span>:<span class="number">20</span>            <span class="number">963</span> superfastcode.vcxproj.filters</div><div class="line">-a----         <span class="number">2020</span>/<span class="number">12</span>/<span class="number">3</span>     <span class="number">10</span>:<span class="number">44</span>            <span class="number">165</span> superfastcode.vcxproj.user</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行<strong>python.exe setup.py install</strong>命令，无报错即为成功，如下为结果。</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">PS E:\Code-of-C++\Python_Ext\test_python\superfastcode&gt; python.exe .\setup.py install</div><div class="line">running install</div><div class="line">running build</div><div class="line">running build_ext</div><div class="line">building <span class="string">'superfastcode'</span> extension</div><div class="line">d:\Program Files (x86)\Microsoft Visual Studio\<span class="number">2017</span>\Professional\VC\Tools\MSVC\<span class="number">14.16</span>.<span class="number">27023</span>\bin\HostX86\x64\cl.exe /c /nologo /Ox /W3 /GL /DNDEBUG /MD <span class="string">"-ID:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include"</span> <span class="string">"-ID:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\include"</span> <span class="string">"-Id:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.16.27023\ATLMFC\include"</span> <span class="string">"-Id:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.16.27023\include"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\ucrt"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\shared"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\um"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\winrt"</span> <span class="string">"-IC:\Program Files (x86)\Windows Kits\10\include\10.0.17763.0\cppwinrt"</span> /Tcsuperfastcode.c /Fobuild\temp.win-amd64-<span class="number">3.6</span>\Release\superfastcode.obj</div><div class="line">superfastcode.c</div><div class="line">creating E:\Code-of-C++\Python_Ext\test_python\superfastcode\build\lib.win-amd64-<span class="number">3.6</span></div><div class="line">d:\Program Files (x86)\Microsoft Visual Studio\<span class="number">2017</span>\Professional\VC\Tools\MSVC\<span class="number">14.16</span>.<span class="number">27023</span>\bin\HostX86\x64\link.exe /nologo /INCREMENTAL:NO /LTCG /DLL /MANIFEST:EMBED,ID=<span class="number">2</span> /MANIFESTUAC:NO <span class="string">"/LIBPATH:D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\libs"</span> <span class="string">"/LIBPATH:D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\PCbuild\amd64"</span> <span class="string">"/LIBPATH:d:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.16.27023\ATLMFC\lib\x64"</span> <span class="string">"/LIBPATH:d:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Tools\MSVC\14.16.27023\lib\x64"</span> <span class="string">"/LIBPATH:C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\lib\um\x64"</span> <span class="string">"/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\ucrt\x64"</span> <span class="string">"/LIBPATH:C:\Program Files (x86)\Windows Kits\10\lib\10.0.17763.0\um\x64"</span> /EXPORT:PyInit_superfastcode build\temp.win-amd64-<span class="number">3.6</span>\Release\superfastcode.obj /OUT:build\lib.win-amd64-<span class="number">3.6</span>\superfastcode.cp36-win_amd64.pyd /IMPLIB:build\temp.win-amd64-<span class="number">3.6</span>\Release\superfastcode.cp36-win_amd64.lib</div><div class="line">  正在创建库 build\temp.win-amd64-<span class="number">3.6</span>\Release\superfastcode.cp36-win_amd64.lib 和对象 build\temp.win-amd64-<span class="number">3.6</span>\Release\superfastcode.cp36-win_amd64.exp</div><div class="line">正在生成代码</div><div class="line">已完成代码的生成</div><div class="line">running install_lib</div><div class="line">copying build\lib.win-amd64-<span class="number">3.6</span>\superfastcode.cp36-win_amd64.pyd -&gt; D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\Lib\site-packages</div><div class="line">running install_egg_info</div><div class="line">Removing D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\Lib\site-packages\superfastcode-<span class="number">1.0</span>-py3.<span class="number">6</span>.egg-info</div><div class="line">Writing D:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\Lib\site-packages\superfastcode-<span class="number">1.0</span>-py3.<span class="number">6</span>.egg-info</div></pre></td></tr></table></figure>
+</li>
+<li><p>验证安装。输入<strong>python.exe</strong>，运行python环境，输入如下代码：</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> superfastcode</div><div class="line">superfastcode.fast_tanh(<span class="number">0.5</span>)</div><div class="line">exit()</div></pre></td></tr></table></figure>
+<p> 得到如下结果，即为成功。</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">PS E:\Code-of-C++\Python_Ext\test_python\superfastcode&gt; python.exe</div><div class="line">Python <span class="number">3.6</span>.<span class="number">6</span> (v3.<span class="number">6.6</span>:<span class="number">4</span>cf1f54eb7, Jun <span class="number">27</span> <span class="number">2018</span>, <span class="number">03</span>:<span class="number">37</span>:<span class="number">03</span>) [MSC v.<span class="number">1900</span> <span class="number">64</span> bit (AMD64)] on win32</div><div class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> or <span class="string">"license"</span> <span class="keyword">for</span> more information.</div><div class="line">&gt;&gt;&gt; import superfastcode</div><div class="line">&gt;&gt;&gt; superfastcode.fast_tanh(<span class="number">0.5</span>)</div><div class="line"><span class="number">0.4621171572600098</span></div><div class="line">&gt;&gt;&gt; <span class="keyword">exit</span>()</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="6-PyBind11"><a href="#6-PyBind11" class="headerlink" title="6. PyBind11"></a>6. PyBind11</h1><p>参考微软官方文档</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li>微软官方文档<a href="https://docs.microsoft.com/en-us/visualstudio/python/working-with-c-cpp-python-in-visual-studio?view=vs-2019" target="_blank" rel="external">Create a C++ extension for Python</a></li>
+<li><a href="https://github.com/microsoft/python-sample-vs-cpp-extension" target="_blank" rel="external">python-sample-vs-cpp-extension</a></li>
+<li><a href="https://www.cnblogs.com/jianmu/p/7345716.html" target="_blank" rel="external">扩展Python模块系列(二)—-一个简单的例子</a></li>
+<li><a href="https://www.cnblogs.com/jianmu/p/7367566.html" target="_blank" rel="external">扩展Python模块系列(三)—-参数解析与结果封装</a></li>
+<li><a href="https://www.rddoc.com/doc/Python/3.6.0/zh/c-api/module/#c.PyModuleDef" target="_blank" rel="external">https://www.rddoc.com/doc/Python/3.6.0/zh/c-api/module/#c.PyModuleDef</a></li>
+<li><a href="https://blog.csdn.net/nicolelili1/article/details/102692583" target="_blank" rel="external">Error:存在正文时不允许未命名的原型参数</a>：定义函数时，参数名为空，加上参数名即可解决</li>
+<li><a href="https://blog.csdn.net/dawang_789/article/details/108104838" target="_blank" rel="external">error C2061: 语法错误: 标识符“noexcept”</a>：后缀名和头文件不匹配导致</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      ailee
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://ailee.me/2021/06/14/VS2017开发Python C++扩展库并调试/" title="VS2017开发Python C++扩展库并调试">http://ailee.me/2021/06/14/VS2017开发Python C++扩展库并调试/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+	
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/numpy/" rel="tag"># numpy</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/14/CLion远程Jetson Nano布署调试ncnn/" rel="next" title="CLion远程Jetson Nano布署调试ncnn">
+                <i class="fa fa-chevron-left"></i> CLion远程Jetson Nano布署调试ncnn
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=236fe84842da6"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTc5Ny82MzYz"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ailee" />
+          <p class="site-author-name" itemprop="name">ailee</p>
+           
+              <p class="site-description motion-element" itemprop="description">优秀不够，一定要卓越，一定要无可替代才是最重要的。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://rootingc.me" title="rooting" target="_blank">rooting</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://mindthink.me/" title="mindthink" target="_blank">mindthink</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.yoogu.cc/" title="Wakke Wang" target="_blank">Wakke Wang</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ailee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -101,10 +101,13 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="随机森林算法总结">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/18-3-8/40454773.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-3-8/71172021.jpg">
 <meta property="og:updated_time" content="2019-04-01T16:13:31.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随机森林">
 <meta name="twitter:description" content="随机森林算法总结">
+<meta name="twitter:image" content="http://blog.adminlee.com/18-3-8/40454773.jpg">
 
 
 
@@ -398,7 +401,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  3,029
+                  3,011
                 </span>
               
 
@@ -438,11 +441,8 @@
 </ul>
 <p>　　从偏差-方差分解的角度看，Bagging主要关注降低方差，因此它在不剪枝决策树、神经网络等易受样本扰动的学习器上效果更为明显。当以决策树作为基学习器，可以构成随机森林。</p>
 <h1 id="2-随机森林"><a href="#2-随机森林" class="headerlink" title="2 随机森林"></a>2 随机森林</h1><p>　　随机森林是Bagging的一个扩展变体，随机森林在以决策树为基学习器构建Bagging集成的基础上，进一步在决策树的训练过程中引入了随机属性选择。具体来说，传统决策树在选择划分属性时是在当前节点的属性集合（假定有d个属性）中选择一个最优属性；而在随机森林中，对基决策树的每个节点，先从该节点的属性集合中随机选择一个包含k个属性的子集，然后再从这个子集中选择一个最优属性用于划分。这里的参数k控制了随机性的引入度：若k=d，则和传统决策树无区别，若k=1，则随机选择一个属性进行划分，k的推荐值为log~2~d。</p>
-<h2 id="2-1-决策树"><a href="#2-1-决策树" class="headerlink" title="2.1 决策树"></a>2.1 决策树</h2><p>　　决策树是一种简单高效并且具有强解释性的模型，广泛应用于数据分析领域。其本质是一棵由多个判断节点组成的树，如：<center>![](http://blog.adminlee.com/18-3-8/40454773.jpg)
-++**图2-1 决策树结构**++
-</center></p>
-<p>　　显然决策过程的最终结论对应了我们所希望的判定结果。一般的一棵决策树包含一个根节点、若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个属性测试；每个节点包含的样本集合根据属性测试的结果被划分到子节点中；根节点包含全部样本。<br>　　决策树学习的目的是为了产生一棵泛化性能力强的，即能处理未见示例能力强的决策树，其基本流程遵循简单而直观的“分而治之”策略。决策树的生成是一个递归过程，从下述算法流程可以看出。<center>![](http://blog.adminlee.com/18-3-8/71172021.jpg)
-++**图2-2 决策树学习基本算法**++</center></p>
+<h2 id="2-1-决策树"><a href="#2-1-决策树" class="headerlink" title="2.1 决策树"></a>2.1 决策树</h2><p>　　决策树是一种简单高效并且具有强解释性的模型，广泛应用于数据分析领域。其本质是一棵由多个判断节点组成的树，如：<center><img src="http://blog.adminlee.com/18-3-8/40454773.jpg" alt=""><br>++<strong>图2-1 决策树结构</strong>++<br></center></p>
+<p>　　显然决策过程的最终结论对应了我们所希望的判定结果。一般的一棵决策树包含一个根节点、若干个内部节点和若干个叶节点；叶节点对应于决策结果，其他每个节点则对应于一个属性测试；每个节点包含的样本集合根据属性测试的结果被划分到子节点中；根节点包含全部样本。<br>　　决策树学习的目的是为了产生一棵泛化性能力强的，即能处理未见示例能力强的决策树，其基本流程遵循简单而直观的“分而治之”策略。决策树的生成是一个递归过程，从下述算法流程可以看出。<center><img src="http://blog.adminlee.com/18-3-8/71172021.jpg" alt=""><br>++<strong>图2-2 决策树学习基本算法</strong>++</center></p>
 <p>　　从上图可以看出，决策树的关键是第8行，即如何选择最优划分属性。实际上就是寻找最纯净的划分方法，这个最纯净在数学上叫纯度，纯度通俗点理解就是目标变量要分得足够开（y=1的和y=0的混到一起就会不纯）。另一种理解是分类误差率的一种衡量。实际决策树算法往往用到的是，纯度的另一面也即不纯度。不纯度的选取有多种方法，每种方法也就形成了不同的决策树方法，比如ID3算法使用信息增益作为不纯度；C4.5算法使用信息增益率作为不纯度；CART算法使用基尼系数作为不纯度。</p>
 <ul>
 <li><p><strong>ID3、C4.5决策树的生成</strong></p>
@@ -548,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/12/Rich feature hierarchies for accurate object detection and semantic segmentation/" rel="next" title="Rich feature hierarchies for accurate object detection and semantic segmentation">
-                <i class="fa fa-chevron-left"></i> Rich feature hierarchies for accurate object detection and semantic segmentation
+              <a href="/2018/03/01/卷积神经网络/" rel="next" title="卷积神经网络（CNN）">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络（CNN）
               </a>
             
           </div>
@@ -558,8 +558,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/01/卷积神经网络/" rel="prev" title="卷积神经网络（CNN）">
-                卷积神经网络（CNN） <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/04/Fast R-CNN/" rel="prev" title="Fast R-CNN">
+                Fast R-CNN <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -642,7 +642,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -653,7 +653,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -664,7 +664,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-count">54</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
