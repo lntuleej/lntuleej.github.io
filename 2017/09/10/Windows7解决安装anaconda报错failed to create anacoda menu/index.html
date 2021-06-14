@@ -101,10 +101,13 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="在Windows上安装anaconda时，总是报failed to create anaconda menu的错误。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/17-9-10/11466514.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/17-9-10/26560664.jpg">
 <meta property="og:updated_time" content="2019-04-01T16:09:45.042Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows7解决安装anaconda报错failed to create anacoda menu">
 <meta name="twitter:description" content="在Windows上安装anaconda时，总是报failed to create anaconda menu的错误。">
+<meta name="twitter:image" content="http://blog.adminlee.com/17-9-10/11466514.jpg">
 
 
 
@@ -368,6 +371,17 @@
 
           
           
+             <span id="/2017/09/10/Windows7解决安装anaconda报错failed to create anacoda menu/" class="leancloud_visitors" data-flag-title="Windows7解决安装anaconda报错failed to create anacoda menu">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
             <span class="post-meta-divider">|</span>
@@ -387,7 +401,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  237
+                  216
                 </span>
               
 
@@ -414,12 +428,8 @@
 
       
         <h1 id="1-问题描述"><a href="#1-问题描述" class="headerlink" title="1. 问题描述"></a>1. 问题描述</h1><p>在Windows7上安装anaconda时，快到安装完成了，总是报failed to create anaconda menu的错误，重试也无法解决问题，然后选择忽略，忽略，提示安装完成，但是没有菜单，也没有快捷方式，只能在控制面板——&gt;程序和功能里找到对应的软件已经安装。</p>
-<h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h1><p>点击win键+R，输入cmd，回车，进入控制台。<br>使用”cd”命令进入anaconda的安装位置，我的安装位置为D:\ProgramData\Anaconda2\<br>然后执行 python .\Lib\_nsis.py mkmenus<br>执行过程会出现一连串的successful，表明操作成功。<br>据体过程如下图所示<center>
-![](http://blog.adminlee.com/17-9-10/11466514.jpg)
-</center></p>
-<p>上述命令执行完成之后可在菜单栏看到如下图所示的一系列图标<center>
-![结果图](http://blog.adminlee.com/17-9-10/26560664.jpg)
-</center></p>
+<h1 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h1><p>点击win键+R，输入cmd，回车，进入控制台。<br>使用”cd”命令进入anaconda的安装位置，我的安装位置为D:\ProgramData\Anaconda2\<br>然后执行 python .\Lib\_nsis.py mkmenus<br>执行过程会出现一连串的successful，表明操作成功。<br>据体过程如下图所示<center><br><img src="http://blog.adminlee.com/17-9-10/11466514.jpg" alt=""><br></center></p>
+<p>上述命令执行完成之后可在菜单栏看到如下图所示的一系列图标<center><br><img src="http://blog.adminlee.com/17-9-10/26560664.jpg" alt="结果图"><br></center></p>
 <p>至此，该问题完美解决。<br>【转】<a href="http://blog.csdn.net/lixiangyong123/article/details/55816168" target="_blank" rel="external">windows安装anaconda 报错failed to create anacoda menu ？</a></p>
 
       
@@ -830,7 +840,126 @@
         j.async = true;
         e.parentNode.insertBefore(j, e);
       })(document, 'script');
-    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -848,20 +977,8 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-  
 
 
-
-
-
-
-  
-
-
-
-
-
-  
 
   
 

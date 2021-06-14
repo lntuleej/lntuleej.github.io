@@ -370,6 +370,17 @@
 
           
           
+             <span id="/2017/07/28/测试/" class="leancloud_visitors" data-flag-title="测试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
             <span class="post-meta-divider">|</span>
@@ -425,15 +436,9 @@ void main()
 </code></pre><h1 id="这是一张图片"><a href="#这是一张图片" class="headerlink" title="这是一张图片"></a>这是一张图片</h1><p><img src="http://blog.adminlee.com/17-7-29/85087268.jpg" alt="桌面壁纸"></p>
 <h1 id="这是一个数学公式"><a href="#这是一个数学公式" class="headerlink" title="这是一个数学公式"></a>这是一个数学公式</h1><p>哦！我不知道怎么写公式，好尴尬啊！！！</p>
 <h1 id="这是一个超链接"><a href="#这是一个超链接" class="headerlink" title="这是一个超链接"></a>这是一个超链接</h1><p>请看<a href="http://mindthink.me" target="_blank" rel="external">岁月轻狂</a>的博客</p>
-<h1 id="这是一首歌"><a href="#这是一首歌" class="headerlink" title="这是一首歌"></a>这是一首歌</h1><center>
+<h1 id="这是一首歌"><a href="#这是一首歌" class="headerlink" title="这是一首歌"></a>这是一首歌</h1><center><br><br><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38592976&auto=1&height=66"></iframe><br></center>
 
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38592976&auto=1&height=66"></iframe>
-</center>
-
-<h1 id="这是一个视频"><a href="#这是一个视频" class="headerlink" title="这是一个视频"></a>这是一个视频</h1><center>
-
-<embed src="http://player.youku.com/player.php/sid/XMTU2OTU5NTQ1Mg==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
-</center>
+<h1 id="这是一个视频"><a href="#这是一个视频" class="headerlink" title="这是一个视频"></a>这是一个视频</h1><center><br><br><embed src="http://player.youku.com/player.php/sid/XMTU2OTU5NTQ1Mg==/v.swf" allowfullscreen="true" quality="high" width="480" height="400" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash"><br></center>
 
       
     </div>
@@ -839,7 +844,126 @@ void main()
         j.async = true;
         e.parentNode.insertBefore(j, e);
       })(document, 'script');
-    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -857,20 +981,8 @@ void main()
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-  
 
 
-
-
-
-
-  
-
-
-
-
-
-  
 
   
 

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="目标检测,深度学习,R-CNN," />
+  <meta name="keywords" content="目标检测,R-CNN,深度学习," />
 
 
 
@@ -94,17 +94,26 @@
 
 
 <meta name="description" content="R-CNN论文翻译">
-<meta name="keywords" content="目标检测,深度学习,R-CNN">
+<meta name="keywords" content="目标检测,R-CNN,深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rich feature hierarchies for accurate object detection and semantic segmentation">
 <meta property="og:url" content="http://ailee.me/2018/02/12/Rich feature hierarchies for accurate object detection and semantic segmentation/index.html">
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="R-CNN论文翻译">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-18/82008606.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-24/39750932.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-25/70603371.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-26/94031672.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-26/91260819.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-26/95004650.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-26/22722852.jpg">
+<meta property="og:image" content="http://blog.adminlee.com/18-2-26/84473695.jpg">
 <meta property="og:updated_time" content="2019-04-01T15:59:51.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rich feature hierarchies for accurate object detection and semantic segmentation">
 <meta name="twitter:description" content="R-CNN论文翻译">
+<meta name="twitter:image" content="http://blog.adminlee.com/18-2-18/82008606.jpg">
 
 
 
@@ -368,6 +377,17 @@
 
           
           
+             <span id="/2018/02/12/Rich feature hierarchies for accurate object detection and semantic segmentation/" class="leancloud_visitors" data-flag-title="Rich feature hierarchies for accurate object detection and semantic segmentation">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
             <span class="post-meta-divider">|</span>
@@ -387,7 +407,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  8,683
+                  8,611
                 </span>
               
 
@@ -414,15 +434,11 @@
 
       
         <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>　　在过去的几年里，以标准的PASCAL VOC数据集衡量的对象检测性能已经趋于稳定。性能最好的方法是复杂的集成系统，这种系统通常将多个低层次的图像特征与高层次的环境相结合。在本文中，我们提出了一种简单且可拓展的检测算法，该算法将平均精度(mAP)提高了30%以上，相对于2012年VOC的最佳结果，该算法的平均精度达到了53.3%。我们的方法结合了两个关键点：（1）可以将高容量的卷积神经网络(CNNs)应用于自底向上的区域方案，以定位和分割对象；（2）当被标记的训练数据不足时，对辅助任务进行有监督的预训练，然后通过对特定领域的微调，可以将性能得到显著的提升。由于我们将区域方案和卷积神经网络（CNNs）相结合，因此我们称该方法为R-CNN：带有CNN特征的区域。完整系统的源码可以从<a href="http://www.cs.berkeley.edu/˜rbg/rcnn获取" target="_blank" rel="external">http://www.cs.berkeley.edu/˜rbg/rcnn获取</a>.</p>
-<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h1><p>　　特征问题。在过去的十年中，各种视觉识别任务的进展很大程度上是基于SIFT和HOG特征的使用。但是，如果我们看一看标准视觉识别任务PASCAL VOC对象检测的性能时，人们普遍认为，在2010-2012年期间进展缓慢，通过建立集成系统和使用一些成功方法的小变体获得小的性能提升。<br>　　SIFT特征和HOG特征是块定向直方图，我们可以粗略地将其与V1中的复杂细胞联系起来，V1是灵长类视觉通路的第一个皮层区域，但是我们也知道，识别发生在后面的几个阶段，这意味着可能有多层次的、多级的特征计算过程，这对视觉识别来说具有启发意义。<br>　　Fukushima的“新认知机”是一种具有生物特征的分层结构，并且是模式识别的不变量模型，它是这种过程的早期尝试，然而这种新认知机缺乏有监督训练算法。在Rumelhart等人的研究中，LeCun等人发现通过反向传播的随机梯度下降算法对于训练卷积神经网络是有效的，这是一种扩展的新认知机模型。<br>　　在20世纪90年代，CNN得到了大量的使用，但是随着支持向量机的兴起，CNN变得不再流行。在2012年，Krizhevsky等人通过在ImageNet大规模视觉识别挑战上展示更高的图像分类精度重新点燃了人们对CNN的兴趣，他们的成功来自于在120万被标记好的图片上训练一个由LeCun的CNN模型改进的大的CNN（例如：max(x,0)非线性整流和“dropout”正则化）。<br>　　在2012年的ILSVRC研讨会上，对ImageNet结果的重要性进行了激烈的讨论。中心问题可以归纳为以下一点：CNN对ImageNet的分类结果在多大程度上对PASCAL VOC挑战的目标检测结果进行了概括?<br>　　我们通过缩小图像分类和目标检测之间的差距来回答这个问题。这篇论文是第一个表明，与基于更简单的类似于hog的特性的系统相比，CNN可以在PASCAL VOC上显著提高目标检测性能。为了实现这个结果，我们集中在两个问题上：使用深度网络定位对象和仅用少量带注释的检测数据训练一个高容量的模型。<br>　　和图像分类不同，检测需要在图像中定位对象（有可能很多），一种方法是将定位作为一个回归问题。然而，Szegedy等人的研究表明，这一策略在实践中可能不太好(他们报告了VOC 2007的的平均精度为30.5%，而我们的方法的平均精度达到了58.5%)。另一种方法是建立一个滑动窗口检测器。在这种情况下，CNNs至少使用了20年，通常是在受约束的对象类别上，比如脸部和行人。为了保持高空间分辨率，这些CNNs通常只有两个卷积层和池化层。我们还考虑采用滑动窗口方法。然而，在我们的网络中，有五个卷积层的单元，在输入图像中有非常大的感受野(195x195像素)和跨步(32x32像素)，这使得在滑动窗口模式下的精确定位成为一个开放的技术挑战。<br>　　相反，我们通过使用区域识别范例来解决CNN的定位问题，这对于目标检测和语义分割都是成功的。在测试时，我们的方法为输入图像生成了大约2000个独立类别的区域方案，然后使用CNN从每个方案中提取一个固定长度的特征向量，然后对每个区域进行分类，并使用分类特定的线性SVMs进行分类。我们使用一种简单的技术(仿射图像扭曲)来计算每个区域方案的固定大小的CNN输入，而不考虑该区域的形状。图1概述了我们的方法，并突出显示了我们的一些结果。由于我们的系统将区域方案与CNNs结合，我们将这个方法称为R-CNN:带有CNN特征的区域。<br>　　在检测中面临的第二个挑战是：带标签的数据很稀少，而且目前可用的数量不足以训练一个大型的CNN。传统的解决方法是使用无监督的预训练，然后是监督的微调。本文的第二个主要贡献是在大型辅助数据集(ILSVRC)上进行有监督预训练，然后在小数据集(PASCAL)上进行特定领域的微调，这是在数据缺乏时学习高容量CNNs的有效范例。在我们的实验中，对检测的微调提高了8个百分点的平均精度性能。经过微调后，我们的系统在VOC 2010上达到了54%的平均精确度，而在高度调优的、基于HOG特征的可变形部件模型(DPM)中，这一平均精确度为33%。我们还向读者介绍了Donahue等人在同时期的研究内容，他们的研究表明了Krizhevsky的CNN可以作为一个黑盒特征提取器使用(没有finetuning)，在包括场景分类、细粒度的子分类和域适应等一些识别任务上获得了出色的性能。<br>　　我们的系统也很高效。唯一的类特定计算是一个合理的小矩阵向量乘积和贪婪的非最大抑制。这个计算特征遵循所有类别共享的特性，这也是比以前使用的区域特性低两个纬度数量级的。<br>　　了解我们的方法的失效模式对于改进它也是非常重要的，因此我们报告的结果来自于Hoiem等检测分析工具。作为该分析的一个直接结果，我们证明了一个简单的边界框回归方法可以显著地减少错误定位，这是主要的错误模式。<br>　　在开发技术细节之前，我们注意到由于R-CNN对区域进行操作，因此将其扩展到语义分割的任务是很自然的。通过小的修改，我们也获得了PASCAL VOC分割任务的竞争结果，在2011年VOC测试集上平均分割精度为47.9%。<center>![](http://blog.adminlee.com/18-2-18/82008606.jpg)
-**图1：检测系统概述**　（1）输入一幅图像；（2）提取大概2000个自下而上的区域方案；（3）使用一个大的卷积神经网络计算每一个区域方案的特征；（4）然后使用类特定的线性SVMs对每个区域进行分类。R-CNN在PASCAL VOC 2010上实现了53.7%的平均精度(mAP)。相比之下，使用相同的区域提案，但采用了空间金字塔和视觉词汇的方法的平均精度为35.1%。流行的可变形部件模型的性能为33.4%。
-</center></p>
+<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h1><p>　　特征问题。在过去的十年中，各种视觉识别任务的进展很大程度上是基于SIFT和HOG特征的使用。但是，如果我们看一看标准视觉识别任务PASCAL VOC对象检测的性能时，人们普遍认为，在2010-2012年期间进展缓慢，通过建立集成系统和使用一些成功方法的小变体获得小的性能提升。<br>　　SIFT特征和HOG特征是块定向直方图，我们可以粗略地将其与V1中的复杂细胞联系起来，V1是灵长类视觉通路的第一个皮层区域，但是我们也知道，识别发生在后面的几个阶段，这意味着可能有多层次的、多级的特征计算过程，这对视觉识别来说具有启发意义。<br>　　Fukushima的“新认知机”是一种具有生物特征的分层结构，并且是模式识别的不变量模型，它是这种过程的早期尝试，然而这种新认知机缺乏有监督训练算法。在Rumelhart等人的研究中，LeCun等人发现通过反向传播的随机梯度下降算法对于训练卷积神经网络是有效的，这是一种扩展的新认知机模型。<br>　　在20世纪90年代，CNN得到了大量的使用，但是随着支持向量机的兴起，CNN变得不再流行。在2012年，Krizhevsky等人通过在ImageNet大规模视觉识别挑战上展示更高的图像分类精度重新点燃了人们对CNN的兴趣，他们的成功来自于在120万被标记好的图片上训练一个由LeCun的CNN模型改进的大的CNN（例如：max(x,0)非线性整流和“dropout”正则化）。<br>　　在2012年的ILSVRC研讨会上，对ImageNet结果的重要性进行了激烈的讨论。中心问题可以归纳为以下一点：CNN对ImageNet的分类结果在多大程度上对PASCAL VOC挑战的目标检测结果进行了概括?<br>　　我们通过缩小图像分类和目标检测之间的差距来回答这个问题。这篇论文是第一个表明，与基于更简单的类似于hog的特性的系统相比，CNN可以在PASCAL VOC上显著提高目标检测性能。为了实现这个结果，我们集中在两个问题上：使用深度网络定位对象和仅用少量带注释的检测数据训练一个高容量的模型。<br>　　和图像分类不同，检测需要在图像中定位对象（有可能很多），一种方法是将定位作为一个回归问题。然而，Szegedy等人的研究表明，这一策略在实践中可能不太好(他们报告了VOC 2007的的平均精度为30.5%，而我们的方法的平均精度达到了58.5%)。另一种方法是建立一个滑动窗口检测器。在这种情况下，CNNs至少使用了20年，通常是在受约束的对象类别上，比如脸部和行人。为了保持高空间分辨率，这些CNNs通常只有两个卷积层和池化层。我们还考虑采用滑动窗口方法。然而，在我们的网络中，有五个卷积层的单元，在输入图像中有非常大的感受野(195x195像素)和跨步(32x32像素)，这使得在滑动窗口模式下的精确定位成为一个开放的技术挑战。<br>　　相反，我们通过使用区域识别范例来解决CNN的定位问题，这对于目标检测和语义分割都是成功的。在测试时，我们的方法为输入图像生成了大约2000个独立类别的区域方案，然后使用CNN从每个方案中提取一个固定长度的特征向量，然后对每个区域进行分类，并使用分类特定的线性SVMs进行分类。我们使用一种简单的技术(仿射图像扭曲)来计算每个区域方案的固定大小的CNN输入，而不考虑该区域的形状。图1概述了我们的方法，并突出显示了我们的一些结果。由于我们的系统将区域方案与CNNs结合，我们将这个方法称为R-CNN:带有CNN特征的区域。<br>　　在检测中面临的第二个挑战是：带标签的数据很稀少，而且目前可用的数量不足以训练一个大型的CNN。传统的解决方法是使用无监督的预训练，然后是监督的微调。本文的第二个主要贡献是在大型辅助数据集(ILSVRC)上进行有监督预训练，然后在小数据集(PASCAL)上进行特定领域的微调，这是在数据缺乏时学习高容量CNNs的有效范例。在我们的实验中，对检测的微调提高了8个百分点的平均精度性能。经过微调后，我们的系统在VOC 2010上达到了54%的平均精确度，而在高度调优的、基于HOG特征的可变形部件模型(DPM)中，这一平均精确度为33%。我们还向读者介绍了Donahue等人在同时期的研究内容，他们的研究表明了Krizhevsky的CNN可以作为一个黑盒特征提取器使用(没有finetuning)，在包括场景分类、细粒度的子分类和域适应等一些识别任务上获得了出色的性能。<br>　　我们的系统也很高效。唯一的类特定计算是一个合理的小矩阵向量乘积和贪婪的非最大抑制。这个计算特征遵循所有类别共享的特性，这也是比以前使用的区域特性低两个纬度数量级的。<br>　　了解我们的方法的失效模式对于改进它也是非常重要的，因此我们报告的结果来自于Hoiem等检测分析工具。作为该分析的一个直接结果，我们证明了一个简单的边界框回归方法可以显著地减少错误定位，这是主要的错误模式。<br>　　在开发技术细节之前，我们注意到由于R-CNN对区域进行操作，因此将其扩展到语义分割的任务是很自然的。通过小的修改，我们也获得了PASCAL VOC分割任务的竞争结果，在2011年VOC测试集上平均分割精度为47.9%。<center><img src="http://blog.adminlee.com/18-2-18/82008606.jpg" alt=""><br><strong>图1：检测系统概述</strong>　（1）输入一幅图像；（2）提取大概2000个自下而上的区域方案；（3）使用一个大的卷积神经网络计算每一个区域方案的特征；（4）然后使用类特定的线性SVMs对每个区域进行分类。R-CNN在PASCAL VOC 2010上实现了53.7%的平均精度(mAP)。相比之下，使用相同的区域提案，但采用了空间金字塔和视觉词汇的方法的平均精度为35.1%。流行的可变形部件模型的性能为33.4%。<br></center></p>
 <h1 id="2-目标检测和R-CNN"><a href="#2-目标检测和R-CNN" class="headerlink" title="2 目标检测和R-CNN"></a>2 目标检测和R-CNN</h1><p>　　我们的目标检测系统由三个模块组成。第一个模块生成类独立的区域方案，这些方案定义了我们的检测器可用的候选检测集。第二个模块是一个大的卷积神经网络，它用来从每个区域提取固定长度的特征向量。第三个模块是一组类特定的线性支持向量机。在本节中，我们将为每个模块展示我们的设计决策，描述它们的测试时间使用情况，详细说明它们的参数是如何学习的，并展示PASCAL VOC 2010-12的结果。</p>
 <h2 id="2-1-模型设计"><a href="#2-1-模型设计" class="headerlink" title="2.1 模型设计"></a>2.1 模型设计</h2><ul>
 <li><strong>区域方案</strong>　最近，各种各样的论文都提供了一些方法，以产生类别独立的区域提案。例如包括：对象、选择性搜索、类别独立的区域方案、约束参数的最小分割、多尺度组合分组和Ciresan等，通过将CNN应用于规则间隔的方形裁剪来检测有丝分裂细胞，这是区域建议的一个特例。虽然R-CNN对于特定区域的提案方法是不可知的，但是我们使用选择性搜索来实现与先前检测工作的对照比较。</li>
-<li><strong>特征提取</strong>　我们利用Krizhevsky等人所描述的采用Caffe实现的CNN从每个区域方案中提取一个4096维的特征向量。特征是由前向传播计算出来的，意味着一张227x227的RGB图像通过5个卷积层和2个全连接层。我们将给读者推荐[22,23]以获得更多的网络架构细节。<center>![](http://blog.adminlee.com/18-2-24/39750932.jpg)
-**图2：VOC 2007训练集的扭曲训练样本**
-</center></li>
+<li><strong>特征提取</strong>　我们利用Krizhevsky等人所描述的采用Caffe实现的CNN从每个区域方案中提取一个4096维的特征向量。特征是由前向传播计算出来的，意味着一张227x227的RGB图像通过5个卷积层和2个全连接层。我们将给读者推荐[22,23]以获得更多的网络架构细节。<center><img src="http://blog.adminlee.com/18-2-24/39750932.jpg" alt=""><br><strong>图2：VOC 2007训练集的扭曲训练样本</strong><br></center></li>
 </ul>
 <p>　　为了计算区域方案的特征，首先我们必须将该区域的图像数据转换为与CNN兼容的格式（它的架构需要一个固定的227*227像素大小的图像。）。在我们任意形状的区域的许多可能变换中，我们选择最简单的。不管候选区域的大小或纵横比，我们都将所有的像素扭曲变换到一个紧凑的包围盒中，以达到所需的大小。在扭曲之前，我们将紧密的包围盒放大，这样在扭曲的尺寸下，会有扭曲的图像上下文的p像素围绕在原始盒子周围。图2展示了扭曲的训练区域的随机抽样。补充材料讨论了扭曲的替代方法。</p>
 <h2 id="2-2-测试时检测"><a href="#2-2-测试时检测" class="headerlink" title="2.2 测试时检测"></a>2.2 测试时检测</h2><p>　　在测试时，我们在图像上运行选择性搜索来提取大约2000个区域方案（在所有实验中，我们都使用选择性搜索快速模式）。我们扭曲每一个区域方案，然后通过CNN前向传播它，以便从所需的层中读出特征。然后，对于每一类，我们使用为该类训练的SVM来为每个提取的特征向量进行评分。给出图像中的所有得分区域，采用一个贪婪的非最大值抑制（对于每个类独立）来拒绝一个区域，如果它与一个高得分有交叉超联合（IoU），选择的区域大于已经获得的阈值，那么这个区域就会被拒绝。</p>
@@ -434,24 +450,18 @@
 <li><strong>特定领域微调</strong>　为了使我们的CNN适应新的任务（检测）和新的领域（扭曲的VOC窗口），我们继续采用随机梯度下降法（SGD）对CNN的参数进行训练，且仅使用VOC中的扭曲区域方案。除了采用一个随机初始化的21路分类层替换CNN的ImageNet特定的1000路分类层(对于20个VOC类和背景)，CNN的架构保持不变。我们将所有的区域方案在大于0.5交叉超联合重叠下放在一个真实的盒子中作为这个盒子所对应类的正样本，而其他区域作为负样本。随机梯度下降的开始学习速率为0.001（预训练的初始速率的1/10），它允许微调以取得进展而不是限制初始化。在每一次随机梯度下降（SGD）迭代中，我们一致的采样得到32个正窗口（对所有类）和96个背景窗口用来构成大小为128的小批量。我们把采样偏向于正窗口，因为相对于背景，它们非常罕见。</li>
 <li><strong>目标的类别分类器</strong>　考虑到训练一个二分类器来监测汽车，很明显，一个包含汽车的封闭图像区域应该是一个正样本，同样的，很明显，与汽车无关的背景区域应该是一个负样本。不太清楚的是如何标记一个部分与汽车重叠的区域。我们使用交叉超联合（IoU）重叠阈值来解决这个问题，小于这个阈值的区域便视为负样本区域。重叠阈值为0.3，这是通过在验证集上在0-0.5间进行网格搜索确定的。我们发现仔细的选择这个值是非常重要的，将其设置为0.5，则平均平均准确率降低达5个百分点，同样的，将阈值设置为0时，平均平均准确率降低达4个百分点。正样本被简单定义为每个类的真实边界框。<br>　　一旦提取了特征并应用了训练标签，我们就可以对每个类优化一个线性SVM。由于训练数据太大，无法在内存中使用，所以采用了标准的硬负面挖掘（hard negative mining）方法。Hard negative mining方法在实际中收敛很快，并且在所有图像仅经过一遍后平均平均准确率就停止增长了。<br>　　在补充材料中，我们讨论了为什么在微调和支持向量机训练中，正和负的例子有不同的定义。我们还讨论了为什么需要对检测分类器进行训练，而不是简单地使用由微调的CNN的最后一层(fc8)的输出。</li>
 </ul>
-<h2 id="2-4-在PASCAL-VOC-2010-12数据集上的结果"><a href="#2-4-在PASCAL-VOC-2010-12数据集上的结果" class="headerlink" title="2.4 在PASCAL VOC 2010-12数据集上的结果"></a>2.4 在PASCAL VOC 2010-12数据集上的结果</h2><p>　　根据PASCAL VOC最佳实践步骤，我们在VOC 2007数据集上验证了所有设计决策和超参数。关于VOC 2010-12数据集上的最终结果，我们在VOC 2012数据集上对CNN进行了微调，在VOC 2012训练集上训练和优化我们的检测SVM。我们仅向评估服务器提交了两次主要算法变体（包含和不包含边界框回归）中的每一个的测试结果。<br>　　表1显示了VOC 2010的完整结果。我们将我们的方法与包括SegDPM在内的四个强基线进行了比较，SegDPM将DPM检测器与语义分割系统的输出相结合，并使用附加的内部检测器上下文和图像分类器重新分级。与Uijlings等人的UVA系统比较关系最密切，因为我们的系统使用和他们相同的区域方案算法。为了对区域进行分类，他们的方法构建了一个四级的空间金字塔，并使用密集采样的SIFT特征，Extended OpponentSIFT和RGBSIFT描述符来填充它，每个矢量采用具有4000字的编码进行量化。我们的分类是使用直方图相交核SVM进行的。与它们的多特征非线性核SVM方法相比，我们在平均平均准确率方面取得了很大的改进，平均平均从35.1％提升到53.7％，同时速度也更快。我们的方法在VOC 2011/12测试集中也获得了相似的性能（53.3％mAP）。<center>![](http://blog.adminlee.com/18-2-25/70603371.jpg)
-**表1：VOC 2010测试的平均检测精度（％）。**　由于所有方法都使用选择性搜索区域提案，因此R-CNN与UVA和Regionlets可以直接比较。 边界框回归（BB）在3.4节中描述。 在发布时，SegDPM是PASCAL VOC排行榜上的最佳表现者。 DPM和SegDPM使用其他方法未使用的上下文重定向。</center></p>
-<h1 id="3-可视化、消融和错误模式"><a href="#3-可视化、消融和错误模式" class="headerlink" title="3 可视化、消融和错误模式"></a>3 可视化、消融和错误模式</h1><h2 id="3-1-可视化学习的特征"><a href="#3-1-可视化学习的特征" class="headerlink" title="3.1 可视化学习的特征"></a>3.1 可视化学习的特征</h2><p>　　第一层滤波器可以直接可视化并且易于理解。他们捕捉对于边缘和相反的颜色。了解后续的层则更具挑战性。Zeiler和Fergus提出了一种视觉吸引力的去卷积方法。我们提出一个简单的（和互补的）非参数方法，直接显示网络学到了什么。<br>　　这个想法是在网络中挑出一个特定的单元（特征）并使用它，就好像它本身就是一个目标检测器一样。也就是说，我们计算单元在一系列大型推荐区域方案（约1000万）上的激活情况，将提案从最高激活到最低激活进行排序，执行非最大抑制，然后显示评分最高的区域。我们的方法通过精确地显示它所触发的输入，让选定的单元“自己说话”。为了通过这一单元看到不同的视觉模式并且深入了解计算的不变性，我们避免了求平均值。<br>　　我们从池化层pool5中将单元可视化，这是网络的第五和最后卷积层的最大池化输出。池化层pool5特征图为6x6x256=9216维，忽略边界效应，每个池化层pool5单元在原始的227x227像素输入中具有195x195像素的感受野。一个中心的池化层pool5单元几乎具有全局视野，而靠近边缘的池化层pool5单元则拥有较小的剪裁支撑。<center>![](http://blog.adminlee.com/18-2-26/94031672.jpg)
-**图3：六个池化层pool5单元的顶部区域**　感受野和激活值用白色表示，一些单元和概念保持一致，例如人（第1行）和文本（第4行），其他单元捕捉纹理和材质属性，如点阵（第2行）和镜面反射（第6行）。</center><center>![](http://blog.adminlee.com/18-2-26/91260819.jpg)
-**表2：检测器在VOC 2007测试集上的平均精确度（％）**　第1-3行显示R-CNN没经过微调时的性能。 第4-6行显示了CNN预先接受ILSVRC 2012训练，然后在VOC 2007上进行训练和微调的结果。 第7行包括可以减少定位误差（第3.4节）的简化的边界框回归（BB）阶段。 第8-10行将DPM方法作为强有力的基准。 第一个只使用HOG，而接下来的两个使用不同的特征学习方法来增强或替代HOG。</center><br>　　图3中的每一行都显示了来自我们在VOC 2007 trainval上进行了微调的CNN的池化层pool５的前16个激活单元。256个功能独特的单元中有6个可视化（补充材料包含更多）。选择这些单位是为了显示网络学习内容的代表性样本。在第二行中，我们看到一个单元在狗脸和点阵上激活。对应于第三行的单位是红色斑点检测器。还有用于人脸和更抽象图案的检测器，例如文本和三角形窗口。网络似乎学习了一种表示法，它将少量的类调整特征与形状，纹理，颜色和材质特性的分布式表示结合在一起。随后的完全连接层fc6具有建模这些丰富特征的大量组合的能力。</p>
+<h2 id="2-4-在PASCAL-VOC-2010-12数据集上的结果"><a href="#2-4-在PASCAL-VOC-2010-12数据集上的结果" class="headerlink" title="2.4 在PASCAL VOC 2010-12数据集上的结果"></a>2.4 在PASCAL VOC 2010-12数据集上的结果</h2><p>　　根据PASCAL VOC最佳实践步骤，我们在VOC 2007数据集上验证了所有设计决策和超参数。关于VOC 2010-12数据集上的最终结果，我们在VOC 2012数据集上对CNN进行了微调，在VOC 2012训练集上训练和优化我们的检测SVM。我们仅向评估服务器提交了两次主要算法变体（包含和不包含边界框回归）中的每一个的测试结果。<br>　　表1显示了VOC 2010的完整结果。我们将我们的方法与包括SegDPM在内的四个强基线进行了比较，SegDPM将DPM检测器与语义分割系统的输出相结合，并使用附加的内部检测器上下文和图像分类器重新分级。与Uijlings等人的UVA系统比较关系最密切，因为我们的系统使用和他们相同的区域方案算法。为了对区域进行分类，他们的方法构建了一个四级的空间金字塔，并使用密集采样的SIFT特征，Extended OpponentSIFT和RGBSIFT描述符来填充它，每个矢量采用具有4000字的编码进行量化。我们的分类是使用直方图相交核SVM进行的。与它们的多特征非线性核SVM方法相比，我们在平均平均准确率方面取得了很大的改进，平均平均从35.1％提升到53.7％，同时速度也更快。我们的方法在VOC 2011/12测试集中也获得了相似的性能（53.3％mAP）。<center><img src="http://blog.adminlee.com/18-2-25/70603371.jpg" alt=""><br><strong>表1：VOC 2010测试的平均检测精度（％）。</strong>　由于所有方法都使用选择性搜索区域提案，因此R-CNN与UVA和Regionlets可以直接比较。 边界框回归（BB）在3.4节中描述。 在发布时，SegDPM是PASCAL VOC排行榜上的最佳表现者。 DPM和SegDPM使用其他方法未使用的上下文重定向。</center></p>
+<h1 id="3-可视化、消融和错误模式"><a href="#3-可视化、消融和错误模式" class="headerlink" title="3 可视化、消融和错误模式"></a>3 可视化、消融和错误模式</h1><h2 id="3-1-可视化学习的特征"><a href="#3-1-可视化学习的特征" class="headerlink" title="3.1 可视化学习的特征"></a>3.1 可视化学习的特征</h2><p>　　第一层滤波器可以直接可视化并且易于理解。他们捕捉对于边缘和相反的颜色。了解后续的层则更具挑战性。Zeiler和Fergus提出了一种视觉吸引力的去卷积方法。我们提出一个简单的（和互补的）非参数方法，直接显示网络学到了什么。<br>　　这个想法是在网络中挑出一个特定的单元（特征）并使用它，就好像它本身就是一个目标检测器一样。也就是说，我们计算单元在一系列大型推荐区域方案（约1000万）上的激活情况，将提案从最高激活到最低激活进行排序，执行非最大抑制，然后显示评分最高的区域。我们的方法通过精确地显示它所触发的输入，让选定的单元“自己说话”。为了通过这一单元看到不同的视觉模式并且深入了解计算的不变性，我们避免了求平均值。<br>　　我们从池化层pool5中将单元可视化，这是网络的第五和最后卷积层的最大池化输出。池化层pool5特征图为6x6x256=9216维，忽略边界效应，每个池化层pool5单元在原始的227x227像素输入中具有195x195像素的感受野。一个中心的池化层pool5单元几乎具有全局视野，而靠近边缘的池化层pool5单元则拥有较小的剪裁支撑。<center><img src="http://blog.adminlee.com/18-2-26/94031672.jpg" alt=""><br><strong>图3：六个池化层pool5单元的顶部区域</strong>　感受野和激活值用白色表示，一些单元和概念保持一致，例如人（第1行）和文本（第4行），其他单元捕捉纹理和材质属性，如点阵（第2行）和镜面反射（第6行）。</center><center><img src="http://blog.adminlee.com/18-2-26/91260819.jpg" alt=""><br><strong>表2：检测器在VOC 2007测试集上的平均精确度（％）</strong>　第1-3行显示R-CNN没经过微调时的性能。 第4-6行显示了CNN预先接受ILSVRC 2012训练，然后在VOC 2007上进行训练和微调的结果。 第7行包括可以减少定位误差（第3.4节）的简化的边界框回归（BB）阶段。 第8-10行将DPM方法作为强有力的基准。 第一个只使用HOG，而接下来的两个使用不同的特征学习方法来增强或替代HOG。</center><br>　　图3中的每一行都显示了来自我们在VOC 2007 trainval上进行了微调的CNN的池化层pool５的前16个激活单元。256个功能独特的单元中有6个可视化（补充材料包含更多）。选择这些单位是为了显示网络学习内容的代表性样本。在第二行中，我们看到一个单元在狗脸和点阵上激活。对应于第三行的单位是红色斑点检测器。还有用于人脸和更抽象图案的检测器，例如文本和三角形窗口。网络似乎学习了一种表示法，它将少量的类调整特征与形状，纹理，颜色和材质特性的分布式表示结合在一起。随后的完全连接层fc6具有建模这些丰富特征的大量组合的能力。</p>
 <h2 id="3-2-消融研究"><a href="#3-2-消融研究" class="headerlink" title="3.2 消融研究"></a>3.2 消融研究</h2><ul>
 <li><strong>不进行微调下，逐层的性能</strong>　为了了解哪一层对检测器性能至关重要，我们分析了在VOC 2007数据集上每个CNN最后三层的的结果。在3.1节中简要的描述了池化层pool5，其最后的两层的总结如下。<br>　　全连接层fc6全连接着池化层pool5，为了计算特征，它将一个4096x9216的权重矩阵乘以池化层pool5的特征映射（重新定形为9216维向量），然后加上一个偏差向量。这个中间向量是一个分量半波整流(x&lt;——max(0,x)).<br>　　全连接层fc7是网络的最后一层，它是通过将由fc6计算的特征乘以4096×4096的权重矩阵，并且类似地加上一个偏差向量并应用半波整流来实现的。<br>　　我们首先查看在PASCAL数据集上没有经过微调的CNN的结果，即CNN的所有参数都只是在ILSVRC 2012上预训练得到的。逐层分析性能（表2第1-3行）表明，fc7的特征泛化比fc6的特征要差。这意味着29％或约1680万的CNN参数可以在不降低mAP的情况下被移除。更令人惊讶的是，删除fc7和fc6，即使pool5的特征只使用6％的CNN参数进行计算都会产生相当好的结果。CNN具有代表性的能力大部分来自其卷积层，而不是来自更大的密集的连接层。这一发现表明，通过仅使用CNN的卷积层来计算任意大小图像的密集特征映射（类似于HOG）的潜在效用。这种表示方式可以在池化层pool5的特征之上实现包括DPM在内的滑动窗口检测器。</li>
 <li><strong>进行微调下，逐层的性能</strong>　现在我们来观察在VOC 2007数据集上训练的参数经过微调的CNN的结果。改善效果是非常明显的（表2的第4至6行）：微调使平均平均准确率（mAP）提升了8个百分点达到了54.2%，微调对fc6和fc7的促进作用要比pool5大得多，这表明从ImageNet学习的pool5特征是一般性的，大部分的改进是通过学习领域特定的非线性分类器得到的。</li>
 <li><strong>和目前的特征学习方法比较</strong>　关于PASCAL VOC检测的特征学习方法相对较少。我们看看最近两种基于可变形部件模型的方法。作为参考，我们还包括标准的基于HOG的DPM的结果。<br>　　第一种DPM特征学习方法为DPM ST，该方法利用“sketch token”概率的直方图来增强HOG特征。直观的说，sketch token是一种通过一幅图像块的中心的轮廓的紧密分布。sketch token的概率在每个像素处由随机森林计算，该森林经过训练可将35x35像素块分为150个sketch token或背景之一。<br>　　第二种方法为DMP HSC，该方法用直方图稀疏编码（HSC）替换HOG。为了计算HSC，使用7×7像素（灰度）的元素习字典为每个像素求解稀疏编码激活。由此产生的激活有三种纠正方式（全波和半波）：空间汇集、单位2范数正则化和能量转换（x &lt;—— sign(x)|x|^α）。<br>　　所有R-CNN的变体性能都强于三种基于DPM的方法（表2第8-10行），其中包括使用特征学习的两种基线。与仅使用了HOG特征de最新版本的DPM相比，我们的方法的mAP高出20个百分点：54.2% VS 33.7%，相对改进了61%。HOG和sketch token组合比仅使用HOG的mAP高2.5个百分点，而HSC则比HOG提高了4个百分点的mAP（在内部与其私有DPM基线进行比较时，两者都使用DPM的非公开实现，该性能低于开源版本）。这些方法分别获得了29.1%和34.3%的mAP。</li>
 </ul>
-<h2 id="3-3-检测误差分析"><a href="#3-3-检测误差分析" class="headerlink" title="3.3 检测误差分析"></a>3.3 检测误差分析</h2><p>　　为了揭露我们的方法的误差模式，理解怎样通过微调来改变它们，并且观察和DMP相比我们的错误类型是什么样的，我们应用了Hoiem等人开发的优秀的检测分析工具来进行误差分析。分析工具的完整摘要超出了本文的范围，我们鼓励读者参考<a href="http://xueshu.baidu.com/s?wd=paperuri%3A%28037d66d1f5af57080ef71213d96926f1%29&amp;filter=sc_long_sign&amp;sc_ks_para=q%3DDiagnosing%20error%20in%20object%20detectors&amp;sc_us=15743596573556476345&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8" target="_blank" rel="external">[21]</a>了解一些更精细的细节（如“标准化AP”）。由于分析最好在结合相关图表的背景下进行，因此我们在图4和图5的题注内进行讨论。<center>![](http://blog.adminlee.com/18-2-26/95004650.jpg)
-**图4：顶级的假阳性（FP）类型分布**　每个图表都展示了FP类型的演化分布，随着分数的降低，越来越多的FP类型被考虑。每一种FP都是四种类型中的一种：Loc——定位不佳（一个检测器和正确的类有交叉超联合（IoU）重叠的范围在0.1到0.5之间或者重复）；Sim——相似类混淆；Oth——不同对象类混淆；BG——背景。与DPM相比（见[21]），我们的错误显然更多是由于定位较差造成，而不是与背景或其他对象类混淆造成，这表明CNN特征比HOG更具辨别性。松散的定位可能源于我们使用自底向上的区域方案和从对整个图像分类的预训练的CNN学到的位置不变性。第三列显示了我们的简单边界框回归方法如何修复许多定位错误。</center></p>
-<h2 id="3-4-边界框回归"><a href="#3-4-边界框回归" class="headerlink" title="3.4 边界框回归"></a>3.4 边界框回归</h2><p>　　在错误分析的基础上，我们实现了一个简单的方法来减少定位错误。受DPM中使用的边界框回归的启发，我们训练一个线性回归模型来预测一个新的检测窗口，给出了一个选择性搜索区域方案的池化层pool5特征。补充资料提供了详细资料。表1，表2和图4中的结果表明，这种简单的方法修复了大量错位检测，将mAP提高了3到4个点。<center>![](http://blog.adminlee.com/18-2-26/22722852.jpg)
-**图5：敏感对象特征**　每一个图都显示了在6个不同的对象特征(遮挡、截断、包围盒区域、纵横比、视点、部分可见性)内的最高和最低执行子集的平均值。我们展示了我们的方法(R-CNN)和没有微调(FT)和边界盒回归(BB)以及DPM vocs -release5的情节。总的来说，微调不会降低灵敏度(max和min之间的差别)，但是对于几乎所有特性的最高和最低执行子集都有很大的改进。这表明，微调所做的不仅仅是提高性能比和边界框区域的最低性能子集，就像一个基于我们如何经络网络输入的推测。相反，微调提高了所有特性的健壮性，包括遮挡、截断、视点和部分可见性。</center></p>
+<h2 id="3-3-检测误差分析"><a href="#3-3-检测误差分析" class="headerlink" title="3.3 检测误差分析"></a>3.3 检测误差分析</h2><p>　　为了揭露我们的方法的误差模式，理解怎样通过微调来改变它们，并且观察和DMP相比我们的错误类型是什么样的，我们应用了Hoiem等人开发的优秀的检测分析工具来进行误差分析。分析工具的完整摘要超出了本文的范围，我们鼓励读者参考<a href="http://xueshu.baidu.com/s?wd=paperuri%3A%28037d66d1f5af57080ef71213d96926f1%29&amp;filter=sc_long_sign&amp;sc_ks_para=q%3DDiagnosing%20error%20in%20object%20detectors&amp;sc_us=15743596573556476345&amp;tn=SE_baiduxueshu_c1gjeupa&amp;ie=utf-8" target="_blank" rel="external">[21]</a>了解一些更精细的细节（如“标准化AP”）。由于分析最好在结合相关图表的背景下进行，因此我们在图4和图5的题注内进行讨论。<center><img src="http://blog.adminlee.com/18-2-26/95004650.jpg" alt=""><br><strong>图4：顶级的假阳性（FP）类型分布</strong>　每个图表都展示了FP类型的演化分布，随着分数的降低，越来越多的FP类型被考虑。每一种FP都是四种类型中的一种：Loc——定位不佳（一个检测器和正确的类有交叉超联合（IoU）重叠的范围在0.1到0.5之间或者重复）；Sim——相似类混淆；Oth——不同对象类混淆；BG——背景。与DPM相比（见[21]），我们的错误显然更多是由于定位较差造成，而不是与背景或其他对象类混淆造成，这表明CNN特征比HOG更具辨别性。松散的定位可能源于我们使用自底向上的区域方案和从对整个图像分类的预训练的CNN学到的位置不变性。第三列显示了我们的简单边界框回归方法如何修复许多定位错误。</center></p>
+<h2 id="3-4-边界框回归"><a href="#3-4-边界框回归" class="headerlink" title="3.4 边界框回归"></a>3.4 边界框回归</h2><p>　　在错误分析的基础上，我们实现了一个简单的方法来减少定位错误。受DPM中使用的边界框回归的启发，我们训练一个线性回归模型来预测一个新的检测窗口，给出了一个选择性搜索区域方案的池化层pool5特征。补充资料提供了详细资料。表1，表2和图4中的结果表明，这种简单的方法修复了大量错位检测，将mAP提高了3到4个点。<center><img src="http://blog.adminlee.com/18-2-26/22722852.jpg" alt=""><br><strong>图5：敏感对象特征</strong>　每一个图都显示了在6个不同的对象特征(遮挡、截断、包围盒区域、纵横比、视点、部分可见性)内的最高和最低执行子集的平均值。我们展示了我们的方法(R-CNN)和没有微调(FT)和边界盒回归(BB)以及DPM vocs -release5的情节。总的来说，微调不会降低灵敏度(max和min之间的差别)，但是对于几乎所有特性的最高和最低执行子集都有很大的改进。这表明，微调所做的不仅仅是提高性能比和边界框区域的最低性能子集，就像一个基于我们如何经络网络输入的推测。相反，微调提高了所有特性的健壮性，包括遮挡、截断、视点和部分可见性。</center></p>
 <h1 id="4-语义分割"><a href="#4-语义分割" class="headerlink" title="4 语义分割"></a>4 语义分割</h1><p>　　区域分类是用于语义分割的标准技术，我们能够轻松将R-CNN应用于PASCAL VOC的分割挑战。为了便于与当前领先的语义分割系统（被称为“second-order pooling”的O2P）进行直接比较，我们研究了他们的开源框架。O2P利用CPMC给每幅图像生成150个区域方案，然后对每一类运用支持向量回归（SVR）预测每一个区域的质量。他们的方法的高性能是由CPMC区域的质量和多种特征类型（SIFT和LBP的丰富变体）的强大二阶汇集产生的。我们还注意到Farabet等人最近在几个密集的场景标记数据集（不包括PASCAL数据集）上显示了良好的结果，他们使用CNN作为一个多尺度的逐像素分类器。<br>　　我们遵循[<a href="http://xueshu.baidu.com/s?wd=paperuri%3A%28e7a907d7ba20f08418a98c09bc5a6625%29&amp;filter=sc_long_sign&amp;tn=SE_xueshusource_2kduw22v&amp;sc_vurl=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Ficp.jsp%3Farnumber%3D6248077&amp;ie=utf-8&amp;sc_us=3064611177980172790" target="_blank" rel="external">2</a>,<a href="https://www.researchgate.net/publication/260350533_Semantic_Segmentation_with_Second-Order_Pooling" target="_blank" rel="external">4</a>],并扩展PASCAL细分训练集，以包含Hariharan等人提供的额外注解。设计决策和超参数都在VOC 2011验证集上进行了交叉验证。对最终结果只进行了一次评估。</p>
 <ul>
-<li><strong>用于分割的CNN特征</strong>　我们评估了CPMC区域计算特征的三种策略，所有这些策略都是通过将区域周围的矩形窗口扭曲到227x227开始的。第一种策略（full）忽略区域的形状，直接在扭曲窗口上计算CNN特征，就像我们在检测时所做的那样，然而，这些特征忽略了区域的非矩形形状。两个区域可能有非常相似的边界框，但重叠很少。因此，第二种策略（fg）仅在区域的前景掩膜计算CNN特征。我们用平均输入来替换背景，这样背景区域在平均减法后为零。第三种策略（full+fg）简单的联结full特征和fg特征；我们的实验验证了它们的互补性。<center>![](http://blog.adminlee.com/18-2-26/84473695.jpg)
-**表3：VOC 2011验证集上分割平均准确率（%）**　第1列表示O2P，第2至7列为使用我们在ILSVRC 2012上预训练的CNN。</center></li>
+<li><strong>用于分割的CNN特征</strong>　我们评估了CPMC区域计算特征的三种策略，所有这些策略都是通过将区域周围的矩形窗口扭曲到227x227开始的。第一种策略（full）忽略区域的形状，直接在扭曲窗口上计算CNN特征，就像我们在检测时所做的那样，然而，这些特征忽略了区域的非矩形形状。两个区域可能有非常相似的边界框，但重叠很少。因此，第二种策略（fg）仅在区域的前景掩膜计算CNN特征。我们用平均输入来替换背景，这样背景区域在平均减法后为零。第三种策略（full+fg）简单的联结full特征和fg特征；我们的实验验证了它们的互补性。<center><img src="http://blog.adminlee.com/18-2-26/84473695.jpg" alt=""><br><strong>表3：VOC 2011验证集上分割平均准确率（%）</strong>　第1列表示O2P，第2至7列为使用我们在ILSVRC 2012上预训练的CNN。</center></li>
 </ul>
 <ul>
 <li><strong>VOC 2011上的结果</strong>　表3展示了和O2P比较下载VOC 2011验证集上我们获得的结果的总结（补充材料商可以完整的查看每一类的结果）。在每一种特征计算策略中，层fc6总是优于fc7，以下讨论涉及层fc6的特征。fg策略略优于full策略，这表明掩膜区域的形状提供了一个更强的信号，与我们的直觉相匹配。然而，fg+full获得了47.9%的平均准确率，与我们的最好结果差4.2%（同时优于O2P），这表明，这种上下文提供的full特征是具有高信息量的，甚至给出了fg特征。值得注意的是，在我们的full+fg特征上训练20个SVRs需要一个小时的时间，而对于O2P特征的训练则需要10个小时。<br>　　在表4中我们展示了在VOC 2011测试集上的结果，比较了我们的最佳性能方法fc6(full+fg)和两个基线。我们的方法在21个类别中有11个达到了最高的分割准确率，并且最高的整体分割精度为47.9%（但可能与O2P的结果保持任何合理的误差范围内）。更好的性能可能通过微调来实现。</li>
@@ -513,9 +523,9 @@
           
             <a href="/tags/目标检测/" rel="tag"># 目标检测</a>
           
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
-          
             <a href="/tags/R-CNN/" rel="tag"># R-CNN</a>
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
           
         </div>
       
@@ -866,7 +876,126 @@
         j.async = true;
         e.parentNode.insertBefore(j, e);
       })(document, 'script');
-    </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -884,20 +1013,8 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-  
 
 
-
-
-
-
-  
-
-
-
-
-
-  
 
   
 

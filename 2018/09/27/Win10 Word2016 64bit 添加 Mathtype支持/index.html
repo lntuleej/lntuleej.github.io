@@ -101,10 +101,12 @@
 <meta property="og:site_name" content="AILEE">
 <meta property="og:description" content="Win10 Word2016 64bit 添加 Mathtype支持">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.adminlee.com/18-9-27/73773149.jpg">
 <meta property="og:updated_time" content="2019-04-01T16:07:54.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Win10 Word2016 64bit 添加 Mathtype支持">
 <meta name="twitter:description" content="Win10 Word2016 64bit 添加 Mathtype支持">
+<meta name="twitter:image" content="http://blog.adminlee.com/18-9-27/73773149.jpg">
 
 
 
@@ -368,6 +370,17 @@
 
           
           
+             <span id="/2018/09/27/Win10 Word2016 64bit 添加 Mathtype支持/" class="leancloud_visitors" data-flag-title="Win10 Word2016 64bit 添加 Mathtype支持">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">View </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
             <span class="post-meta-divider">|</span>
@@ -387,7 +400,7 @@
                   <span class="post-meta-item-text">Words</span>
                 
                 <span title="Words">
-                  201
+                  192
                 </span>
               
 
@@ -419,7 +432,7 @@
 <h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>【1】中所示路径为<strong>32</strong>，而不是<strong>64</strong>。至于为什么是32，我也不得而知，请参考<a href="https://www.zhihu.com/question/37390635" target="_blank" rel="external">知乎：MathType 与 Office 2016 不兼容怎么办？</a></p>
 </blockquote>
 <h1 id="2-复制粘贴"><a href="#2-复制粘贴" class="headerlink" title="2 复制粘贴"></a>2 复制粘贴</h1><p>将【1】复制粘贴到【4】；<br>将【2】【3】复制粘贴到【5】</p>
-<h1 id="3-配置完成，亲测有效！"><a href="#3-配置完成，亲测有效！" class="headerlink" title="3 配置完成，亲测有效！"></a>3 配置完成，亲测有效！</h1><p>打开Word2016，可以看到菜单栏已经成功加载Mathtype。如下图：<center>![](http://blog.adminlee.com/18-9-27/73773149.jpg)</center></p>
+<h1 id="3-配置完成，亲测有效！"><a href="#3-配置完成，亲测有效！" class="headerlink" title="3 配置完成，亲测有效！"></a>3 配置完成，亲测有效！</h1><p>打开Word2016，可以看到菜单栏已经成功加载Mathtype。如下图：<center><img src="http://blog.adminlee.com/18-9-27/73773149.jpg" alt=""></center></p>
 <blockquote>
 <p>PS: 此处只给出其中一种情况，也有可能存在其他情况，具体百度。</p>
 </blockquote>
@@ -847,6 +860,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Vkh55MQ71axYtBV5MsSfaeEE-gzGzoHsz", "0BeiDIe381ADKVn0qfspldsf");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
